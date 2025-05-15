@@ -1,12 +1,15 @@
 import { getClothesCollectionById } from "@/actions/clothes/get-collection-by-id"
 import { ClothesGrid } from "@/components/dashboard/stock/clothes-grid"
 
+type Params = Promise<{ id: string }>
+
 export default async function StockOfCollectionPage({
   params
 }: {
-  params: Promise<{ id: string }>
+  params: Params
 }) {
   const { id } = await params
+
   const collection = await getClothesCollectionById(id)
   return (
     <>

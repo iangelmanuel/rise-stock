@@ -9,7 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { UserCheck } from "lucide-react"
 
 interface Props {
-  register: string
+  register: string | undefined
 }
 
 export const LoginCard = ({ register }: Props) => {

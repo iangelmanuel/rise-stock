@@ -1,10 +1,9 @@
 import { LoginCard } from "@/components/login/login-card"
 
-export default function LoginPage({
-  searchParams
-}: {
-  searchParams: { register: string }
-}) {
-  const { register } = searchParams
+type SearchParams = Promise<{ [key: string]: string | undefined }>
+
+export default async function LoginPage(props: { searchParams: SearchParams }) {
+  const { register } = await props.searchParams
+
   return <LoginCard register={register} />
 }
