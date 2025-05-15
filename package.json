@@ -9,7 +9,8 @@
     "lint": "next lint",
     "seed": "pnpm prisma db seed",
     "prettier": "prettier --write .",
-    "prettier:check": "prettier . --check"
+    "prettier:check": "prettier . --check",
+    "postinstall": "prisma generate && prisma migrate deploy"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
