@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { Toaster } from "@/components/ui/sonner"
 import "@/styles/globals.css"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
@@ -17,16 +16,5 @@ export default async function RootLayout({
   const session = await auth()
   if (session) redirect("/dashboard")
 
-  return (
-    <html lang="en">
-      <body className="antialiased">
-        <Toaster />
-        <header></header>
-
-        <main className="container mx-auto">{children}</main>
-
-        <footer></footer>
-      </body>
-    </html>
-  )
+  return <main className="container mx-auto">{children}</main>
 }

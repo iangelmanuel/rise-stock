@@ -11,19 +11,10 @@ export async function getAllClothes() {
       }
     })
 
-    if (!clothes) {
-      return {
-        ok: false,
-        clothes: [],
-        message: "No clothes found"
-      }
-    }
+    if (!clothes) return []
 
-    return {
-      ok: true,
-      clothes
-    }
+    return clothes
   } catch (error) {
-    console.error("Error fetching all products:", error)
+    return []
   }
 }

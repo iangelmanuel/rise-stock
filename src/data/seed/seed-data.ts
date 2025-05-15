@@ -3,6 +3,16 @@ export const data = {
 
   clothes: [
     {
+      design: "Tshirt",
+      color: "White",
+      image: "/assets/images/white-tshirt.webp"
+    },
+    {
+      design: "Tshirt",
+      color: "Black",
+      image: "/assets/images/black-tshirt.webp"
+    },
+    {
       design: "Christ Fashion",
       color: "White",
       image: "/assets/images/christ-fashion-white.webp"

@@ -43,7 +43,7 @@ export const RegisterForm = () => {
           position: "top-center"
         })
         reset()
-        redirect("/dashboard")
+        redirect("/login?register=success")
       } else {
         toast.error("Somethings wrong", {
           description: message,

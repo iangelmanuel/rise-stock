@@ -18,7 +18,7 @@ export const registerUser = async (data: RegisterFormData) => {
 
     const userExists = await prisma.user.findUnique({
       where: {
-        email: data.email
+        email: schemaValidation.data.email
       }
     })
 

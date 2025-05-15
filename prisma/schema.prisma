@@ -16,6 +16,8 @@ model User {
   avatar String?
 
   UserMovement UserMovement[]
+
+  createdAt DateTime @default(now())
 }
 
 model UserMovement {
@@ -25,6 +27,8 @@ model UserMovement {
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 model Clothes {
@@ -38,6 +42,8 @@ model Clothes {
   collection   Collection? @relation(fields: [collectionId], references: [id])
 
   variants ClothesVariant[]
+
+  createdAt DateTime @default(now())
 }
 
 model ClothesVariant {
@@ -47,10 +53,14 @@ model ClothesVariant {
 
   clothesId String
   clothes   Clothes @relation(fields: [clothesId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 model Collection {
   id      String    @id @default(uuid())
   name    String
   clothes Clothes[]
+
+  createdAt DateTime @default(now())
 }

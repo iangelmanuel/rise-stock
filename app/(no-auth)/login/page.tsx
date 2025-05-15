@@ -1,5 +1,10 @@
-import { LoginCard } from "@/components/login/login-card";
+import { LoginCard } from "@/components/login/login-card"
 
-export default function LoginPage() {
-  return <LoginCard />
+export default function LoginPage({
+  searchParams
+}: {
+  searchParams: { register: string }
+}) {
+  const { register } = searchParams
+  return <LoginCard register={register} />
 }

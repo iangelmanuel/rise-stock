@@ -3,7 +3,7 @@ import { userSchema } from "@/schemas/user.schemas"
 import bcrypt from "bcryptjs"
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
- 
+
 const AuthConfig = {
   providers: [
     Credentials({
@@ -17,7 +17,7 @@ const AuthConfig = {
         const { email, password } = schemaValidator.data
 
         const user = await prisma.user.findUnique({
-          where: { email: email.toLowerCase() },
+          where: { email: email.toLowerCase() }
         })
 
         if (!user) return null
@@ -27,7 +27,7 @@ const AuthConfig = {
         const { password: _, ...rest } = user
 
         return { ...rest }
-      },
+      }
     })
   ],
   callbacks: {
@@ -39,7 +39,7 @@ const AuthConfig = {
       session.user = token.data
       return session
     }
-  },
+  }
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth(AuthConfig)
