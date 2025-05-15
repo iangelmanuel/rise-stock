@@ -34,13 +34,13 @@ export const ClothesGrid = ({ collection }: Props) => {
               className="group"
             >
               <CardHeader>
-                <div className="overflow-hidden mb-3">
+                <div className="mb-3 overflow-hidden">
                   <Image
                     src={imageValidator(item.image)}
                     alt={item.design}
                     width={500}
                     height={500}
-                    className="w-80 h-[300px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-[300px] w-80 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
@@ -52,27 +52,27 @@ export const ClothesGrid = ({ collection }: Props) => {
               </CardHeader>
 
               <CardContent>
-                <div className="flex items-center justify-between w-full p-2 border-b">
+                <div className="flex w-full items-center justify-between border-b p-2">
                   {item.variants ? (
                     item.variants.map((variant) => (
                       <div
                         key={variant.id}
-                        className="flex-1 items-center justify-start w-full p-2"
+                        className="w-full flex-1 items-center justify-start p-2"
                       >
-                        <div className="flex gap-3 items-center justify-center mr-2">
+                        <div className="mr-2 flex items-center justify-center gap-3">
                           <Ruler
                             size={24}
-                            className="w-6 h-6"
+                            className="h-6 w-6"
                           />
                           <p className="text-sm font-semibold">
                             {variant.size}
                           </p>
                         </div>
 
-                        <div className="flex gap-3 items-center justify-center mr-2">
+                        <div className="mr-2 flex items-center justify-center gap-3">
                           <Shirt
                             size={24}
-                            className="w-6 h-6"
+                            className="h-6 w-6"
                           />
                           <p className="text-sm font-semibold">
                             {variant.stock}
@@ -94,7 +94,7 @@ export const ClothesGrid = ({ collection }: Props) => {
             </Card>
           ))
         ) : (
-          <div className="flex items-center justify-center w-full h-48 border">
+          <div className="flex h-48 w-full items-center justify-center border">
             <p className="text-gray-600">No collection available</p>
           </div>
         )}

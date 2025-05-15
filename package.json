@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "pnpm prisma db seed"
+    "seed": "pnpm prisma db seed",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier . --check"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -41,7 +43,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint-plugin-import": "2.31.0",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
     "prisma": "^6.7.0",

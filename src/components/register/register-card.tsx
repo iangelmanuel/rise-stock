@@ -8,8 +8,8 @@ import { RegisterForm } from "./register-form"
 
 export const RegisterCard = () => {
   return (
-    <section className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-6xl font-bold text-center mb-5">
+    <section className="flex h-screen flex-col items-center justify-center">
+      <h1 className="mb-5 text-center text-6xl font-bold">
         Rise Clothes Manager
       </h1>
 
@@ -17,10 +17,7 @@ export const RegisterCard = () => {
         <CardHeader>
           <CardTitle>
             Register
-            <span className="text-sm text-gray-500">
-              {" "}
-              (Staff only)
-            </span>
+            <span className="text-sm text-gray-500"> (Staff only)</span>
           </CardTitle>
 
           <CardDescription>

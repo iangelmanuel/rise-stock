@@ -147,7 +147,7 @@ export const EditStockVariant = ({ item }: Props) => {
               )}
             </div>
 
-            <div className="flex justify-end items-center">
+            <div className="flex items-center justify-end">
               <Button
                 type="submit"
                 disabled={isPending}

@@ -20,11 +20,11 @@ export async function HistorialDrawer() {
           variant="outline"
           size="icon"
         >
-          <ClipboardList className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+          <ClipboardList className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all" />
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="px-10 py-5 w-3/4 mx-auto">
+      <DrawerContent className="mx-auto w-3/4 px-10 py-5">
         <DrawerHeader>
           <DrawerTitle>User Movements</DrawerTitle>
           <DrawerDescription>

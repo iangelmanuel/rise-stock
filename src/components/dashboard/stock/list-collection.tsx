@@ -20,11 +20,11 @@ export const ListCollection = async () => {
         <TableCaption>A list of Rise's collection</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-center p-5 border-t">Name</TableHead>
-            <TableHead className="text-center p-5 border-t">
+            <TableHead className="border-t p-5 text-center">Name</TableHead>
+            <TableHead className="border-t p-5 text-center">
               Number of clothes
             </TableHead>
-            <TableHead className="text-center p-5 border-t">Actions</TableHead>
+            <TableHead className="border-t p-5 text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -33,15 +33,15 @@ export const ListCollection = async () => {
             {collection && collection.length > 0 ? (
               collection.map((item) => (
                 <Fragment key={item.id}>
-                  <TableCell className="font-medium text-center">
+                  <TableCell className="text-center font-medium">
                     {item.name}
                   </TableCell>
 
-                  <TableCell className="font-medium text-center">
+                  <TableCell className="text-center font-medium">
                     {item.clothes.length}
                   </TableCell>
 
-                  <TableCell className="font-medium text-center">
+                  <TableCell className="text-center font-medium">
                     <Link
                       href={`/dashboard/stocks/${item.id}`}
                       className="text-blue-300 hover:text-blue-500 hover:underline"

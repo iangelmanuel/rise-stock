@@ -8,8 +8,8 @@ export default async function DashboardPage() {
 
   return (
     <div className="mt-5">
-      <h1 className="text-2xl font-bold mb-2">Welcome, {user.name}</h1>
-      <p className="text-lg text-center">Email: {user.email}</p>
+      <h1 className="mb-2 text-2xl font-bold">Welcome, {user.name}</h1>
+      <p className="text-center text-lg">Email: {user.email}</p>
     </div>
   )
 }

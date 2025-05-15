@@ -15,18 +15,18 @@ export async function loginUser(data: LoginUserData) {
     if (!schemaValidation.success) {
       return {
         ok: false,
-        message: "Your email or password is incorrect, please try again",
+        message: "Your email or password is incorrect, please try again"
       }
     }
 
     await signIn("credentials", {
       ...schemaValidation.data,
-      redirect: false,
+      redirect: false
     })
 
     return {
       ok: true,
-      message: "You will be redirected to the dashboard",
+      message: "You will be redirected to the dashboard"
     }
   } catch (error) {
     return {

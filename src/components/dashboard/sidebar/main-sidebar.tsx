@@ -29,12 +29,12 @@ export function MainSidebar() {
 
       <SidebarFooter>
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-2 border-b rounded-none">
+          <SidebarGroupLabel className="mb-2 rounded-none border-b">
             Settings
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem className="flex justify-between items-center">
+              <SidebarMenuItem className="flex items-center justify-between">
                 {/* Toggle Theme */}
                 <ModeToggle />
 

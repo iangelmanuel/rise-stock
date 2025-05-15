@@ -3,5 +3,5 @@ interface Props {
 }
 
 export const ErrorFormMessage = ({ message }: Props) => {
-  return <span className="text-red-500 text-sm">{message}</span>
+  return <span className="text-sm text-red-500">{message}</span>
 }

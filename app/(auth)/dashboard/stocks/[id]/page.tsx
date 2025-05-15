@@ -11,7 +11,7 @@ export default async function StockOfCollectionPage({
   return (
     <>
       <section className="my-5">
-        <h1 className="text-4xl font-bold mb-3">{collection?.name}</h1>
+        <h1 className="mb-3 text-4xl font-bold">{collection?.name}</h1>
         <p>
           This page is for viewing the details of {collection?.name} collection.
         </p>

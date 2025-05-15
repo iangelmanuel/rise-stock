@@ -14,14 +14,14 @@ interface Props {
 
 export const LoginCard = ({ register }: Props) => {
   return (
-    <section className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-6xl font-bold text-center mb-5">
+    <section className="flex h-screen flex-col items-center justify-center">
+      <h1 className="mb-5 text-center text-6xl font-bold">
         Rise Clothes Manager
       </h1>
 
       {register === "success" && (
         <Alert
-          className="w-96 mb-5"
+          className="mb-5 w-96"
           variant="success"
         >
           <UserCheck className="h-4 w-4" />

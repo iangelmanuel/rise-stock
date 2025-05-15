@@ -123,7 +123,7 @@ export const RegisterForm = () => {
       <CardFooter className="flex justify-between">
         <Link
           href="/login"
-          className="text-sm text-blue-500 hover:text-blue-700 hover:underline transition-colors"
+          className="text-sm text-blue-500 transition-colors hover:text-blue-700 hover:underline"
         >
           Login
         </Link>

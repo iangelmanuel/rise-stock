@@ -33,7 +33,7 @@ export const HistorialList = ({ movements }: Props) => {
         </TableRow>
       </TableHeader>
 
-      <TableBody className="overflow-y-auto max-h-[250px]">
+      <TableBody className="max-h-[250px] overflow-y-auto">
         {movements ? (
           movements.map((move) => (
             <TableRow key={move.id}>
