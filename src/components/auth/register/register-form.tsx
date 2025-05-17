@@ -19,6 +19,7 @@ import type { RegisterFormData } from "@/interfaces/auth"
 import { registerUser } from "@/actions/auth/register.action"
 import { redirect } from "next/navigation"
 import { Label } from "../../ui/label"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
@@ -136,8 +137,10 @@ export const RegisterForm = () => {
           disabled={isPending}
           form="login-form"
         >
-          {/* TODO */}
-          {isPending ? "Loading..." : "Register"}
+          <ButtonContentLoading
+            label="Register"
+            isPending={isPending}
+          />
         </Button>
       </CardFooter>
     </>

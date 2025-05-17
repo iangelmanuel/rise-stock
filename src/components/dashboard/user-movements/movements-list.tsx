@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge"
 import {
   Table,
   TableBody,
@@ -6,6 +7,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
+import { badgeVariantSwitch } from "@/utils/badgeVariantSwitch"
 import { formatDate } from "@/utils/format-date"
 import type { User, UserMovement } from "@prisma/client"
 
@@ -38,7 +40,11 @@ export const MovementsList = ({ movements }: Props) => {
             <TableRow key={move.id}>
               <TableCell className="text-center">{move.id}</TableCell>
               <TableCell className="text-center">{move.user.name}</TableCell>
-              <TableCell className="text-center">{move.name}</TableCell>
+              <TableCell className="text-center">
+                <Badge variant={badgeVariantSwitch(move.name)}>
+                  {move.name}
+                </Badge>
+              </TableCell>
               <TableCell className="text-center">{move.description}</TableCell>
               <TableCell className="text-center">
                 {formatDate(move.createdAt)}

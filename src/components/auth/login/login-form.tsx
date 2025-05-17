@@ -17,6 +17,7 @@ import { toast } from "sonner"
 import type { LoginFormData } from "@/interfaces/auth"
 import { redirect } from "next/navigation"
 import { Label } from "../../ui/label"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition()
@@ -101,7 +102,10 @@ export const LoginForm = () => {
           disabled={isPending}
           form="login-form"
         >
-          Login
+          <ButtonContentLoading
+            label="Login"
+            isPending={isPending}
+          />
         </Button>
       </CardFooter>
     </>

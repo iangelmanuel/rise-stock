@@ -24,6 +24,7 @@ import { Card, CardDescription } from "@/components/ui/card"
 import { ChevronDown, Upload } from "lucide-react"
 import { createClothesCollection } from "@/actions/stock/create-clothes-collection"
 import { toast } from "sonner"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 interface Props {
   collectionId: Collection["id"]
@@ -58,8 +59,10 @@ export function CreateNewClothes({ collectionId }: Props) {
             disabled={isPending}
             form="create-clothes-variant"
           >
-            {/* TODO */}
-            {isPending ? "Creating..." : "Create"}
+            <ButtonContentLoading
+              label="Create Clothes"
+              isPending={isPending}
+            />
           </Button>
         </DialogFooter>
       </DialogContent>

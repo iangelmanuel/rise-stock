@@ -10,6 +10,7 @@ import { imageValidator } from "@/utils/image-validator"
 import Image from "next/image"
 import { Ruler, Shirt } from "lucide-react"
 import { EditStockVariant } from "./edit-stock-variants"
+import { DeleteClothesButton } from "./delete-clothes-button"
 
 interface Props {
   collection:
@@ -31,8 +32,10 @@ export const ClothesGrid = ({ collection }: Props) => {
           collection.clothes.map((item) => (
             <Card
               key={item.id}
-              className="group"
+              className="group relative"
             >
+              <DeleteClothesButton item={item} />
+
               <CardHeader>
                 <div className="mb-3 overflow-hidden">
                   <Image

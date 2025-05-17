@@ -1,6 +1,7 @@
 "use client"
 
 import { logoutUser } from "@/actions/auth/logout.action"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { Button } from "@/components/ui/button"
 import { useTransition } from "react"
 
@@ -19,8 +20,10 @@ export const SideBarButtonLogout = () => {
       onClick={handleClick}
       className="w-full"
     >
-      {/* TODO */}
-      {isPending ? "Logging out..." : "Logout"}
+      <ButtonContentLoading
+        label="Logout"
+        isPending={isPending}
+      />
     </Button>
   )
 }

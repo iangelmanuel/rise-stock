@@ -28,6 +28,7 @@ import { updateClothesVariantStock } from "@/actions/stock/update-clothes-varian
 import { Button } from "../../ui/button"
 import { toast } from "sonner"
 import { ErrorFormMessage } from "../../shared/error-form-message"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 interface Props {
   item: Clothes
@@ -68,8 +69,10 @@ export const EditStockVariant = ({ item }: Props) => {
             disabled={isPending}
             form="create-clothes-variant"
           >
-            {/* TODO */}
-            {isPending ? "Editing" : "Save changes"}
+            <ButtonContentLoading
+              label="Update Stock"
+              isPending={isPending}
+            />
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -119,6 +122,7 @@ function EditStockVariantForm({
 
   return (
     <form
+      id="create-clothes-variant"
       onSubmit={handleSubmit(onSubmit)}
       className="grid gap-4 py-4"
     >
