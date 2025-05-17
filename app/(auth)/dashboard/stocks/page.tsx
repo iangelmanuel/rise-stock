@@ -1,5 +1,4 @@
 import { ListCollection } from "@/components/dashboard/stock/list-collection"
-import { CreateNewClothesVariant } from "@/components/dashboard/stock/create-new-clothes"
 
 export default function StocksPage() {
   return (
