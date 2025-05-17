@@ -17,7 +17,7 @@ interface Props {
   movements: MovementWithUser[] | null
 }
 
-export const HistorialList = ({ movements }: Props) => {
+export const MovementsList = ({ movements }: Props) => {
   return (
     <Table>
       <TableHeader>

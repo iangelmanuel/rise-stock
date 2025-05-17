@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
@@ -12,7 +13,7 @@ import { Controller, useForm } from "react-hook-form"
 import { Input } from "../../ui/input"
 import type { StockVariantsFormData } from "@/interfaces/stock"
 import { Clothes } from "@prisma/client"
-import { stockValidation } from "@/form-config/stock-variants"
+import { stockValidation } from "@/form-config/stock"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import {
   Select,
@@ -21,8 +22,9 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
-import { useState, useTransition } from "react"
-import { updateClothesVariantStock } from "@/actions/clothes/update-clothes-variant-stock.action"
+import { Label } from "@/components/ui/label"
+import { TransitionStartFunction, useTransition } from "react"
+import { updateClothesVariantStock } from "@/actions/stock/update-clothes-variant-stock.action"
 import { Button } from "../../ui/button"
 import { toast } from "sonner"
 import { ErrorFormMessage } from "../../shared/error-form-message"
@@ -33,7 +35,55 @@ interface Props {
 
 export const EditStockVariant = ({ item }: Props) => {
   const [isPending, startTransition] = useTransition()
+  return (
+    <Dialog>
+      <DialogTrigger
+        className="cursor-pointer"
+        asChild
+      >
+        <Button
+          variant="outline"
+          className="w-full"
+        >
+          Edit Stock
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit {item.design} collection</DialogTitle>
+          <DialogDescription>
+            Edit the details of {item.design} collection.
+          </DialogDescription>
 
+          {/* Form */}
+          <EditStockVariantForm
+            clothesId={item.id}
+            startTransition={startTransition}
+          />
+        </DialogHeader>
+
+        <DialogFooter>
+          <Button
+            type="submit"
+            disabled={isPending}
+            form="create-clothes-variant"
+          >
+            {/* TODO */}
+            {isPending ? "Editing" : "Save changes"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function EditStockVariantForm({
+  clothesId,
+  startTransition
+}: {
+  clothesId: Clothes["id"]
+  startTransition: TransitionStartFunction
+}) {
   const {
     register,
     handleSubmit,
@@ -45,7 +95,7 @@ export const EditStockVariant = ({ item }: Props) => {
   const onSubmit = (data: StockVariantsFormData) => {
     startTransition(async () => {
       const { ok, message } = await updateClothesVariantStock({
-        id: item.id,
+        id: clothesId,
         size: data.size,
         stock: Number(data.stock)
       })
@@ -68,90 +118,55 @@ export const EditStockVariant = ({ item }: Props) => {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger
-        className="cursor-pointer"
-        asChild
-      >
-        <Button
-          variant="outline"
-          className="w-full"
-        >
-          Edit Stock
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit {item.design} collection</DialogTitle>
-          <DialogDescription>
-            Edit the details of {item.design} collection.
-          </DialogDescription>
-
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="grid gap-4 py-4"
-          >
-            <div className="grid gap-2">
-              <label htmlFor="sizes">Sizes</label>
-              <Controller
-                name="size"
-                control={control}
-                rules={stockValidation.size}
-                render={({ field }) => (
-                  <Select
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    <SelectTrigger
-                      id="sizes"
-                      className="w-full cursor-pointer"
-                    >
-                      <SelectValue placeholder="Sizes" />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      {EXISTANT_SIZES.map((size) => (
-                        <SelectItem
-                          key={size}
-                          value={size}
-                        >
-                          {size}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-
-              {errors.size && (
-                <ErrorFormMessage message={errors.size.message} />
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <label htmlFor="stock">Stock</label>
-              <Input
-                type="number"
-                id="stock"
-                placeholder="Enter stock"
-                {...register("stock", stockValidation.stock)}
-              />
-              {errors.stock && (
-                <ErrorFormMessage message={errors.stock.message} />
-              )}
-            </div>
-
-            <div className="flex items-center justify-end">
-              <Button
-                type="submit"
-                disabled={isPending}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid gap-4 py-4"
+    >
+      <div className="grid gap-2">
+        <Label htmlFor="sizes">Sizes</Label>
+        <Controller
+          name="size"
+          control={control}
+          rules={stockValidation.size}
+          render={({ field }) => (
+            <Select
+              value={field.value}
+              onValueChange={field.onChange}
+            >
+              <SelectTrigger
+                id="sizes"
+                className="w-full cursor-pointer"
               >
-                {isPending ? "Updating..." : "Update"}
-              </Button>
-            </div>
-          </form>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+                <SelectValue placeholder="Sizes" />
+              </SelectTrigger>
+
+              <SelectContent>
+                {EXISTANT_SIZES.map((size) => (
+                  <SelectItem
+                    key={size}
+                    value={size}
+                  >
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
+
+        {errors.size && <ErrorFormMessage message={errors.size.message} />}
+      </div>
+
+      <div className="grid gap-2">
+        <Label htmlFor="stock">Stock</Label>
+        <Input
+          type="number"
+          id="stock"
+          placeholder="Enter stock"
+          {...register("stock", stockValidation.stock)}
+        />
+        {errors.stock && <ErrorFormMessage message={errors.stock.message} />}
+      </div>
+    </form>
   )
 }

@@ -1,4 +1,4 @@
-import { LoginCard } from "@/components/login/login-card"
+import { LoginCard } from "@/components/auth/login/login-card"
 
 type SearchParams = Promise<{ [key: string]: string | undefined }>
 

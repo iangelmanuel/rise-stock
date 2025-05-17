@@ -1,4 +1,4 @@
-import { getClothesCollectionById } from "@/actions/clothes/get-collection-by-id"
+import { getClothesCollectionById } from "@/actions/stock/get-collection-by-id"
 import { ClothesGrid } from "@/components/dashboard/stock/clothes-grid"
 import { CreateNewClothes } from "@/components/dashboard/stock/create-new-clothes"
 import { redirect } from "next/navigation"

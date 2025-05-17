@@ -1,6 +1,6 @@
 "use client"
 
-import { logoutUser } from "@/actions/user/logout.action"
+import { logoutUser } from "@/actions/auth/logout.action"
 import { Button } from "@/components/ui/button"
 import { useTransition } from "react"
 

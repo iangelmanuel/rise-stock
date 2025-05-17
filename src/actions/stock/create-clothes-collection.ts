@@ -3,7 +3,7 @@
 import { auth } from "@/auth"
 import type { CreateStockClotheForm } from "@/interfaces/stock"
 import { prisma } from "@/lib/prisma-config"
-import { createStockClothesSchema } from "@/schemas/stocks.schemas"
+import { createStockClothesSchema } from "@/schemas/stock.schemas"
 import { formatCurrency } from "@/utils/format-currency"
 import { Collection } from "@prisma/client"
 import { revalidatePath } from "next/cache"

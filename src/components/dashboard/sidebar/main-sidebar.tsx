@@ -5,12 +5,11 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter
 } from "@/components/ui/sidebar"
 import { ModeToggle } from "../sidebar/mode-toggle"
-import { HistorialDrawer } from "../historial/historial-drawer"
+import { MovementsDrawer } from "../user-movements/movements-drawer"
 import { SideBarButtonLogout } from "../sidebar/sidebar-button-logout"
 import { SidebarLinks } from "../sidebar/sidebar-links"
 
@@ -39,7 +38,7 @@ export function MainSidebar() {
                 <ModeToggle />
 
                 {/* Historial */}
-                <HistorialDrawer />
+                <MovementsDrawer />
               </SidebarMenuItem>
 
               <SidebarMenuItem className="mt-2">

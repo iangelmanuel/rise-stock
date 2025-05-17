@@ -8,10 +8,10 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "@/components/ui/drawer"
-import { getAllUserMovements } from "@/actions/clothes/get-all-user-movements"
-import { HistorialList } from "./historial-list"
+import { getAllUserMovements } from "@/actions/stock/get-all-user-movements"
+import { MovementsList } from "./movements-list"
 
-export async function HistorialDrawer() {
+export async function MovementsDrawer() {
   const movements = await getAllUserMovements()
   return (
     <Drawer>
@@ -33,7 +33,7 @@ export async function HistorialDrawer() {
           </DrawerDescription>
         </DrawerHeader>
 
-        <HistorialList movements={movements} />
+        <MovementsList movements={movements} />
       </DrawerContent>
     </Drawer>
   )

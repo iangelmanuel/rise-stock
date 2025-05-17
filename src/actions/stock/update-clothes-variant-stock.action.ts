@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
-import { stockVariantsSchema } from "@/schemas/stocks.schemas"
+import { stockVariantsSchema } from "@/schemas/stock.schemas"
 import { ClothesVariant } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 

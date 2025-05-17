@@ -51,42 +51,8 @@ export const ClothesGrid = ({ collection }: Props) => {
                 </CardTitle>
               </CardHeader>
 
-              <CardContent>
-                <div className="flex w-full items-center justify-between border-b p-2">
-                  {item.variants ? (
-                    item.variants.map((variant) => (
-                      <div
-                        key={variant.id}
-                        className="w-full flex-1 items-center justify-start p-2"
-                      >
-                        <div className="mr-2 flex items-center justify-center gap-3">
-                          <Ruler
-                            size={24}
-                            className="h-6 w-6"
-                          />
-                          <p className="text-sm font-semibold">
-                            {variant.size}
-                          </p>
-                        </div>
-
-                        <div className="mr-2 flex items-center justify-center gap-3">
-                          <Shirt
-                            size={24}
-                            className="h-6 w-6"
-                          />
-                          <p className="text-sm font-semibold">
-                            {variant.stock}
-                          </p>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-sm font-semibold">
-                      No variants available
-                    </p>
-                  )}
-                </div>
-              </CardContent>
+              {/* Card Content */}
+              <ClothesGridCardContent item={item} />
 
               <CardFooter className="flex flex-col gap-2">
                 <EditStockVariant item={item} />
@@ -100,5 +66,46 @@ export const ClothesGrid = ({ collection }: Props) => {
         )}
       </section>
     </>
+  )
+}
+
+interface CardContentProps {
+  item: Clothes & {
+    variants: ClothesVariant[] | null
+  }
+}
+
+function ClothesGridCardContent({ item }: CardContentProps) {
+  return (
+    <CardContent>
+      <div className="flex w-full items-center justify-between border-b p-2">
+        {item.variants ? (
+          item.variants.map((variant) => (
+            <div
+              key={variant.id}
+              className="w-full flex-1 items-center justify-start p-2"
+            >
+              <div className="mr-2 flex items-center justify-center gap-3">
+                <Ruler
+                  size={24}
+                  className="h-6 w-6"
+                />
+                <p className="text-sm font-semibold">{variant.size}</p>
+              </div>
+
+              <div className="mr-2 flex items-center justify-center gap-3">
+                <Shirt
+                  size={24}
+                  className="h-6 w-6"
+                />
+                <p className="text-sm font-semibold">{variant.stock}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-sm font-semibold">No variants available</p>
+        )}
+      </div>
+    </CardContent>
   )
 }

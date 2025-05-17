@@ -1,7 +1,7 @@
 import {
   stockVariantsSchema,
   createStockClothesSchema
-} from "@/schemas/stocks.schemas"
+} from "@/schemas/stock.schemas"
 import { z } from "zod"
 
 export type StockVariantsFormData = z.infer<typeof stockVariantsSchema>
