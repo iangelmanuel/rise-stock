@@ -17,6 +17,7 @@ export async function updateClothesVariantStock(
 ) {
   try {
     const session = await auth()
+
     if (!session) {
       return {
         ok: false,

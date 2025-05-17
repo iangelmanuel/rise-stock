@@ -12,6 +12,9 @@ export async function getAllUserMovements() {
             name: true
           }
         }
+      },
+      orderBy: {
+        createdAt: "desc"
       }
     })
 

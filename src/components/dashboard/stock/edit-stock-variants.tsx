@@ -10,12 +10,10 @@ import {
 } from "@/components/ui/dialog"
 import { Controller, useForm } from "react-hook-form"
 import { Input } from "../../ui/input"
-import type { StockVariantsFormData } from "@/interfaces/stock-vatiansts"
+import type { StockVariantsFormData } from "@/interfaces/stock"
 import { Clothes } from "@prisma/client"
-import {
-  stockValidation,
-  stockVariantsDefaultValues
-} from "@/form-config/stock-variants"
+import { stockValidation } from "@/form-config/stock-variants"
+import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import {
   Select,
   SelectContent,
@@ -33,8 +31,6 @@ interface Props {
   item: Clothes
 }
 
-const SIZES_VALUES = ["S", "M", "L", "XL"]
-
 export const EditStockVariant = ({ item }: Props) => {
   const [isPending, startTransition] = useTransition()
 
@@ -44,9 +40,7 @@ export const EditStockVariant = ({ item }: Props) => {
     formState: { errors },
     reset,
     control
-  } = useForm<StockVariantsFormData>({
-    defaultValues: { ...stockVariantsDefaultValues }
-  })
+  } = useForm<StockVariantsFormData>()
 
   const onSubmit = (data: StockVariantsFormData) => {
     startTransition(async () => {
@@ -95,7 +89,7 @@ export const EditStockVariant = ({ item }: Props) => {
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="grid gap-4"
+            className="grid gap-4 py-4"
           >
             <div className="grid gap-2">
               <label htmlFor="sizes">Sizes</label>
@@ -116,7 +110,7 @@ export const EditStockVariant = ({ item }: Props) => {
                     </SelectTrigger>
 
                     <SelectContent>
-                      {SIZES_VALUES.map((size) => (
+                      {EXISTANT_SIZES.map((size) => (
                         <SelectItem
                           key={size}
                           value={size}

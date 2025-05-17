@@ -24,7 +24,7 @@ export async function HistorialDrawer() {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="mx-auto w-3/4 px-10 py-5">
+      <DrawerContent className="mx-auto px-10 py-5">
         <DrawerHeader>
           <DrawerTitle>User Movements</DrawerTitle>
           <DrawerDescription>

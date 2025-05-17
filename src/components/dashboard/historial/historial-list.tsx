@@ -1,12 +1,12 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow
 } from "@/components/ui/table"
+import { formatDate } from "@/utils/format-date"
 import type { User, UserMovement } from "@prisma/client"
 
 interface MovementWithUser extends UserMovement {
@@ -18,8 +18,6 @@ interface Props {
 }
 
 export const HistorialList = ({ movements }: Props) => {
-  console.log(movements)
-
   return (
     <Table>
       <TableHeader>
@@ -30,6 +28,7 @@ export const HistorialList = ({ movements }: Props) => {
             Name of movement
           </TableHead>
           <TableHead className="text-center font-bold">Description</TableHead>
+          <TableHead className="text-center font-bold">Date</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -41,6 +40,9 @@ export const HistorialList = ({ movements }: Props) => {
               <TableCell className="text-center">{move.user.name}</TableCell>
               <TableCell className="text-center">{move.name}</TableCell>
               <TableCell className="text-center">{move.description}</TableCell>
+              <TableCell className="text-center">
+                {formatDate(move.createdAt)}
+              </TableCell>
             </TableRow>
           ))
         ) : (
