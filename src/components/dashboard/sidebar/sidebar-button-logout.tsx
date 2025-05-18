@@ -2,7 +2,8 @@
 
 import { logoutUser } from "@/actions/auth/logout.action"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
-import { Button } from "@/components/ui/button"
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { LogOut } from "lucide-react"
 import { useTransition } from "react"
 
 export const SideBarButtonLogout = () => {
@@ -15,15 +16,16 @@ export const SideBarButtonLogout = () => {
   }
 
   return (
-    <Button
+    <DropdownMenuItem
       disabled={isPending}
       onClick={handleClick}
       className="w-full"
     >
+      <LogOut />
       <ButtonContentLoading
         label="Logout"
         isPending={isPending}
       />
-    </Button>
+    </DropdownMenuItem>
   )
 }
