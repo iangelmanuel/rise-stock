@@ -8,5 +8,5 @@ export const formatDate = (date: Date) => {
     second: "2-digit"
   }
 
-  return new Intl.DateTimeFormat("en-US", options).format(date)
+  return new Intl.DateTimeFormat("es-CO", options).format(date)
 }
