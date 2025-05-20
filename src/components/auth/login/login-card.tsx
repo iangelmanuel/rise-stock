@@ -1,12 +1,12 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import {
   Card,
+  CardDescription,
   CardHeader,
-  CardTitle,
-  CardDescription
+  CardTitle
 } from "@/components/ui/card"
-import { LoginForm } from "./login-form"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { UserCheck } from "lucide-react"
+import { LoginForm } from "./login-form"
 
 interface Props {
   register: string | undefined

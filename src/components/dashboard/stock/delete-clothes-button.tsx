@@ -1,6 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { useTransition } from "react"
+import { deleteClothesById } from "@/actions/stock/delete-clothes-by-id"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,15 +14,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog"
-import { X } from "lucide-react"
-import { Clothes, ClothesVariant } from "@prisma/client"
 import { buttonVariants } from "@/components/ui/button"
-import { useTransition } from "react"
-import { ButtonContentLoading } from "@/components/shared/button-content-loading"
-import { deleteClothesById } from "@/actions/stock/delete-clothes-by-id"
-import { toast } from "sonner"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Clothes, ClothesVariant } from "@prisma/client"
+import { X } from "lucide-react"
+import { toast } from "sonner"
 
 interface Props {
   item: Clothes & {

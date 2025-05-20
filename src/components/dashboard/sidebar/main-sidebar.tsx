@@ -1,18 +1,18 @@
+import Image from "next/image"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuItem,
-  SidebarFooter
+  SidebarMenuItem
 } from "@/components/ui/sidebar"
 import { ModeToggle } from "../sidebar/mode-toggle"
-import { MovementsDrawer } from "../user-movements/movements-drawer"
 import { SidebarLinks } from "../sidebar/sidebar-links"
+import { MovementsDrawer } from "../user-movements/movements-drawer"
 import { UserSidebarMenu } from "./user-sidebar-menu"
-import Image from "next/image"
 
 export function MainSidebar() {
   return (

@@ -1,25 +1,25 @@
 "use client"
 
+import { useTransition } from "react"
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { registerUser } from "@/actions/auth/register.action"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { Button } from "@/components/ui/button"
 import { CardContent, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { useForm } from "react-hook-form"
 import {
-  registerFormDefaultValues,
-  nameValidation,
   emailValidation,
+  nameValidation,
   passwordValidation,
+  registerFormDefaultValues,
   repeatPasswordValidation
 } from "@/form-config/auth"
-import { useTransition } from "react"
-import { ErrorFormMessage } from "../../shared/error-form-message"
-import { toast } from "sonner"
 import type { RegisterFormData } from "@/interfaces/auth"
-import { registerUser } from "@/actions/auth/register.action"
-import { redirect } from "next/navigation"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { ErrorFormMessage } from "../../shared/error-form-message"
 import { Label } from "../../ui/label"
-import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()

@@ -1,10 +1,9 @@
-import { redirect } from "next/navigation"
 import type { Metadata } from "next"
-
+import { redirect } from "next/navigation"
 import { auth } from "@/auth"
-import "@/styles/globals.css"
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { MainSidebar } from "@/components/dashboard/sidebar/main-sidebar"
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import "@/styles/globals.css"
 
 export const metadata: Metadata = {
   title: "Dashboard Management",

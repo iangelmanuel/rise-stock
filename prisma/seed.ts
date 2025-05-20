@@ -1,9 +1,10 @@
-import { prisma } from "../src/lib/prisma-config"
 import { data } from "../src/data/seed/seed-data"
+import { prisma } from "../src/lib/prisma-config"
 
 const { sizes, clothes } = data
 
 async function main() {
+  await prisma.userMovement.deleteMany()
   await prisma.user.deleteMany()
   await prisma.collection.deleteMany()
   await prisma.clothesVariant.deleteMany()

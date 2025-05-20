@@ -1,23 +1,23 @@
 "use client"
 
+import { useTransition } from "react"
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { loginUser } from "@/actions/auth/login.action"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { Button } from "@/components/ui/button"
 import { CardContent, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { useForm } from "react-hook-form"
-import { loginUser } from "@/actions/auth/login.action"
 import {
   emailValidation,
-  passwordValidation,
-  loginFormDefaultValues
+  loginFormDefaultValues,
+  passwordValidation
 } from "@/form-config/auth"
-import { useTransition } from "react"
-import { ErrorFormMessage } from "../../shared/error-form-message"
-import { toast } from "sonner"
 import type { LoginFormData } from "@/interfaces/auth"
-import { redirect } from "next/navigation"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { ErrorFormMessage } from "../../shared/error-form-message"
 import { Label } from "../../ui/label"
-import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition()

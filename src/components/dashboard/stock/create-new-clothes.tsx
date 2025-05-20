@@ -1,7 +1,11 @@
 "use client"
 
+import { TransitionStartFunction, useState, useTransition } from "react"
+import { createClothesCollection } from "@/actions/stock/create-clothes-collection"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
+import { ErrorFormMessage } from "@/components/shared/error-form-message"
 import { Button } from "@/components/ui/button"
-import { useForm } from "react-hook-form"
+import { Card, CardDescription } from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
@@ -13,18 +17,14 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import type { Clothes, Collection } from "@prisma/client"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import { stockValidation } from "@/form-config/stock"
 import type { CreateStockClotheForm } from "@/interfaces/stock"
-import { ErrorFormMessage } from "@/components/shared/error-form-message"
-import { TransitionStartFunction, useState, useTransition } from "react"
-import Dropzone from "react-dropzone"
-import { Card, CardDescription } from "@/components/ui/card"
+import type { Clothes, Collection } from "@prisma/client"
 import { ChevronDown, Upload } from "lucide-react"
-import { createClothesCollection } from "@/actions/stock/create-clothes-collection"
+import Dropzone from "react-dropzone"
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 interface Props {
   collectionId: Collection["id"]
@@ -248,7 +248,7 @@ function CreateNewClothesForm({
               {size}
             </Label>
 
-            <input
+            <Input
               type="hidden"
               value={size}
               {...register(`stock.${index}.size`, stockValidation.size)}

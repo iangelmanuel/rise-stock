@@ -1,15 +1,19 @@
 "use server"
 
-import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
-import { stockVariantsSchema } from "@/schemas/stock.schemas"
-import { ClothesVariant } from "@prisma/client"
 import { revalidatePath } from "next/cache"
+import { auth } from "@/auth"
+import { StockVariantsFormData } from "@/interfaces/stock"
+import { prisma } from "@/lib/prisma-config"
+import { editStockClothesSchema } from "@/schemas/stock.schemas"
+import type { Clothes, ClothesVariant } from "@prisma/client"
+
+type ClothesWithVariants = Clothes & {
+  variants: ClothesVariant[] | null
+}
 
 type UpdateClothesVariantStock = {
-  id: ClothesVariant["id"]
-  size: ClothesVariant["size"]
-  stock: ClothesVariant["stock"]
+  item: ClothesWithVariants
+  stock: StockVariantsFormData["stock"]
 }
 
 export async function updateClothesVariantStock(
@@ -25,11 +29,8 @@ export async function updateClothesVariantStock(
       }
     }
 
-    const userId = session.user.id
-
-    const { id, size, stock } = data
-
-    const schemaValidation = stockVariantsSchema.safeParse({ size, stock })
+    const { item, stock } = data
+    const schemaValidation = editStockClothesSchema.safeParse({ stock })
 
     if (!schemaValidation.success) {
       return {
@@ -38,33 +39,42 @@ export async function updateClothesVariantStock(
       }
     }
 
-    await prisma.$transaction(async (tx) => {
-      const variant = await tx.clothesVariant.findFirst({
-        where: { clothesId: id, size },
-        include: {
-          clothes: {
-            select: {
-              design: true,
-              color: true
-            }
-          }
-        }
-      })
+    const { design, color, variants } = item
 
-      if (!variant) {
-        throw new Error(`Variant with size ${size} not found`)
+    if (!variants) {
+      return {
+        ok: false,
+        message: "No variants found"
       }
+    }
 
-      await tx.clothesVariant.update({
-        where: { id: variant.id },
-        data: { stock }
+    await prisma.$transaction(async (tx) => {
+      const stockToUpdate = schemaValidation.data.stock
+      const clothesToUpdateId = item.id
+
+      const userId = session.user.id
+
+      stockToUpdate.forEach(async ({ size, stock }) => {
+        await tx.clothesVariant.updateMany({
+          where: {
+            clothesId: clothesToUpdateId,
+            size
+          },
+          data: {
+            stock
+          }
+        })
       })
+
+      const clothesChanged = stock.map(
+        (clothes) => `Size: ${clothes.size} - Stock: ${clothes.stock}`
+      )
 
       await tx.userMovement.create({
         data: {
           userId,
           name: "update",
-          description: `Updated stock for variant ${variant.clothes.design} - ${variant.clothes.color} to ${stock}`
+          description: `Updated stock for variant ${design} - ${color} with stock: ${clothesChanged.join(", ")}`
         }
       })
     })

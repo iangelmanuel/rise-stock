@@ -1,7 +1,7 @@
+import { redirect } from "next/navigation"
 import { getClothesCollectionById } from "@/actions/stock/get-collection-by-id"
 import { ClothesGrid } from "@/components/dashboard/stock/clothes-grid"
 import { CreateNewClothes } from "@/components/dashboard/stock/create-new-clothes"
-import { redirect } from "next/navigation"
 
 type Params = Promise<{ id: string }>
 

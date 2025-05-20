@@ -2,13 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import clsx from "clsx"
-import { Calendar, Home, Inbox, Search } from "lucide-react"
 import {
   SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton
+  SidebarMenuButton,
+  SidebarMenuItem
 } from "@/components/ui/sidebar"
+import clsx from "clsx"
+import { Calendar, Home, Inbox, Search } from "lucide-react"
 
 const items = [
   {

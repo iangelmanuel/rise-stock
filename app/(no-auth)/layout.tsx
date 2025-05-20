@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
-import "@/styles/globals.css"
-import { auth } from "@/auth"
 import { redirect } from "next/navigation"
+import { auth } from "@/auth"
+import "@/styles/globals.css"
 
 export const metadata: Metadata = {
   title: "Create Next App",

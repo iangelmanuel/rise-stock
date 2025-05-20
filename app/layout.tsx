@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Toaster } from "@/components/ui/sonner"
-import "@/styles/globals.css"
 import { Providers } from "@/provider/providers"
+import "@/styles/globals.css"
 
 export const metadata: Metadata = {
   title: "Rise App",

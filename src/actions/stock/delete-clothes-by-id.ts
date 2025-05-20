@@ -1,9 +1,9 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
 import type { Clothes } from "@prisma/client"
-import { revalidatePath } from "next/cache"
 
 interface DeleteClothesData {
   id: Clothes["id"]

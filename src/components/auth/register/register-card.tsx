@@ -1,8 +1,8 @@
 import {
   Card,
+  CardDescription,
   CardHeader,
-  CardTitle,
-  CardDescription
+  CardTitle
 } from "@/components/ui/card"
 import { RegisterForm } from "./register-form"
 

@@ -1,4 +1,4 @@
-import { Clothes, ClothesVariant, Collection } from "@prisma/client"
+import Image from "next/image"
 import {
   Card,
   CardContent,
@@ -7,10 +7,10 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { imageValidator } from "@/utils/image-validator"
-import Image from "next/image"
+import type { Clothes, ClothesVariant, Collection } from "@prisma/client"
 import { Ruler, Shirt } from "lucide-react"
-import { EditStockVariant } from "./edit-stock-variants"
 import { DeleteClothesButton } from "./delete-clothes-button"
+import { EditStockVariant } from "./edit-stock-variants"
 
 interface Props {
   collection:
@@ -26,49 +26,47 @@ interface Props {
 
 export const ClothesGrid = ({ collection }: Props) => {
   return (
-    <>
-      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {collection?.clothes ? (
-          collection.clothes.map((item) => (
-            <Card
-              key={item.id}
-              className="group relative"
-            >
-              <DeleteClothesButton item={item} />
+    <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      {collection?.clothes ? (
+        collection.clothes.map((item) => (
+          <Card
+            key={item.id}
+            className="group relative"
+          >
+            <DeleteClothesButton item={item} />
 
-              <CardHeader>
-                <div className="mb-3 overflow-hidden">
-                  <Image
-                    src={imageValidator(item.image)}
-                    alt={item.design}
-                    width={500}
-                    height={500}
-                    className="h-[300px] w-80 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
+            <CardHeader>
+              <div className="mb-3 overflow-hidden">
+                <Image
+                  src={imageValidator(item.image)}
+                  alt={item.design}
+                  width={500}
+                  height={500}
+                  className="h-[300px] w-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
 
-                <CardTitle className="text-lg font-bold">
-                  <h2 className="text-2xl font-bold">
-                    {item.design} - {item.color}
-                  </h2>
-                </CardTitle>
-              </CardHeader>
+              <CardTitle className="text-lg font-bold">
+                <h2 className="text-2xl font-bold">
+                  {item.design} - {item.color}
+                </h2>
+              </CardTitle>
+            </CardHeader>
 
-              {/* Card Content */}
-              <ClothesGridCardContent item={item} />
+            {/* Card Content */}
+            <ClothesGridCardContent item={item} />
 
-              <CardFooter className="flex flex-col gap-2">
-                <EditStockVariant item={item} />
-              </CardFooter>
-            </Card>
-          ))
-        ) : (
-          <div className="flex h-48 w-full items-center justify-center border">
-            <p className="text-gray-600">No collection available</p>
-          </div>
-        )}
-      </section>
-    </>
+            <CardFooter className="flex flex-col gap-2">
+              <EditStockVariant item={item} />
+            </CardFooter>
+          </Card>
+        ))
+      ) : (
+        <div className="flex h-48 w-full items-center justify-center border">
+          <p className="text-gray-600">No collection available</p>
+        </div>
+      )}
+    </section>
   )
 }
 

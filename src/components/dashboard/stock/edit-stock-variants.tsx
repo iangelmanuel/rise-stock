@@ -1,5 +1,10 @@
 "use client"
 
+import { TransitionStartFunction, useTransition } from "react"
+import { updateClothesVariantStock } from "@/actions/stock/update-clothes-variant-stock.action"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
+import { ErrorFormMessage } from "@/components/shared/error-form-message"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -9,29 +14,19 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog"
-import { Controller, useForm } from "react-hook-form"
-import { Input } from "../../ui/input"
-import type { StockVariantsFormData } from "@/interfaces/stock"
-import { Clothes } from "@prisma/client"
-import { stockValidation } from "@/form-config/stock"
-import { EXISTANT_SIZES } from "@/constants/existant-sizes"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { TransitionStartFunction, useTransition } from "react"
-import { updateClothesVariantStock } from "@/actions/stock/update-clothes-variant-stock.action"
-import { Button } from "../../ui/button"
+import { EXISTANT_SIZES } from "@/constants/existant-sizes"
+import { stockValidation } from "@/form-config/stock"
+import type { StockVariantsFormData } from "@/interfaces/stock"
+import { Clothes, ClothesVariant } from "@prisma/client"
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { ErrorFormMessage } from "../../shared/error-form-message"
-import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 
 interface Props {
-  item: Clothes
+  item: Clothes & {
+    variants: ClothesVariant[] | null
+  }
 }
 
 export const EditStockVariant = ({ item }: Props) => {
@@ -58,7 +53,7 @@ export const EditStockVariant = ({ item }: Props) => {
 
           {/* Form */}
           <EditStockVariantForm
-            clothesId={item.id}
+            item={item}
             startTransition={startTransition}
           />
         </DialogHeader>
@@ -81,27 +76,31 @@ export const EditStockVariant = ({ item }: Props) => {
 }
 
 function EditStockVariantForm({
-  clothesId,
+  item,
   startTransition
 }: {
-  clothesId: Clothes["id"]
+  item: Props["item"]
   startTransition: TransitionStartFunction
 }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    reset,
-    control
+    formState: { errors }
   } = useForm<StockVariantsFormData>()
 
-  const onSubmit = (data: StockVariantsFormData) => {
+  const onSubmit = ({ stock }: StockVariantsFormData) => {
+    const updatedClothesVariants = {
+      item,
+      stock: stock.map(({ size, stock }) => ({
+        size,
+        stock: Number(stock)
+      }))
+    }
+
     startTransition(async () => {
-      const { ok, message } = await updateClothesVariantStock({
-        id: clothesId,
-        size: data.size,
-        stock: Number(data.stock)
-      })
+      const { ok, message } = await updateClothesVariantStock(
+        updatedClothesVariants
+      )
 
       if (ok) {
         toast.success("Stock updated successfully", {
@@ -109,7 +108,6 @@ function EditStockVariantForm({
           duration: 2000,
           position: "top-center"
         })
-        reset()
       } else {
         toast.error("Error updating stock", {
           description: message,
@@ -127,49 +125,46 @@ function EditStockVariantForm({
       className="grid gap-4 py-4"
     >
       <div className="grid gap-2">
-        <Label htmlFor="sizes">Sizes</Label>
-        <Controller
-          name="size"
-          control={control}
-          rules={stockValidation.size}
-          render={({ field }) => (
-            <Select
-              value={field.value}
-              onValueChange={field.onChange}
+        <Label
+          htmlFor="sizes"
+          className="mb-3"
+        >
+          Sizes
+        </Label>
+        {EXISTANT_SIZES.map((size, index) => (
+          <div
+            key={size}
+            className="grid gap-2"
+          >
+            <Label
+              htmlFor={`stock.${index}.stock`}
+              className="capitalize"
             >
-              <SelectTrigger
-                id="sizes"
-                className="w-full cursor-pointer"
-              >
-                <SelectValue placeholder="Sizes" />
-              </SelectTrigger>
+              {size}
+            </Label>
 
-              <SelectContent>
-                {EXISTANT_SIZES.map((size) => (
-                  <SelectItem
-                    key={size}
-                    value={size}
-                  >
-                    {size}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
+            <Input
+              type="hidden"
+              value={size}
+              {...register(`stock.${index}.size`, stockValidation.size)}
+            />
 
-        {errors.size && <ErrorFormMessage message={errors.size.message} />}
-      </div>
+            <Input
+              type="number"
+              id={`stock.${index}.stock`}
+              placeholder="Ej. 5"
+              className="col-span-3"
+              defaultValue={
+                item.variants?.find((item) => item.size === size)?.stock
+              }
+              {...register(`stock.${index}.stock`, stockValidation.stock)}
+            />
 
-      <div className="grid gap-2">
-        <Label htmlFor="stock">Stock</Label>
-        <Input
-          type="number"
-          id="stock"
-          placeholder="Enter stock"
-          {...register("stock", stockValidation.stock)}
-        />
-        {errors.stock && <ErrorFormMessage message={errors.stock.message} />}
+            {errors.stock && (
+              <ErrorFormMessage message={errors.stock.message} />
+            )}
+          </div>
+        ))}
       </div>
     </form>
   )

@@ -1,10 +1,10 @@
 "use client"
 
+import { useTransition } from "react"
 import { logoutUser } from "@/actions/auth/logout.action"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { LogOut } from "lucide-react"
-import { useTransition } from "react"
 
 export const SideBarButtonLogout = () => {
   const [isPending, startTransition] = useTransition()

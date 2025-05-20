@@ -1,4 +1,4 @@
-import { ClipboardList } from "lucide-react"
+import { getAllUserMovements } from "@/actions/stock/get-all-user-movements"
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
@@ -8,7 +8,7 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "@/components/ui/drawer"
-import { getAllUserMovements } from "@/actions/stock/get-all-user-movements"
+import { ClipboardList } from "lucide-react"
 import { MovementsList } from "./movements-list"
 
 export async function MovementsDrawer() {
