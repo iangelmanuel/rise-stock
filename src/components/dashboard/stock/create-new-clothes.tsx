@@ -1,6 +1,7 @@
 "use client"
 
-import { TransitionStartFunction, useState, useTransition } from "react"
+import type { TransitionStartFunction } from "react"
+import { useState, useTransition } from "react"
 import { createClothesCollection } from "@/actions/stock/create-clothes-collection"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { ErrorFormMessage } from "@/components/shared/error-form-message"

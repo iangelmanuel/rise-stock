@@ -6,7 +6,7 @@ import type { CreateStockClotheForm } from "@/interfaces/stock"
 import { prisma } from "@/lib/prisma-config"
 import { createStockClothesSchema } from "@/schemas/stock.schemas"
 import { formatCurrency } from "@/utils/format-currency"
-import { Collection } from "@prisma/client"
+import type { Collection } from "@prisma/client"
 
 // import { v2 as cloudinary } from "cloudinary"
 

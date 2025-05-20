@@ -15,7 +15,7 @@ export const ListCollection = () => {
   return (
     <section className="mt-10">
       <Table>
-        <TableCaption>A list of Rise's collection</TableCaption>
+        <TableCaption>A list of Rise&aops;s collection</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="border-t p-5 text-center">Name</TableHead>

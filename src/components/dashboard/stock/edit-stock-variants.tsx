@@ -1,6 +1,7 @@
 "use client"
 
-import { TransitionStartFunction, useTransition } from "react"
+import type { TransitionStartFunction } from "react"
+import { useTransition } from "react"
 import { updateClothesVariantStock } from "@/actions/stock/update-clothes-variant-stock.action"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { ErrorFormMessage } from "@/components/shared/error-form-message"
@@ -19,7 +20,7 @@ import { Label } from "@/components/ui/label"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import { stockValidation } from "@/form-config/stock"
 import type { StockVariantsFormData } from "@/interfaces/stock"
-import { Clothes, ClothesVariant } from "@prisma/client"
+import type { Clothes, ClothesVariant } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 

@@ -1,8 +1,8 @@
-import {
+import type {
   createStockClothesSchema,
   editStockClothesSchema
 } from "@/schemas/stock.schemas"
-import { z } from "zod"
+import type { z } from "zod"
 
 export type StockVariantsFormData = z.infer<typeof editStockClothesSchema>
 

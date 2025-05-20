@@ -1,7 +1,7 @@
 "use server"
 
 import { prisma } from "@/lib/prisma-config"
-import { Clothes } from "@prisma/client"
+import type { Clothes } from "@prisma/client"
 
 export async function getClothesCollectionById(id: Clothes["id"]) {
   try {

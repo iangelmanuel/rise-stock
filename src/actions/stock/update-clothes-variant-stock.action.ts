@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { StockVariantsFormData } from "@/interfaces/stock"
+import type { StockVariantsFormData } from "@/interfaces/stock"
 import { prisma } from "@/lib/prisma-config"
 import { editStockClothesSchema } from "@/schemas/stock.schemas"
 import type { Clothes, ClothesVariant } from "@prisma/client"

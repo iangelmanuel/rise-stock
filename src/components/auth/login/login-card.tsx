@@ -37,7 +37,7 @@ export const LoginCard = ({ register }: Props) => {
           <CardTitle>If you are not logged in, please login</CardTitle>
 
           <CardDescription>
-            If you are not staff member, you can't access this page.
+            If you are not staff member, you can&apos;t access this page.
           </CardDescription>
         </CardHeader>
 
