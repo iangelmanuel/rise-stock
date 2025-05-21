@@ -68,7 +68,11 @@ export const ClothesGrid = ({ collection }: Props) => {
 
             <CardFooter className="flex flex-col gap-2">
               <EditVariantStock item={item} />
-              <EditVariantInfo item={item} />
+              <EditVariantInfo
+                item={item}
+                collectionName={collection.name}
+                publicId={item.clothesImage[0].publicId}
+              />
             </CardFooter>
           </Card>
         ))

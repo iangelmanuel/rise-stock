@@ -5,11 +5,22 @@ import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
 import { editClothesInfoSchema } from "@/schemas/stock.schemas"
 import type { EditClothesInfoForm } from "@/types/stock"
-import type { Clothes } from "@prisma/client"
+import { createCloudinaryImg } from "@/utils/create-cloudinary-img"
+import { createSlugForClothes } from "@/utils/create-slug-for-clothes"
+import type { Clothes, ClothesImage, Collection } from "@prisma/client"
+import { v2 as cloudinary } from "cloudinary"
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 export async function editClothesInfoById(
   id: Clothes["id"],
-  data: EditClothesInfoForm
+  collectionName: Collection["name"],
+  data: EditClothesInfoForm,
+  publicId: ClothesImage["publicId"] | null
 ) {
   try {
     const session = await auth()
@@ -35,10 +46,28 @@ export async function editClothesInfoById(
       }
     }
 
+    const cloudinaryResponse = await createCloudinaryImg({
+      designName: schemaValidation.data.design,
+      image,
+      collectionName: createSlugForClothes(collectionName)
+    })
+
+    if (publicId) await cloudinary.uploader.destroy(publicId)
+
+    if (
+      typeof cloudinaryResponse === "undefined" ||
+      cloudinaryResponse === undefined
+    ) {
+      return {
+        ok: false,
+        message: "Error uploading image"
+      }
+    }
+
     await prisma.$transaction(async (tx) => {
       const { design, color, price } = schemaValidation.data
 
-      await tx.clothes.update({
+      const clothesUpdated = await tx.clothes.update({
         where: {
           id
         },
@@ -48,6 +77,16 @@ export async function editClothesInfoById(
           price
         }
       })
+
+      if (image instanceof FormData && image.has("image")) {
+        await tx.clothesImage.updateMany({
+          where: { clothesId: clothesUpdated.id },
+          data: {
+            publicId: cloudinaryResponse.public_id,
+            secureUrl: cloudinaryResponse.secure_url
+          }
+        })
+      }
 
       const userId = session.user.id
 

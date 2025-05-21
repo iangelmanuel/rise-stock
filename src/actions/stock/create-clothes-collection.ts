@@ -5,10 +5,10 @@ import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
 import { createClothesStockSchema } from "@/schemas/stock.schemas"
 import type { CreateClotheStockForm } from "@/types/stock"
+import { createCloudinaryImg } from "@/utils/create-cloudinary-img"
 import { createSlugForClothes } from "@/utils/create-slug-for-clothes"
 import { formatCurrency } from "@/utils/format-currency"
 import type { Collection } from "@prisma/client"
-import type { UploadApiResponse } from "cloudinary"
 import { v2 as cloudinary } from "cloudinary"
 
 cloudinary.config({
@@ -17,8 +17,13 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
+type CollectionData = {
+  id: Collection["id"]
+  name: Collection["name"]
+}
+
 export async function createClothesCollection(
-  collectionData: { id: Collection["id"]; name: Collection["name"] },
+  collectionData: CollectionData,
   { image, ...restData }: CreateClotheStockForm
 ) {
   try {
@@ -42,83 +47,62 @@ export async function createClothesCollection(
       }
     }
 
-    if (image instanceof FormData && image.has("image")) {
-      const slug = createSlugForClothes(schemaValidation.data.design)
-      const imagesFormData = image.get("image") as File
+    const cloudinaryResponse = await createCloudinaryImg({
+      designName: schemaValidation.data.design,
+      image,
+      collectionName: createSlugForClothes(collectionData.name)
+    })
 
-      const byte = await imagesFormData.arrayBuffer()
-      const buffer = Buffer.from(byte)
-
-      const cloudinaryResponse = (await new Promise((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream(
-            {
-              folder: `Rise-Stock/clothes/${collectionData.name}`,
-              public_id: `${slug}-${crypto.randomUUID()}-${Date.now()}`,
-              resource_type: "image"
-            },
-            (error, result) => {
-              if (error) {
-                reject(error)
-              } else {
-                resolve(result)
-              }
-            }
-          )
-          .end(buffer)
-      })) as UploadApiResponse | undefined
-
-      if (
-        typeof cloudinaryResponse === "undefined" ||
-        cloudinaryResponse === undefined
-      ) {
-        return {
-          ok: false,
-          message: "Error uploading image to cloudinary"
-        }
+    if (
+      typeof cloudinaryResponse === "undefined" ||
+      cloudinaryResponse === undefined
+    ) {
+      return {
+        ok: false,
+        message: "Error uploading image"
       }
+    }
 
-      await prisma.$transaction(async (tx) => {
-        const newClothes = await tx.clothes.create({
+    await prisma.$transaction(async (tx) => {
+      const newClothes = await tx.clothes.create({
+        data: {
+          design: schemaValidation.data.design,
+          color: schemaValidation.data.color,
+          price: schemaValidation.data.price,
+          collectionId: collectionData.id
+        }
+      })
+
+      if (image instanceof FormData && image.has("image")) {
+        await tx.clothesImage.create({
           data: {
-            design: schemaValidation.data.design,
-            color: schemaValidation.data.color,
-            price: schemaValidation.data.price,
-            collectionId: collectionData.id
+            publicId: cloudinaryResponse.public_id,
+            secureUrl: cloudinaryResponse.secure_url,
+            clothesId: newClothes.id
           }
         })
+      }
 
-        if (image.has("image")) {
-          await tx.clothesImage.create({
-            data: {
-              publicId: cloudinaryResponse.public_id,
-              secureUrl: cloudinaryResponse.secure_url,
-              clothesId: newClothes.id
-            }
-          })
-        }
+      schemaValidation.data.stock.forEach(async (sizeAndStock) => {
+        const { size, stock } = sizeAndStock
 
-        schemaValidation.data.stock.forEach(async (sizeAndStock) => {
-          const { size, stock } = sizeAndStock
-
-          await tx.clothesVariant.create({
-            data: {
-              size,
-              stock,
-              clothesId: newClothes.id
-            }
-          })
-        })
-
-        await tx.userMovement.create({
+        await tx.clothesVariant.create({
           data: {
-            userId,
-            name: "create",
-            description: `New clothes created with name ${newClothes.design} and color ${newClothes.color} with the price: ${formatCurrency(newClothes.price)}`
+            size,
+            stock,
+            clothesId: newClothes.id
           }
         })
       })
-    }
+
+      await tx.userMovement.create({
+        data: {
+          userId,
+          name: "create",
+          description: `New clothes created with name ${newClothes.design} and color ${newClothes.color} with the price: ${formatCurrency(newClothes.price)}`
+        }
+      })
+    })
 
     revalidatePath("/dashboard/stocks")
     revalidatePath("/dashboard/stocks/[id]")

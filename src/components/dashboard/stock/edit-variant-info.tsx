@@ -3,6 +3,7 @@
 import type { TransitionStartFunction } from "react"
 import { useTransition } from "react"
 import { useState } from "react"
+import Image from "next/image"
 import { editClothesInfoById } from "@/actions/stock/update-clothes-info-by-id.action"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { ErrorFormMessage } from "@/components/shared/error-form-message"
@@ -19,9 +20,13 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { stockValidation } from "@/form-config/stock"
 import type { EditClothesInfoForm } from "@/types/stock"
-import type { Clothes, ClothesVariant } from "@prisma/client"
+import type {
+  Clothes,
+  ClothesImage,
+  ClothesVariant,
+  Collection
+} from "@prisma/client"
 import { ChevronDown, Upload } from "lucide-react"
 import Dropzone from "react-dropzone"
 import { useForm } from "react-hook-form"
@@ -31,9 +36,11 @@ type Props = {
   item: Clothes & {
     variants: ClothesVariant[] | null
   }
+  collectionName: Collection["name"]
+  publicId: ClothesImage["publicId"] | null
 }
 
-export const EditVariantInfo = ({ item }: Props) => {
+export const EditVariantInfo = ({ item, collectionName, publicId }: Props) => {
   const [isPending, startTransition] = useTransition()
   return (
     <Dialog>
@@ -59,6 +66,8 @@ export const EditVariantInfo = ({ item }: Props) => {
           <EditVariantInfoForm
             item={item}
             startTransition={startTransition}
+            collectionName={collectionName}
+            publicId={publicId}
           />
         </DialogHeader>
 
@@ -81,12 +90,16 @@ export const EditVariantInfo = ({ item }: Props) => {
 
 function EditVariantInfoForm({
   item,
-  startTransition
+  startTransition,
+  collectionName,
+  publicId
 }: {
   item: Props["item"]
   startTransition: TransitionStartFunction
+  collectionName: Props["collectionName"]
+  publicId: Props["publicId"]
 }) {
-  const [image, setImage] = useState<File[]>([])
+  const [image, setImage] = useState<File | undefined>(undefined)
 
   const {
     register,
@@ -103,9 +116,7 @@ function EditVariantInfoForm({
 
   const onSubmit = ({ design, color, price }: EditClothesInfoForm) => {
     const formData = new FormData()
-    image.forEach((file) => {
-      formData.append("image", file)
-    })
+    if (image) formData.append("image", image)
 
     const updatedClothesVariants = {
       design,
@@ -117,8 +128,11 @@ function EditVariantInfoForm({
     startTransition(async () => {
       const { ok, message } = await editClothesInfoById(
         item.id,
-        updatedClothesVariants
+        collectionName,
+        updatedClothesVariants,
+        publicId
       )
+
       if (ok) {
         toast.success("Stock updated successfully", {
           description: message,
@@ -149,7 +163,7 @@ function EditVariantInfoForm({
           id="design"
           placeholder="Ej. Last Dinner"
           className="col-span-3"
-          {...register("design", stockValidation.design)}
+          {...register("design")}
         />
 
         {errors.design && <ErrorFormMessage message={errors.design.message} />}
@@ -163,7 +177,7 @@ function EditVariantInfoForm({
           id="color"
           placeholder="Ej. Black"
           className="col-span-3"
-          {...register("color", stockValidation.color)}
+          {...register("color")}
         />
 
         {errors.color && <ErrorFormMessage message={errors.color.message} />}
@@ -177,7 +191,7 @@ function EditVariantInfoForm({
           id="price"
           placeholder="Ej. 80000"
           className="col-span-3"
-          {...register("price", stockValidation.price)}
+          {...register("price")}
         />
 
         {errors.price && <ErrorFormMessage message={errors.price.message} />}
@@ -188,7 +202,7 @@ function EditVariantInfoForm({
 
         <Dropzone
           onDrop={(acceptedFiles) => {
-            setImage(acceptedFiles ? acceptedFiles : [])
+            setImage(acceptedFiles ? acceptedFiles[0] : undefined)
             setValue("image", acceptedFiles[0])
           }}
         >
@@ -232,6 +246,19 @@ function EditVariantInfoForm({
 
         {errors.image && (
           <ErrorFormMessage message={errors.image.message as string} />
+        )}
+
+        {image !== undefined && (
+          <div className="mt-2 flex items-center justify-center">
+            <Image
+              key={image.name}
+              src={URL.createObjectURL(image)}
+              alt={image.name}
+              width={128}
+              height={128}
+              className="h-32 w-32 rounded-md object-cover"
+            />
+          </div>
         )}
       </div>
     </form>
