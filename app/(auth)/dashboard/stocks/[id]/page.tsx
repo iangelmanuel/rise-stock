@@ -15,6 +15,11 @@ export default async function StockOfCollectionPage({
   const collection = await getClothesCollectionById(id)
   if (!collection) redirect("/dashboard/stocks")
 
+  const collectionData = {
+    id: collection.id,
+    name: collection.name
+  }
+
   return (
     <>
       <section className="my-5 flex items-center justify-between">
@@ -26,7 +31,7 @@ export default async function StockOfCollectionPage({
           </p>
         </div>
 
-        <CreateNewClothes collectionId={collection.id} />
+        <CreateNewClothes collectionData={collectionData} />
       </section>
 
       <ClothesGrid collection={collection} />

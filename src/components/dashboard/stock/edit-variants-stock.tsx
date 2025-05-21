@@ -19,18 +19,18 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import { stockValidation } from "@/form-config/stock"
-import type { StockVariantsFormData } from "@/interfaces/stock"
+import type { EditVariantStockForm } from "@/types/stock"
 import type { Clothes, ClothesVariant } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-interface Props {
+type Props = {
   item: Clothes & {
     variants: ClothesVariant[] | null
   }
 }
 
-export const EditStockVariant = ({ item }: Props) => {
+export const EditVariantStock = ({ item }: Props) => {
   const [isPending, startTransition] = useTransition()
   return (
     <Dialog>
@@ -53,7 +53,7 @@ export const EditStockVariant = ({ item }: Props) => {
           </DialogDescription>
 
           {/* Form */}
-          <EditStockVariantForm
+          <EditVariantStockForm
             item={item}
             startTransition={startTransition}
           />
@@ -76,7 +76,7 @@ export const EditStockVariant = ({ item }: Props) => {
   )
 }
 
-function EditStockVariantForm({
+function EditVariantStockForm({
   item,
   startTransition
 }: {
@@ -87,9 +87,9 @@ function EditStockVariantForm({
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<StockVariantsFormData>()
+  } = useForm<EditVariantStockForm>()
 
-  const onSubmit = ({ stock }: StockVariantsFormData) => {
+  const onSubmit = ({ stock }: EditVariantStockForm) => {
     const updatedClothesVariants = {
       item,
       stock: stock.map(({ size, stock }) => ({

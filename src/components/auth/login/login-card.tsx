@@ -8,7 +8,7 @@ import {
 import { UserCheck } from "lucide-react"
 import { LoginForm } from "./login-form"
 
-interface Props {
+type Props = {
   register: string | undefined
 }
 

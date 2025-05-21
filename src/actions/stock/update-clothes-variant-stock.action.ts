@@ -2,9 +2,9 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import type { StockVariantsFormData } from "@/interfaces/stock"
 import { prisma } from "@/lib/prisma-config"
-import { editStockClothesSchema } from "@/schemas/stock.schemas"
+import { editClothesStockSchema } from "@/schemas/stock.schemas"
+import type { EditVariantStockForm } from "@/types/stock"
 import type { Clothes, ClothesVariant } from "@prisma/client"
 
 type ClothesWithVariants = Clothes & {
@@ -13,7 +13,7 @@ type ClothesWithVariants = Clothes & {
 
 type UpdateClothesVariantStock = {
   item: ClothesWithVariants
-  stock: StockVariantsFormData["stock"]
+  stock: EditVariantStockForm["stock"]
 }
 
 export async function updateClothesVariantStock(
@@ -30,7 +30,7 @@ export async function updateClothesVariantStock(
     }
 
     const { item, stock } = data
-    const schemaValidation = editStockClothesSchema.safeParse({ stock })
+    const schemaValidation = editClothesStockSchema.safeParse({ stock })
 
     if (!schemaValidation.success) {
       return {

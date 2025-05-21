@@ -21,7 +21,7 @@ export function MainSidebar() {
         <SidebarGroup>
           <div className="flex items-center gap-1 border-b py-2">
             <Image
-              src="/assets/images/logo.webp"
+              src="https://res.cloudinary.com/dxer3pinh/image/upload/v1747781223/logo_kfdbwv.webp"
               alt="Logo"
               width={30}
               height={30}

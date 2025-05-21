@@ -7,17 +7,24 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { imageValidator } from "@/utils/image-validator"
-import type { Clothes, ClothesVariant, Collection } from "@prisma/client"
+import type {
+  Clothes,
+  ClothesImage,
+  ClothesVariant,
+  Collection
+} from "@prisma/client"
 import { Ruler, Shirt } from "lucide-react"
 import { DeleteClothesButton } from "./delete-clothes-button"
-import { EditStockVariant } from "./edit-stock-variants"
+import { EditVariantInfo } from "./edit-variant-info"
+import { EditVariantStock } from "./edit-variants-stock"
 
-interface Props {
+type Props = {
   collection:
     | (Collection & {
         clothes:
           | (Clothes & {
               variants: ClothesVariant[] | null
+              clothesImage: ClothesImage[]
             })[]
           | null
       })
@@ -33,12 +40,15 @@ export const ClothesGrid = ({ collection }: Props) => {
             key={item.id}
             className="group relative"
           >
-            <DeleteClothesButton item={item} />
+            <DeleteClothesButton
+              item={item}
+              publicId={item.clothesImage[0].publicId}
+            />
 
             <CardHeader>
               <div className="mb-3 overflow-hidden">
                 <Image
-                  src={imageValidator(item.image)}
+                  src={imageValidator(item.clothesImage[0].secureUrl)}
                   alt={item.design}
                   width={500}
                   height={500}
@@ -57,7 +67,8 @@ export const ClothesGrid = ({ collection }: Props) => {
             <ClothesGridCardContent item={item} />
 
             <CardFooter className="flex flex-col gap-2">
-              <EditStockVariant item={item} />
+              <EditVariantStock item={item} />
+              <EditVariantInfo item={item} />
             </CardFooter>
           </Card>
         ))
@@ -70,7 +81,7 @@ export const ClothesGrid = ({ collection }: Props) => {
   )
 }
 
-interface CardContentProps {
+type CardContentProps = {
   item: Clothes & {
     variants: ClothesVariant[] | null
   }

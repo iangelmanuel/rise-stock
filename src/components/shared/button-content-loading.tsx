@@ -1,7 +1,7 @@
 import React from "react"
 import { Spinner } from "./spinner"
 
-interface Props {
+type Props = {
   label: string
   isPending: boolean
 }

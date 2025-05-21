@@ -3,19 +3,25 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
-import type { Clothes } from "@prisma/client"
+import type { Clothes, ClothesImage } from "@prisma/client"
+import { v2 as cloudinary } from "cloudinary"
 
-interface DeleteClothesData {
+type DeleteClothesData = {
   id: Clothes["id"]
   design: Clothes["design"]
   color: Clothes["color"]
 }
 
-export async function deleteClothesById({
-  id,
-  design,
-  color
-}: DeleteClothesData) {
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+export async function deleteClothesById(
+  { id, design, color }: DeleteClothesData,
+  publicId: ClothesImage["publicId"] | null
+) {
   try {
     const session = await auth()
 
@@ -28,10 +34,20 @@ export async function deleteClothesById({
 
     const userId = session.user.id
 
+    if (publicId !== null) {
+      await cloudinary.uploader.destroy(publicId)
+    }
+
     await prisma.$transaction(async (tx) => {
       await tx.clothesVariant.deleteMany({
         where: { clothesId: id }
       })
+
+      if (publicId !== null) {
+        await tx.clothesImage.deleteMany({
+          where: { clothesId: id }
+        })
+      }
 
       await tx.clothes.delete({
         where: { id }

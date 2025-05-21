@@ -1,8 +1,8 @@
 "use server"
 
-import type { RegisterFormData } from "@/interfaces/auth"
 import { prisma } from "@/lib/prisma-config"
 import { registerSchema } from "@/schemas/user.schemas"
+import type { RegisterFormData } from "@/types/auth"
 import bcrypt from "bcryptjs"
 
 export const registerUser = async (data: RegisterFormData) => {

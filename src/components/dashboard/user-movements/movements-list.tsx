@@ -15,7 +15,7 @@ interface MovementWithUser extends UserMovement {
   user: Pick<User, "name">
 }
 
-interface Props {
+type Props = {
   movements: MovementWithUser[] | null
 }
 

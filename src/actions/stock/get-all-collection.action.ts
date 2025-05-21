@@ -9,6 +9,9 @@ export async function getAllCollection() {
         clothes: {
           select: {
             id: true
+          },
+          orderBy: {
+            createdAt: "desc"
           }
         }
       }

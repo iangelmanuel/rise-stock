@@ -3,7 +3,7 @@
 import { signIn } from "@/auth"
 import { userSchema } from "@/schemas/user.schemas"
 
-interface LoginUserData {
+type LoginUserData = {
   email: string
   password: string
 }

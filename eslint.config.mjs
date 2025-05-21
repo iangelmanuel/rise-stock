@@ -37,7 +37,7 @@ const eslintConfig = [
       prettier: eslintPluginPrettier
     },
     rules: {
-      "prettier/prettier": "error",
+      // "prettier/prettier": "warn",
       "@typescript-eslint/consistent-type-imports": [
         "error",
         { prefer: "type-imports" }

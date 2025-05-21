@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const createStockClothesSchema = z.object({
+export const createClothesStockSchema = z.object({
   design: z
     .string()
     .min(3, { message: "Minimum length is 3 characters" })
@@ -26,6 +26,12 @@ export const createStockClothesSchema = z.object({
   )
 })
 
-export const editStockClothesSchema = z.object({
-  stock: createStockClothesSchema.shape.stock
+export const editClothesInfoSchema = z.object({
+  design: createClothesStockSchema.shape.design,
+  color: createClothesStockSchema.shape.color,
+  price: createClothesStockSchema.shape.price
+})
+
+export const editClothesStockSchema = z.object({
+  stock: createClothesStockSchema.shape.stock
 })

@@ -13,7 +13,7 @@ import {
   loginFormDefaultValues,
   passwordValidation
 } from "@/form-config/auth"
-import type { LoginFormData } from "@/interfaces/auth"
+import type { LoginFormData } from "@/types/auth"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { ErrorFormMessage } from "../../shared/error-form-message"

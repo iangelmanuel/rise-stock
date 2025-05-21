@@ -7,23 +7,30 @@ async function main() {
   await prisma.userMovement.deleteMany()
   await prisma.user.deleteMany()
   await prisma.collection.deleteMany()
+  await prisma.clothesImage.deleteMany()
   await prisma.clothesVariant.deleteMany()
   await prisma.clothes.deleteMany()
 
   const collection = await prisma.collection.create({
     data: {
-      name: "Choose Collection"
+      name: "Choosen Collection"
     }
   })
 
   clothes.forEach(async ({ design, color, image }) => {
-    const product = await prisma.clothes.create({
+    const clothes = await prisma.clothes.create({
       data: {
         design,
         color,
-        image,
         price: 80000,
         collectionId: collection.id
+      }
+    })
+
+    await prisma.clothesImage.create({
+      data: {
+        secureUrl: image,
+        clothesId: clothes.id
       }
     })
 
@@ -32,7 +39,7 @@ async function main() {
         data: {
           size,
           stock: 0,
-          clothesId: product.id
+          clothesId: clothes.id
         }
       })
     })

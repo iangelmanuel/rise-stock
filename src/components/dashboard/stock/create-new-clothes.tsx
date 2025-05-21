@@ -2,6 +2,7 @@
 
 import type { TransitionStartFunction } from "react"
 import { useState, useTransition } from "react"
+import Image from "next/image"
 import { createClothesCollection } from "@/actions/stock/create-clothes-collection"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { ErrorFormMessage } from "@/components/shared/error-form-message"
@@ -20,18 +21,21 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import { stockValidation } from "@/form-config/stock"
-import type { CreateStockClotheForm } from "@/interfaces/stock"
+import type { CreateClotheStockForm } from "@/types/stock"
 import type { Clothes, Collection } from "@prisma/client"
 import { ChevronDown, Upload } from "lucide-react"
 import Dropzone from "react-dropzone"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-interface Props {
-  collectionId: Collection["id"]
+type Props = {
+  collectionData: {
+    id: Collection["id"]
+    name: Collection["name"]
+  }
 }
 
-export function CreateNewClothes({ collectionId }: Props) {
+export function CreateNewClothes({ collectionData }: Props) {
   const [isPending, startTransition] = useTransition()
 
   return (
@@ -50,7 +54,7 @@ export function CreateNewClothes({ collectionId }: Props) {
 
         {/* Form */}
         <CreateNewClothesForm
-          collectionId={collectionId}
+          collectionData={collectionData}
           startTransition={startTransition}
         />
 
@@ -72,13 +76,13 @@ export function CreateNewClothes({ collectionId }: Props) {
 }
 
 function CreateNewClothesForm({
-  collectionId,
+  collectionData,
   startTransition
 }: {
-  collectionId: Clothes["id"]
+  collectionData: Props["collectionData"]
   startTransition: TransitionStartFunction
 }) {
-  const [image, setImage] = useState<File[]>([])
+  const [image, setImage] = useState<File | undefined>(undefined)
 
   const {
     register,
@@ -86,13 +90,11 @@ function CreateNewClothesForm({
     formState: { errors },
     reset,
     setValue
-  } = useForm<CreateStockClotheForm>()
+  } = useForm<CreateClotheStockForm>()
 
-  const onSubmit = async (data: CreateStockClotheForm) => {
+  const onSubmit = async (data: CreateClotheStockForm) => {
     const formData = new FormData()
-    image.forEach((img) => {
-      formData.append("image", img)
-    })
+    if (image) formData.append("image", image)
 
     const { image: _, price, stock, ...rest } = data
     const newClothes = {
@@ -107,7 +109,7 @@ function CreateNewClothesForm({
 
     startTransition(async () => {
       const { ok, message } = await createClothesCollection(
-        collectionId,
+        collectionData,
         newClothes
       )
 
@@ -118,7 +120,7 @@ function CreateNewClothesForm({
           position: "top-center"
         })
         reset()
-        setImage([])
+        setImage(undefined)
       } else {
         toast.error("Error creating the new clothes.", {
           description: message,
@@ -135,7 +137,7 @@ function CreateNewClothesForm({
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 gap-4 py-4 sm:grid-cols-2"
     >
-      <div className="grid gap-2">
+      <div className="grid gap-4">
         <span className="text-center text-lg font-bold">Clothes Info</span>
 
         <div className="grid gap-2">
@@ -187,8 +189,8 @@ function CreateNewClothesForm({
 
           <Dropzone
             onDrop={(acceptedFiles) => {
-              setImage(acceptedFiles)
-              setValue("image", acceptedFiles)
+              setImage(acceptedFiles ? acceptedFiles[0] : undefined)
+              setValue("image", acceptedFiles[0])
             }}
           >
             {({ getRootProps, getInputProps, isDragActive }) => (
@@ -228,13 +230,27 @@ function CreateNewClothesForm({
               </Card>
             )}
           </Dropzone>
+
           {errors.image && (
             <ErrorFormMessage message={errors.image.message as string} />
+          )}
+
+          {image !== undefined && (
+            <div className="mt-2 flex items-center justify-center">
+              <Image
+                key={image.name}
+                src={URL.createObjectURL(image)}
+                alt={image.name}
+                width={128}
+                height={128}
+                className="h-32 w-32 rounded-md object-cover"
+              />
+            </div>
           )}
         </div>
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid gap-4">
         <span className="text-center text-lg font-bold">Stocks</span>
 
         {EXISTANT_SIZES.map((size, index) => (

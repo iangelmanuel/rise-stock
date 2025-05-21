@@ -6,13 +6,12 @@ import type { Clothes } from "@prisma/client"
 export async function getClothesCollectionById(id: Clothes["id"]) {
   try {
     const collection = await prisma.collection.findUnique({
-      where: {
-        id
-      },
+      where: { id },
       include: {
         clothes: {
           include: {
-            variants: true
+            variants: true,
+            clothesImage: true
           }
         }
       }

@@ -15,7 +15,7 @@ import {
   registerFormDefaultValues,
   repeatPasswordValidation
 } from "@/form-config/auth"
-import type { RegisterFormData } from "@/interfaces/auth"
+import type { RegisterFormData } from "@/types/auth"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { ErrorFormMessage } from "../../shared/error-form-message"

@@ -17,17 +17,18 @@ import {
 import { buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import type { Clothes, ClothesVariant } from "@prisma/client"
+import type { Clothes, ClothesImage, ClothesVariant } from "@prisma/client"
 import { X } from "lucide-react"
 import { toast } from "sonner"
 
-interface Props {
+type Props = {
   item: Clothes & {
     variants: ClothesVariant[] | null
   }
+  publicId: ClothesImage["publicId"] | null
 }
 
-export const DeleteClothesButton = ({ item }: Props) => {
+export const DeleteClothesButton = ({ item, publicId }: Props) => {
   const [openDialog, setOpenDialog] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [isInputValueIncorrect, setIsInputValueIncorrect] = useState(true)
@@ -52,7 +53,7 @@ export const DeleteClothesButton = ({ item }: Props) => {
     }
 
     startTransition(async () => {
-      const { ok, message } = await deleteClothesById(clothesData)
+      const { ok, message } = await deleteClothesById(clothesData, publicId)
 
       setInputValue("")
       setIsInputValueIncorrect(true)
