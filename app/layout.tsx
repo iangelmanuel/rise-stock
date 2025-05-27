@@ -5,8 +5,7 @@ import "@/styles/globals.css"
 
 export const metadata: Metadata = {
   title: "Rise App",
-  description:
-    "This is the Rise App, a web application for managing stocks and other related tasks."
+  description: "This is the Rise App, a web application for managing stocks."
 }
 
 export default function RootLayout({
@@ -19,15 +18,18 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body className="antialiased">
+      <head />
+      <body>
         <Providers
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster />
+          <main>
+            {children}
+            <Toaster />
+          </main>
         </Providers>
       </body>
     </html>

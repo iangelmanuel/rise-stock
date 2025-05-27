@@ -1,5 +1,12 @@
 import { z } from "zod"
 
+export const createCollectionSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Minimum length is 3 characters" })
+    .max(50, { message: "Maximum length is 50 characters" })
+})
+
 export const createClothesStockSchema = z.object({
   design: z
     .string()

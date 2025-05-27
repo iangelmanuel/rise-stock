@@ -1,4 +1,15 @@
 export const stockValidation = {
+  name: {
+    required: "This field is required",
+    minLength: {
+      value: 3,
+      message: "Minimum length is 3 characters"
+    },
+    maxLength: {
+      value: 50,
+      message: "Maximum length is 50 characters"
+    }
+  },
   design: {
     required: "This field is required",
     minLength: {
