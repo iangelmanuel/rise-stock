@@ -1,5 +1,11 @@
 import { z } from "zod"
 
+export const clothesImageSchema = z.object({
+  id: z.string().uuid("Invalid image ID format"),
+  secureUrl: z.string().url("Invalid image URL format"),
+  publicId: z.string().min(1, "Public ID is required").nullable()
+})
+
 export const createCollectionSchema = z.object({
   name: z
     .string()

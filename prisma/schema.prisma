@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum SaleStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
 model User {
   id       String @id @default(uuid())
   name     String
@@ -18,6 +24,7 @@ model User {
   UserMovement UserMovement[]
 
   createdAt DateTime @default(now())
+  Sale      Sale[]
 }
 
 model UserMovement {
@@ -42,6 +49,7 @@ model Clothes {
 
   variants     ClothesVariant[]
   clothesImage ClothesImage[]
+  Sale         Sale[]
 
   createdAt DateTime @default(now())
 }
@@ -72,6 +80,28 @@ model Collection {
   id      String    @id @default(uuid())
   name    String
   clothes Clothes[]
+
+  createdAt DateTime @default(now())
+}
+
+model Sale {
+  id       String     @id @default(uuid())
+  client   String
+  note     String
+  state    String
+  city     String
+  status   SaleStatus @default(PENDING)
+  delivery Float      @default(0)
+  total    Float      @default(0)
+
+  saleDate DateTime @default(now())
+
+  clotheId   String
+  clotheSize String
+  clothe     Clothes @relation(fields: [clotheId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
 }

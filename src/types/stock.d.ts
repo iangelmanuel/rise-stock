@@ -1,4 +1,5 @@
 import type {
+  clothesImageSchema,
   createClothesStockSchema,
   createCollectionSchema,
   editClothesInfoSchema,
@@ -17,3 +18,5 @@ export type EditClothesInfoForm = z.infer<typeof editClothesInfoSchema> & {
 }
 
 export type EditVariantStockForm = z.infer<typeof editClothesStockSchema>
+
+export type ClothesImage = z.infer<typeof clothesImageSchema>

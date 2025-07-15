@@ -1,5 +1,13 @@
 import { z } from "zod"
 
+export const usersSchema = z.object({
+  id: z.string().uuid("Invalid user ID format"),
+  name: z.string().min(1, "User name is required"),
+  email: z.string().email("Invalid email format"),
+  createdAt: z.date(),
+  updatedAt: z.date()
+})
+
 export const userSchema = z.object({
   email: z
     .string({ required_error: "Email is required" })

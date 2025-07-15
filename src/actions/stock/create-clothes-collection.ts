@@ -106,6 +106,7 @@ export async function createClothesCollection(
 
     revalidatePath("/dashboard/stocks")
     revalidatePath("/dashboard/stocks/[id]")
+    revalidatePath("/dashboard/sales")
 
     return {
       ok: true,
