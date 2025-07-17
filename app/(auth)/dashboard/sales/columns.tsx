@@ -1,6 +1,8 @@
 "use client"
 
 import type { ColumnDef, SortDirection } from "@tanstack/react-table"
+import { ActionsButtons } from "@/components/dashboard/sales/actions-button"
+import { ImageCarousel } from "@/components/dashboard/sales/image-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -11,12 +13,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import type { GetSalesWithAll } from "@/types/sales"
 import { formatCurrency } from "@/utils/format-currency"
-// import { SendEmail } from "@/components/send-email"
-// import { orderStatusLang } from "@/consts"
-// import type { UserOrderByAdmin } from "@/types"
-// import { checkOrderStatusCn, formatCurrency, formatDate } from "@/utils"
+import { getStatusConfig } from "@/utils/get-status-config"
 import {
   ChevronDownIcon,
   ChevronUp,
@@ -26,10 +26,9 @@ import {
   CircleDot,
   CircleX,
   EyeOff,
-  Package
+  Package,
+  Shirt
 } from "lucide-react"
-
-// import { ActionsButtons } from "./ui/actions-buttons"
 
 const SorterIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
   if (!isSorted) {
@@ -75,6 +74,28 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
   },
 
   {
+    id: "image",
+    accessorKey: "clothe.clothesImage",
+    header: () => {
+      return (
+        <section className="flex items-center justify-center">
+          <span>Image</span>
+        </section>
+      )
+    },
+    cell: ({ row }) => {
+      const { clothe } = row.original
+
+      return (
+        <ImageCarousel
+          images={clothe.clothesImage}
+          clotheName={`${clothe.design} - ${clothe.color}`}
+        />
+      )
+    }
+  },
+
+  {
     id: "client",
     accessorKey: "client",
     header: ({ column }) => {
@@ -86,7 +107,7 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
                 variant="ghost"
                 className="flex items-center gap-x-1"
               >
-                <span>Cliente</span>
+                <span>Client</span>
                 <SorterIcon isSorted={column.getIsSorted()} />
               </Button>
             </DropdownMenuTrigger>
@@ -129,11 +150,11 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
       )
     },
     cell: ({ row }) => {
-      const sales = row.original.client
+      const { client } = row.original
 
       return (
         <section className="flex flex-col items-center justify-center">
-          <span>{row.original.client}</span>
+          <span>{client}</span>
         </section>
       )
     }
@@ -215,7 +236,7 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
                 variant="ghost"
                 className="flex items-center gap-x-1"
               >
-                City
+                City/Country
                 <SorterIcon isSorted={column.getIsSorted()} />
               </Button>
             </DropdownMenuTrigger>
@@ -263,6 +284,117 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
       return (
         <section className="flex flex-col items-center justify-center">
           <span>{city}</span>
+        </section>
+      )
+    }
+  },
+
+  {
+    id: "clotheSize",
+    accessorKey: "clotheSize",
+    header: ({ column }) => {
+      return (
+        <section className="flex items-center justify-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center gap-x-1"
+              >
+                Size
+                <SorterIcon isSorted={column.getIsSorted()} />
+              </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align="center">
+              <DropdownMenuItem>
+                <button
+                  onClick={() => column.setFilterValue(undefined)}
+                  className="flex items-center"
+                >
+                  <Package className="mr-2 h-4 w-4" />
+                  Todos
+                </button>
+              </DropdownMenuItem>
+
+              {EXISTANT_SIZES.map((size) => (
+                <DropdownMenuItem key={size}>
+                  <button
+                    onClick={() => column.setFilterValue(size)}
+                    className="flex items-center"
+                  >
+                    <Shirt className="mr-2 h-4 w-4" />
+                    {size}
+                  </button>
+                </DropdownMenuItem>
+              ))}
+
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem>
+                <button
+                  onClick={() => column.toggleVisibility(false)}
+                  className="flex items-center"
+                >
+                  <EyeOff className="mr-2 h-4 w-4" />
+                  Ocultar
+                </button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </section>
+      )
+    },
+    cell: ({ row }) => {
+      const { clotheSize } = row.original
+
+      return (
+        <section className="flex flex-col items-center justify-center">
+          <Badge variant="outline">{clotheSize}</Badge>
+        </section>
+      )
+    }
+  },
+
+  {
+    id: "delivery",
+    accessorKey: "delivery",
+    header: () => {
+      return (
+        <section className="flex items-center justify-center">
+          <span>Delivery</span>
+        </section>
+      )
+    },
+    cell: ({ row }) => {
+      const { delivery } = row.original
+      const deliveryFormated = formatCurrency(delivery)
+
+      return (
+        <section className="flex items-center justify-center">
+          <span>{deliveryFormated}</span>
+        </section>
+      )
+    }
+  },
+
+  {
+    id: "total",
+    accessorKey: "total",
+    header: () => {
+      return (
+        <section className="flex items-center justify-center">
+          <span>Total</span>
+        </section>
+      )
+    },
+    cell: ({ row }) => {
+      const { total } = row.original
+      const totalFormated = formatCurrency(total)
+
+      return (
+        <section className="flex items-center justify-center">
+          <span>{totalFormated}</span>
         </section>
       )
     }
@@ -348,53 +480,17 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
     cell: ({ row }) => {
       const { status } = row.original
 
-      return (
-        <section className="flex items-center justify-center">
-          <Badge variant="default">{status}</Badge>
-        </section>
-      )
-    }
-  },
+      const variant: Record<string, "create" | "update" | "delete"> = {
+        COMPLETED: "create",
+        PENDING: "update",
+        CANCELLED: "delete"
+      }
 
-  {
-    id: "delivery",
-    accessorKey: "delivery",
-    header: () => {
-      return (
-        <section className="flex items-center justify-center">
-          <span>Total</span>
-        </section>
-      )
-    },
-    cell: ({ row }) => {
-      const { delivery } = row.original
-      const deliveryFormated = formatCurrency(delivery)
+      const statusConfig = getStatusConfig(status)
 
       return (
         <section className="flex items-center justify-center">
-          <span>{deliveryFormated}</span>
-        </section>
-      )
-    }
-  },
-
-  {
-    id: "total",
-    accessorKey: "total",
-    header: () => {
-      return (
-        <section className="flex items-center justify-center">
-          <span>Total</span>
-        </section>
-      )
-    },
-    cell: ({ row }) => {
-      const { total } = row.original
-      const totalFormated = formatCurrency(total)
-
-      return (
-        <section className="flex items-center justify-center">
-          <span>{totalFormated}</span>
+          <Badge variant={variant[status]}>{statusConfig.text}</Badge>
         </section>
       )
     }
@@ -412,7 +508,7 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
                 variant="ghost"
                 className="flex items-center gap-x-1"
               >
-                Saled by
+                Saled By
                 <SorterIcon isSorted={column.getIsSorted()} />
               </Button>
             </DropdownMenuTrigger>
@@ -475,10 +571,9 @@ export const columns: ColumnDef<GetSalesWithAll>[] = [
       )
     },
     cell: ({ row }) => {
-      const order = row.original
       return (
         <section className="flex items-center justify-center">
-          {/* <ActionsButtons order={order} /> */}
+          <ActionsButtons data={row.original} />
         </section>
       )
     }

@@ -5,8 +5,12 @@ import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
 import { createNewSale } from "@/schemas/sales.schemas"
 import type { CreateNewSaleForm } from "@/types/sales"
+import type { Sale } from "@prisma/client"
 
-export async function createSale(formData: CreateNewSaleForm) {
+export async function editSale(
+  formData: CreateNewSaleForm,
+  id: Sale["id"] | undefined
+) {
   try {
     const session = await auth()
 
@@ -17,7 +21,12 @@ export async function createSale(formData: CreateNewSaleForm) {
       }
     }
 
-    const userId = session.user.id
+    if (!id) {
+      return {
+        ok: false,
+        message: "Sale ID is required"
+      }
+    }
 
     const schemaValidation = createNewSale.safeParse(formData)
 
@@ -29,7 +38,8 @@ export async function createSale(formData: CreateNewSaleForm) {
     }
 
     await prisma.$transaction(async (tx) => {
-      await tx.sale.create({
+      await tx.sale.update({
+        where: { id },
         data: {
           ...formData
         }
@@ -37,9 +47,9 @@ export async function createSale(formData: CreateNewSaleForm) {
 
       await tx.userMovement.create({
         data: {
-          name: "create",
-          description: `Sale created for ${formData.client} - ${formData.total} ${formData.delivery ? "with delivery" + " " + formData.delivery : "without delivery"}`,
-          userId
+          name: "edit",
+          description: `Sale edited for ${formData.client}`,
+          userId: session.user.id
         }
       })
     })
@@ -49,12 +59,9 @@ export async function createSale(formData: CreateNewSaleForm) {
 
     return {
       ok: true,
-      message: "Sale created successfully"
+      message: "Sale edited successfully"
     }
   } catch (error) {
-    return {
-      ok: false,
-      message: "An error occurred while creating the sale."
-    }
+    return { ok: false, message: "Error editing sale" }
   }
 }

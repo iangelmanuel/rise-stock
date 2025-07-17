@@ -15,7 +15,7 @@ import {
   useReactTable
 } from "@tanstack/react-table"
 import React, { useState, useTransition } from "react"
-import { Spinner } from "@/components/shared/spinner"
+import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -52,10 +52,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-// import { deleteManyOrders } from "@/actions"
-// import type { UserOrderByAdmin } from "@/types"
 import { ChevronLeft, ChevronRight, Settings2 } from "lucide-react"
-import { toast } from "sonner"
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[]
@@ -71,6 +68,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
 
+  // TODO: Use this function to delete multiple sales
   const [isPending, startTransition] = useTransition()
 
   const isDeleteVisible = Object.keys(rowSelection).length > 0
@@ -116,32 +114,27 @@ export function DataTable<TData, TValue>({
                   disabled={isPending}
                   className="w-full sm:ml-2 sm:w-auto"
                 >
-                  {isPending ? (
-                    <>
-                      Eliminando
-                      <Spinner />
-                    </>
-                  ) : (
-                    "Eliminar"
-                  )}
+                  <ButtonContentLoading
+                    label="Delete Sales"
+                    isPending={isPending}
+                  />
                 </Button>
               </AlertDialogTrigger>
 
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>
-                    ¿Estás seguro que quieres eliminar las ordenes
-                    seleccionados?
+                    ¿Are you sure you want to delete these sales?
                   </AlertDialogTitle>
 
                   <AlertDialogDescription>
-                    Esta acción no se puede deshacer y eliminará permanentemente
-                    las ordenes seleccionadas.
+                    This action cannot be undone and will permanently delete the
+                    selected orders.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
 
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
 
                   <AlertDialogAction
                     // onClick={() => {
@@ -173,7 +166,7 @@ export function DataTable<TData, TValue>({
                     // }}
                     className={buttonVariants({ variant: "destructive" })}
                   >
-                    Eliminar
+                    Delete
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
@@ -188,7 +181,7 @@ export function DataTable<TData, TValue>({
               className="ml-auto flex items-center gap-x-1"
             >
               <Settings2 size={16} />
-              Columnas
+              Columns
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -258,7 +251,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No se encontraron ordenes.
+                  Sales not found.
                 </TableCell>
               </TableRow>
             )}
@@ -269,15 +262,15 @@ export function DataTable<TData, TValue>({
       <section className="flex flex-col items-center justify-between py-4 sm:flex-row">
         <div className="flex items-center justify-between">
           <section className="text-muted-foreground flex-1 text-sm">
-            {table.getFilteredSelectedRowModel().rows.length} de{" "}
-            {table.getFilteredRowModel().rows.length} fila(s) seleccionadas.
+            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredRowModel().rows.length} row(s) selected.
           </section>
         </div>
 
         <div className="mt-10 flex items-center justify-end gap-x-10 sm:mt-0">
           <section className="flex flex-col items-center gap-x-2 sm:flex-row">
             <span className="text-muted-foreground text-center text-sm sm:text-start">
-              Filas por página
+              Rows per page:
             </span>
             <Select onValueChange={(value) => table.setPageSize(Number(value))}>
               <SelectTrigger className="w-[70px]">
@@ -299,7 +292,7 @@ export function DataTable<TData, TValue>({
 
           <section>
             <span className="text-muted-foreground text-center text-sm sm:text-start">
-              Página {table.getState().pagination.pageIndex + 1} de{" "}
+              Page {table.getState().pagination.pageIndex + 1} of{" "}
               {table.getPageCount()}
             </span>
           </section>

@@ -20,11 +20,13 @@ import type { ClothesImage } from "@/types/stock"
 
 interface Props {
   images: ClothesImage[]
-  productName: string
+  clotheName: string
 }
 
-export const ImageCarousel = ({ images, productName }: Props) => {
+export const ImageCarousel = ({ images, clotheName }: Props) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false)
+
+  console.log(images)
 
   return (
     <>
@@ -33,8 +35,8 @@ export const ImageCarousel = ({ images, productName }: Props) => {
         className="flex items-center justify-center"
       >
         <Image
-          src={images[0].publicId ?? ""}
-          alt={`Imagen del producto ${productName}`}
+          src={images[0].secureUrl}
+          alt={`Imagen del producto ${clotheName}`}
           width={50}
           height={50}
           className="cursor-pointer"
@@ -47,28 +49,27 @@ export const ImageCarousel = ({ images, productName }: Props) => {
       >
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Imagenes del producto: {productName}</DialogTitle>
+            <DialogTitle>Image(s) of clothe(s) {clotheName}</DialogTitle>
           </DialogHeader>
 
           <Carousel className="mx-auto max-w-xs">
             <CarouselContent>
-              {images.length > 1 &&
-                images.map((image) => (
-                  <CarouselItem key={image.id}>
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-square items-center justify-center p-6">
-                          <Image
-                            src={image.publicId ?? ""}
-                            alt={`Imagen del producto ${productName}`}
-                            width={500}
-                            height={500}
-                          />
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
+              {images.map((image) => (
+                <CarouselItem key={image.id}>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-square items-center justify-center p-6">
+                        <Image
+                          src={image.secureUrl}
+                          alt={`Images of clothes: ${clotheName}`}
+                          width={500}
+                          height={500}
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
             </CarouselContent>
             <CarouselPrevious />
             <CarouselNext />

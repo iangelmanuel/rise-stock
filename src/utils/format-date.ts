@@ -1,12 +1,11 @@
-export const formatDate = (date: Date) => {
-  const options: Intl.DateTimeFormatOptions = {
+export const formatDate = (date: string | Date) => {
+  const dateObj = typeof date === "string" ? new Date(date) : date
+  return new Intl.DateTimeFormat("es-CO", {
+    weekday: "long",
     year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
+    month: "long",
+    day: "numeric",
     hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  }
-
-  return new Intl.DateTimeFormat("es-CO", options).format(date)
+    minute: "2-digit"
+  }).format(dateObj)
 }

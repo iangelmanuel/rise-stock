@@ -4,6 +4,7 @@ import type { TransitionStartFunction } from "react"
 import { useState } from "react"
 import { useTransition } from "react"
 import { createSale } from "@/actions/sales/create-sale"
+import { editSale } from "@/actions/sales/edit-sale"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import { ErrorFormMessage } from "@/components/shared/error-form-message"
 import { Button } from "@/components/ui/button"
@@ -33,12 +34,13 @@ import type {
   GetAllClothes,
   GetAllUsers
 } from "@/types/sales"
+import type { Sale } from "@prisma/client"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 type Props = {
-  users: GetAllUsers[] | undefined
-  clothes: GetAllClothes[] | undefined
+  users: GetAllUsers[]
+  clothes: GetAllClothes[]
 }
 
 export const CreateNewSale = ({ users, clothes }: Props) => {
@@ -58,7 +60,7 @@ export const CreateNewSale = ({ users, clothes }: Props) => {
         </DialogHeader>
 
         {/* Form */}
-        <CreateNewSaleForm
+        <SaleForm
           users={users}
           clothes={clothes}
           startTransition={startTransition}
@@ -81,24 +83,31 @@ export const CreateNewSale = ({ users, clothes }: Props) => {
   )
 }
 
-function CreateNewSaleForm({
+export function SaleForm({
   users,
   clothes,
+  dataToEdit,
   startTransition
 }: {
-  users: GetAllUsers[] | undefined
-  clothes: GetAllClothes[] | undefined
+  users: GetAllUsers[]
+  clothes: GetAllClothes[]
+  dataToEdit?: (CreateNewSaleForm & { id: Sale["id"] }) | undefined
   startTransition: TransitionStartFunction
 }) {
   const [cities, setCities] = useState<string[]>([])
+
+  const { id, ...restOfDataToEdit } = dataToEdit || {}
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    getValues,
     reset
-  } = useForm<CreateNewSaleForm>()
+  } = useForm<CreateNewSaleForm>({
+    defaultValues: { ...restOfDataToEdit }
+  })
 
   const onStateChange = (state: string) => {
     const getCitiesByState = departamentsWithCities.find(
@@ -118,7 +127,9 @@ function CreateNewSaleForm({
     }
 
     startTransition(async () => {
-      const { ok, message } = await createSale(dataFormatted)
+      const { ok, message } = dataToEdit
+        ? await editSale(dataFormatted, id)
+        : await createSale(dataFormatted)
       if (ok) {
         toast.success("Good news", {
           description: message,
@@ -127,7 +138,7 @@ function CreateNewSaleForm({
         })
         reset()
       } else {
-        toast.error("Somethings wrong", {
+        toast.error("Something went wrong", {
           description: message,
           duration: 2000,
           position: "top-center"
@@ -138,7 +149,7 @@ function CreateNewSaleForm({
 
   return (
     <form
-      id="create-sale"
+      id={dataToEdit ? "edit-sale" : "create-sale"}
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4"
     >
@@ -156,7 +167,11 @@ function CreateNewSaleForm({
               rules={saleValidation[field.name as keyof typeof saleValidation]}
               render={({ field: controllerField }) => (
                 <Select
-                  disabled={field.id === 8 && cities.length === 0}
+                  disabled={
+                    field.id === 8 &&
+                    cities.length === 0 &&
+                    getValues("state") === ""
+                  }
                   value={controllerField.value}
                   onValueChange={(value) => {
                     controllerField.onChange(value)

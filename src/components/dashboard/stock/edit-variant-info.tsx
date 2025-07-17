@@ -55,9 +55,11 @@ export const EditVariantInfo = ({ item, collectionName, publicId }: Props) => {
           Edit Info
         </Button>
       </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit {item.design} collection</DialogTitle>
+
           <DialogDescription>
             Edit the details of {item.design} collection.
           </DialogDescription>
