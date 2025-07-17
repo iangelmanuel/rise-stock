@@ -1,6 +1,12 @@
+import type { Metadata } from "next"
 import { getAllCollection } from "@/actions/stock/get-all-collection.action"
 import { CreateNewCollection } from "@/components/dashboard/stock/create-new-collection"
 import { ListCollection } from "@/components/dashboard/stock/list-collection"
+
+export const metadata: Metadata = {
+  title: "Stocks - Rise App",
+  description: "Manage your stocks and inventory collections on Rise App."
+}
 
 export default async function StocksPage() {
   const collection = await getAllCollection()

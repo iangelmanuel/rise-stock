@@ -5,6 +5,23 @@ import { CreateNewClothes } from "@/components/dashboard/stock/create-new-clothe
 
 type Params = Promise<{ id: string }>
 
+export async function generateMetadata({ params }: { params: Params }) {
+  const { id } = await params
+  const collection = await getClothesCollectionById(id)
+
+  if (!collection) {
+    return {
+      title: "Collection Not Found - Rise App",
+      description: "The requested collection does not exist."
+    }
+  }
+
+  return {
+    title: `${collection.name} - Rise App`,
+    description: `View and manage the ${collection.name} collection on Rise App.`
+  }
+}
+
 export default async function StockOfCollectionPage({
   params
 }: {

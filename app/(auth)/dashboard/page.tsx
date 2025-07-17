@@ -1,5 +1,11 @@
+import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
+
+export const metadata: Metadata = {
+  title: "Dashboard - Rise App",
+  description: "Your dashboard for managing stocks and inventory on Rise App."
+}
 
 export default async function DashboardPage() {
   const session = await auth()
