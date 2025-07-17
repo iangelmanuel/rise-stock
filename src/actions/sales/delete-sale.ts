@@ -3,8 +3,9 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
+import type { Sale } from "@prisma/client"
 
-export async function deleteSale(id: string) {
+export async function deleteSale(id: Sale["id"], client: Sale["client"]) {
   try {
     const session = await auth()
 
@@ -25,7 +26,7 @@ export async function deleteSale(id: string) {
       await tx.userMovement.create({
         data: {
           name: "delete",
-          description: `Sale deleted with ID ${id}`,
+          description: `Sale deleted for client ${client}`,
           userId
         }
       })

@@ -73,7 +73,7 @@ export const ActionsButtons = ({ data }: Props) => {
     setIsDeleteOptionOpen(false)
 
     startTransition(async () => {
-      const { ok, message } = await deleteSale(data.id)
+      const { ok, message } = await deleteSale(data.id, data.client)
 
       if (ok) {
         toast.success("Good news", {

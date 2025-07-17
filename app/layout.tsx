@@ -6,13 +6,12 @@ import "@/styles/globals.css"
 export const metadata: Metadata = {
   title: "Rise App",
   description: "This is the Rise App, a web application for managing stocks.",
-  keywords: ["stocks", "inventory", "management"],
+  keywords: ["stocks", "inventory", "management", "sales"],
   creator: "Angel Manuel",
-  themeColor: "#ffffff",
   openGraph: {
     title: "Rise App",
     description: "This is the Rise App, a web application for managing stocks.",
-    url: "https://rise-app.com",
+    url: process.env.SITE_URL || "http://localhost:3000",
     siteName: "Rise App",
     images: [
       {
