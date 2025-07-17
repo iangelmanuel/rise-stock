@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const usersSchema = z.object({
+export const userSchema = z.object({
   id: z.string().uuid("Invalid user ID format"),
   name: z.string().min(1, "User name is required"),
   email: z.string().email("Invalid email format"),
@@ -8,7 +8,7 @@ export const usersSchema = z.object({
   updatedAt: z.date()
 })
 
-export const userSchema = z.object({
+export const loginSchema = z.object({
   email: z
     .string({ required_error: "Email is required" })
     .min(1, "Email is required")
@@ -24,7 +24,7 @@ export const userSchema = z.object({
     )
 })
 
-export const registerSchema = userSchema
+export const registerSchema = loginSchema
   .extend({
     name: z
       .string({ required_error: "Name is required" })

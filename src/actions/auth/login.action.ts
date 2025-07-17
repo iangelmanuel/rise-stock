@@ -1,7 +1,7 @@
 "use server"
 
 import { signIn } from "@/auth"
-import { userSchema } from "@/schemas/user.schemas"
+import { loginSchema } from "@/schemas/user.schemas"
 
 type LoginUserData = {
   email: string
@@ -10,7 +10,7 @@ type LoginUserData = {
 
 export async function loginUser(data: LoginUserData) {
   try {
-    const schemaValidation = userSchema.safeParse(data)
+    const schemaValidation = loginSchema.safeParse(data)
 
     if (!schemaValidation.success) {
       return {

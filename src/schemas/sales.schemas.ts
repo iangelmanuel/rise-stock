@@ -1,8 +1,9 @@
 import { z } from "zod"
-import { clothesImageSchema } from "./stock.schemas"
-import { usersSchema } from "./user.schemas"
+import { clotheSchema, clothesImageSchema } from "./stock.schemas"
+import { userSchema } from "./user.schemas"
 
-export const createNewSale = z.object({
+export const saleSchema = z.object({
+  id: z.string().uuid("Invalid sale ID format"),
   clotheId: z.string().min(1, "Clothes ID is required"),
   clotheSize: z.string().min(1, "Clothes size is required"),
   client: z.string().min(3, "Client name must be at least 3 characters long"),
@@ -27,26 +28,24 @@ export const createNewSale = z.object({
   userId: z.string().min(1, "User ID is required")
 })
 
-export const salesType = createNewSale.extend({
-  id: z.string().uuid("Invalid sale ID format")
-})
-
-export const getSalesWithAllSchema = z.object({
-  ...salesType.shape,
-  clothe: z.object({
-    id: z.string().uuid("Invalid clothe ID format"),
-    createdAt: z.date(),
-    design: z.string().min(3, "Design must be at least 3 characters long"),
-    color: z.string().min(3, "Color must be at least 3 characters long"),
-    price: z
-      .number()
-      .min(0, "Price cannot be negative")
-      .max(1000000, "Price cannot exceed 1,000,000"),
-    collectionId: z.string().uuid("Invalid collection ID format").nullable(),
-    clothesImage: z.array(clothesImageSchema)
-  }),
-  user: usersSchema.pick({
+export const generalSaleSchema = z.object({
+  ...saleSchema.shape,
+  clothe: clotheSchema
+    .pick({
+      id: true,
+      design: true,
+      color: true,
+      price: true,
+      collectionId: true,
+      createdAt: true
+    })
+    .extend({
+      clothesImage: z.array(clothesImageSchema)
+    }),
+  user: userSchema.pick({
     id: true,
     name: true
   })
 })
+
+export const createNewSale = saleSchema.omit({ id: true })

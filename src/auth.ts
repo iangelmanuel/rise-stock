@@ -1,14 +1,14 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma-config"
-import { userSchema } from "@/schemas/user.schemas"
+import { loginSchema } from "@/schemas/user.schemas"
 import bcrypt from "bcryptjs"
 
 const AuthConfig = {
   providers: [
     Credentials({
       authorize: async (credentials) => {
-        const schemaValidator = userSchema.safeParse(credentials)
+        const schemaValidator = loginSchema.safeParse(credentials)
 
         if (!schemaValidator.success) {
           return null

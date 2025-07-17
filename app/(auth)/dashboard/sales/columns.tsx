@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
-import type { GetSalesWithAll } from "@/types/sales"
+import type { GeneralSale } from "@/types/sales"
 import { formatCurrency } from "@/utils/format-currency"
 import { getStatusConfig } from "@/utils/get-status-config"
 import {
@@ -43,7 +43,7 @@ const SorterIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
   return null
 }
 
-export const columns: ColumnDef<GetSalesWithAll>[] = [
+export const columns: ColumnDef<GeneralSale>[] = [
   {
     id: "id",
     accessorKey: "id",

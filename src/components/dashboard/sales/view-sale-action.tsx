@@ -21,7 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip"
-import type { GetSalesWithAll } from "@/types/sales"
+import type { GeneralSale } from "@/types/sales"
 import { formatCurrency } from "@/utils/format-currency"
 import { formatDate } from "@/utils/format-date"
 import { getStatusConfig } from "@/utils/get-status-config"
@@ -41,7 +41,7 @@ import {
 } from "lucide-react"
 
 type Props = {
-  sale: GetSalesWithAll
+  sale: GeneralSale
   isViewOptionOpen: boolean
   setIsViewOptionOpen: Dispatch<SetStateAction<boolean>>
 }

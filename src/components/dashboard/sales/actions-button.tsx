@@ -31,13 +31,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import type { GetAllClothes, GetAllUsers, GetSalesWithAll } from "@/types/sales"
+import type { GeneralSale, GetAllClothes, GetAllUsers } from "@/types/sales"
 import { Archive, Ellipsis, Headphones, Settings } from "lucide-react"
 import { toast } from "sonner"
 import ViewSaleAction from "./view-sale-action"
 
 interface Props {
-  data: GetSalesWithAll
+  data: GeneralSale
 }
 
 export const ActionsButtons = ({ data }: Props) => {

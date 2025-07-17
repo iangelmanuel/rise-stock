@@ -1,7 +1,7 @@
-import type { GetSalesWithAll } from "@/types/sales"
+import type { GeneralSale } from "@/types/sales"
 import { AlertCircle, CheckCircle, Clock, XCircle } from "lucide-react"
 
-export const getStatusConfig = (status: GetSalesWithAll["status"]) => {
+export const getStatusConfig = (status: GeneralSale["status"]) => {
   switch (status) {
     case "COMPLETED":
       return {
