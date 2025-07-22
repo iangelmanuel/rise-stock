@@ -34,7 +34,7 @@ import {
 import type { GeneralSale, GetAllClothes, GetAllUsers } from "@/types/sales"
 import { Archive, Ellipsis, Headphones, Settings } from "lucide-react"
 import { toast } from "sonner"
-import ViewSaleAction from "./view-sale-action"
+import { ViewSaleAction } from "./view-sale-action"
 
 interface Props {
   data: GeneralSale

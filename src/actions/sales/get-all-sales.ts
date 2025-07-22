@@ -20,6 +20,11 @@ export async function getAllSales() {
                 publicId: true,
                 secureUrl: true
               }
+            },
+            collection: {
+              select: {
+                name: true
+              }
             }
           }
         }

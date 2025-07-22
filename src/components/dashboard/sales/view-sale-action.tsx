@@ -46,11 +46,11 @@ type Props = {
   setIsViewOptionOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function ViewSaleAction({
+export const ViewSaleAction = ({
   sale,
   isViewOptionOpen,
   setIsViewOptionOpen
-}: Props) {
+}: Props) => {
   const statusConfig = getStatusConfig(sale.status)
   const StatusIcon = statusConfig.icon
 
@@ -256,8 +256,7 @@ export default function ViewSaleAction({
                         <div>
                           <span className="font-semibold">Collection:</span>
                           <p className="font-medium text-muted-foreground">
-                            {sale.clothe.collectionId?.toLocaleUpperCase() ||
-                              "N/A"}
+                            {sale.clothe.collection?.name}
                           </p>
                         </div>
                       </div>

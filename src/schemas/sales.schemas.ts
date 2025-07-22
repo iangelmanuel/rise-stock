@@ -1,5 +1,9 @@
 import { z } from "zod"
-import { clotheSchema, clothesImageSchema } from "./stock.schemas"
+import {
+  clotheSchema,
+  clothesImageSchema,
+  collectionSchema
+} from "./stock.schemas"
 import { userSchema } from "./user.schemas"
 
 export const saleSchema = z.object({
@@ -40,7 +44,12 @@ export const generalSaleSchema = z.object({
       createdAt: true
     })
     .extend({
-      clothesImage: z.array(clothesImageSchema)
+      clothesImage: z.array(clothesImageSchema),
+      collection: collectionSchema
+        .pick({
+          name: true
+        })
+        .nullable()
     }),
   user: userSchema.pick({
     id: true,

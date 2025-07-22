@@ -104,6 +104,7 @@ export function SaleForm({
     formState: { errors },
     control,
     getValues,
+    setValue,
     reset
   } = useForm<CreateNewSaleForm>({
     defaultValues: { ...restOfDataToEdit }
@@ -137,6 +138,11 @@ export function SaleForm({
           position: "top-center"
         })
         reset()
+        setCities([])
+        setValue("clotheId", "")
+        setValue("clotheSize", "")
+        setValue("state", "")
+        setValue("userId", "")
       } else {
         toast.error("Something went wrong", {
           description: message,
