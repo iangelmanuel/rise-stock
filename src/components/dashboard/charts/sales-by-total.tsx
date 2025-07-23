@@ -19,7 +19,7 @@ import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 type ChartData = {
   month: string
-  desktop: number
+  total: number
 }
 
 type Props = {
@@ -27,8 +27,8 @@ type Props = {
 }
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  total: {
+    label: "Total",
     color: "var(--chart-1)"
   }
 } satisfies ChartConfig
@@ -41,11 +41,11 @@ export function SalesByTotal({ sales }: Props) {
 
       const existing = acc.find((d) => d.month === month)
       if (existing) {
-        existing.desktop += sale.total
+        existing.total += sale.total
       } else {
         acc.push({
           month,
-          desktop: sale.total
+          total: sale.total
         })
       }
       return acc
@@ -90,8 +90,8 @@ export function SalesByTotal({ sales }: Props) {
             />
 
             <Bar
-              dataKey="desktop"
-              fill="var(--color-desktop)"
+              dataKey="total"
+              fill="var(--color-chart-1)"
               radius={8}
             />
           </BarChart>

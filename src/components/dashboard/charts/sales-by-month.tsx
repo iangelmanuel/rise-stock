@@ -136,9 +136,9 @@ export function SalesByMonth({ sales }: Props) {
             <Area
               dataKey="sales"
               type="natural"
-              fill="var(--color-sales)"
+              fill="var(--color-chart-1)"
               fillOpacity={0.4}
-              stroke="var(--color-sales)"
+              stroke="var(--color-chart-1)"
             />
           </AreaChart>
         </ChartContainer>

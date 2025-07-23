@@ -7,6 +7,12 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip"
 import geoJson from "@/data/geo/colombia-departament.json"
 import { deptoCodeToName } from "@/data/geo/departament-code"
 import type { GeneralSale } from "@/types/sales"
@@ -19,24 +25,27 @@ type Props = {
 }
 
 const getColor = (value: number) => {
-  if (value > 20) return "#6B21A8"
-  if (value > 15) return "#7E22CE"
-  if (value > 10) return "#9333EA"
-  if (value > 1) return "#C084FC"
-  if (value > 0) return "#E9D5FF"
-  return "#FAF5FF"
+  if (value > 15) return "#1e3a8a"
+  if (value > 10) return "#1e40af"
+  if (value > 5) return "#1d4ed8"
+  if (value > 1) return "#3b82f6"
+  if (value > 0) return "#bfdbfe"
+  return "#eff6ff"
 }
 
 export const ColombiaHeatMap = ({ data }: Props) => {
   const chartData: HeatData = data.reduce((acc, sale) => {
     const dept = sale.state?.trim()
+
     if (!dept) return acc
+
     acc[dept] = (acc[dept] ?? 0) + 1
+
     return acc
   }, {} as HeatData)
 
   return (
-    <Card className="w-full h-auto">
+    <Card className="w-full h-auto relative">
       <CardHeader>
         <CardTitle>Sales by Location (Colombia)</CardTitle>
 
@@ -47,34 +56,57 @@ export const ColombiaHeatMap = ({ data }: Props) => {
       </CardHeader>
 
       <CardContent>
-        <ComposableMap
-          projection="geoMercator"
-          projectionConfig={{ scale: 1500, center: [-74, 4] }}
-        >
-          <Geographies geography={geoJson}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const code = geo.properties.codigo_departamento_s
-                const deptName = deptoCodeToName[code] ?? ""
-                const value = chartData[deptName] ?? 0
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={getColor(value)}
-                    stroke="#ffffff"
-                    strokeWidth={0.5}
-                    style={{
-                      default: { outline: "none" },
-                      hover: { outline: "none", fill: "#A855F7" },
-                      pressed: { outline: "none" }
-                    }}
-                  />
-                )
-              })
-            }
-          </Geographies>
-        </ComposableMap>
+        <TooltipProvider delayDuration={100}>
+          <ComposableMap
+            projection="geoMercator"
+            projectionConfig={{ scale: 1500, center: [-74, 4] }}
+          >
+            <Geographies geography={geoJson}>
+              {({ geographies }) =>
+                geographies.map((geo) => {
+                  const code = geo.properties.codigo_departamento_s
+                  const deptName = deptoCodeToName[code] ?? ""
+                  const value = chartData[deptName] ?? 0
+
+                  return (
+                    <Tooltip key={geo.rsmKey}>
+                      <TooltipTrigger asChild>
+                        <Geography
+                          geography={geo}
+                          fill={getColor(value)}
+                          stroke="#f3f3f3"
+                          strokeLinejoin="round"
+                          strokeLinecap="round"
+                          data-department={deptName}
+                          data-value={value}
+                          data-code={code}
+                          strokeWidth={0.5}
+                          style={{
+                            default: { outline: "none" },
+                            hover: { outline: "none", fill: "#33A855F7" },
+                            pressed: { outline: "none" }
+                          }}
+                        />
+                      </TooltipTrigger>
+
+                      <TooltipContent
+                        side="top"
+                        className="bg-black border"
+                      >
+                        <div className="text-sm">
+                          <strong>{deptName}</strong>
+                          <div>
+                            {value} venta{value !== 1 ? "s" : ""}
+                          </div>
+                        </div>
+                      </TooltipContent>
+                    </Tooltip>
+                  )
+                })
+              }
+            </Geographies>
+          </ComposableMap>
+        </TooltipProvider>
       </CardContent>
     </Card>
   )
