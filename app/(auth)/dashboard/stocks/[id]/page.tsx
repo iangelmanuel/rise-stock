@@ -39,7 +39,7 @@ export default async function StockOfCollectionPage({
 
   return (
     <>
-      <section className="my-5 flex items-center justify-between">
+      <section className="my-5 flex flex-col sm:flex-row items-center justify-between">
         <div>
           <h1 className="mb-3 text-4xl font-bold">{collection?.name}</h1>
           <p>

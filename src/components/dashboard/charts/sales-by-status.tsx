@@ -87,6 +87,7 @@ export const SalesByStatus = ({ sales }: Props) => {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
+
             <Pie
               data={data}
               dataKey="count"

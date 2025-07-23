@@ -21,7 +21,7 @@ export default async function SalesPage() {
 
   return (
     <>
-      <section className="flex justify-between items-center my-5">
+      <section className="flex flex-col sm:flex-row justify-between items-center my-5">
         <div>
           <h1 className="mb-3 text-4xl font-bold">Sales</h1>
           <p>

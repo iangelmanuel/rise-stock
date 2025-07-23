@@ -12,7 +12,7 @@ export default async function StocksPage() {
   const collection = await getAllCollection()
   return (
     <>
-      <section className="flex justify-between items-center my-5">
+      <section className="flex flex-col sm:flex-row justify-between items-center my-5">
         <div>
           <h1 className="mb-3 text-4xl font-bold">Stock</h1>
           <p>

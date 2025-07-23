@@ -18,6 +18,7 @@ import {
 import { DialogFooter, DialogHeader } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Select,
   SelectContent,
@@ -48,23 +49,31 @@ export const CreateNewSale = ({ users, clothes }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default">Create Sale</Button>
+        <Button
+          variant="default"
+          className="w-full sm:w-auto mt-3 sm:mt-0"
+        >
+          Create Sale
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[550px]">
-        <DialogHeader>
-          <DialogTitle>Create a new Sale</DialogTitle>
-          <DialogDescription>
-            This is the form to create a new sale. You can add clothes to this
-            sale later.
-          </DialogDescription>
-        </DialogHeader>
 
-        {/* Form */}
-        <SaleForm
-          users={users}
-          clothes={clothes}
-          startTransition={startTransition}
-        />
+      <DialogContent className="sm:max-w-[550px]">
+        <ScrollArea className="max-h-[70vh] w-full">
+          <DialogHeader>
+            <DialogTitle>Create a new Sale</DialogTitle>
+            <DialogDescription>
+              This is the form to create a new sale. You can add clothes to this
+              sale later.
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* Form */}
+          <SaleForm
+            users={users}
+            clothes={clothes}
+            startTransition={startTransition}
+          />
+        </ScrollArea>
 
         <DialogFooter>
           <Button

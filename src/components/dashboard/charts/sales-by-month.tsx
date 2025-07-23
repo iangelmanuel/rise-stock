@@ -15,11 +15,12 @@ import {
   ChartTooltipContent
 } from "@/components/ui/chart"
 import type { GeneralSale } from "@/types/sales"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { formatDate } from "@/utils/format-date"
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
 type ChartData = {
-  date: string
-  desktop: number
+  month: string
+  sales: number
 }
 
 type Props = {
@@ -27,10 +28,10 @@ type Props = {
 }
 
 const chartConfig = {
-  views: {
-    label: "Sales"
+  month: {
+    label: "Month"
   },
-  desktop: {
+  sales: {
     label: "Sales",
     color: "var(--chart-1)"
   }
@@ -42,22 +43,24 @@ export function SalesByMonth({ sales }: Props) {
       const date = new Date(sale.saleDate)
       const key = date.toISOString().split("T")[0]
 
-      const existing = acc.find((d) => d.date === key)
+      const existing = acc.find((d) => d.month === key)
+
       if (existing) {
-        existing.desktop += 1
+        existing.sales += 1
       } else {
-        acc.push({ date: key, desktop: 1 })
+        acc.push({ month: key, sales: 1 })
       }
+
       return acc
     }, [])
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .sort((a, b) => new Date(a.month).getTime() - new Date(b.month).getTime())
 
   const [activeChart, setActiveChart] =
-    React.useState<keyof typeof chartConfig>("desktop")
+    React.useState<keyof typeof chartConfig>("sales")
 
   const total = React.useMemo(
     () => ({
-      desktop: data.reduce((acc, curr) => acc + curr.desktop, 0)
+      sales: data.reduce((acc, curr) => acc + curr.sales, 0)
     }),
     [data]
   )
@@ -74,7 +77,7 @@ export function SalesByMonth({ sales }: Props) {
         </div>
 
         <div className="flex">
-          {["desktop"].map((key) => {
+          {["sales"].map((key) => {
             const chart = key as keyof typeof chartConfig
             return (
               <button
@@ -99,9 +102,9 @@ export function SalesByMonth({ sales }: Props) {
       <CardContent className="px-2 sm:p-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
+          className="aspect-auto h-[350px] w-full"
         >
-          <LineChart
+          <AreaChart
             accessibilityLayer
             data={data}
             margin={{
@@ -112,44 +115,32 @@ export function SalesByMonth({ sales }: Props) {
             <CartesianGrid vertical={false} />
 
             <XAxis
-              dataKey="date"
+              dataKey="month"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value)
-                return date.toLocaleDateString("en-US", {
+              tickFormatter={(value) =>
+                formatDate(value, {
+                  day: "numeric",
                   month: "short",
-                  day: "numeric"
+                  year: "2-digit"
                 })
-              }}
-            />
-
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  className="w-[150px]"
-                  nameKey="views"
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric"
-                    })
-                  }}
-                />
               }
             />
 
-            <Line
-              dataKey={activeChart}
-              type="monotone"
-              stroke={`var(--color-${activeChart})`}
-              strokeWidth={2}
-              dot={false}
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="line" />}
             />
-          </LineChart>
+
+            <Area
+              dataKey="sales"
+              type="natural"
+              fill="var(--color-sales)"
+              fillOpacity={0.4}
+              stroke="var(--color-sales)"
+            />
+          </AreaChart>
         </ChartContainer>
       </CardContent>
     </Card>

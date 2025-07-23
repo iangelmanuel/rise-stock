@@ -7,7 +7,7 @@ import { ColombiaHeatMap } from "@/components/dashboard/charts/sales-by-location
 import { SalesByMonth } from "@/components/dashboard/charts/sales-by-month"
 import { SalesBySize } from "@/components/dashboard/charts/sales-by-size"
 import { SalesByStatus } from "@/components/dashboard/charts/sales-by-status"
-import { SalesByTotal } from "@/components/dashboard/charts/salesByTotal"
+import { SalesByTotal } from "@/components/dashboard/charts/sales-by-total"
 
 export const metadata: Metadata = {
   title: "Dashboard - Rise App",
@@ -31,12 +31,12 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-        <SalesByStatus sales={sales} />
         <SalesByTotal sales={sales} />
-        <SalesByCollection sales={sales} />
+        <SalesByStatus sales={sales} />
       </section>
 
       <section className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <SalesByCollection sales={sales} />
         <SalesBySize data={sales} />
         <ColombiaHeatMap data={sales} />
       </section>

@@ -26,8 +26,12 @@ type ChartData = {
 }
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  size: {
+    label: "Size",
+    color: "var(--chart-1)"
+  },
+  count: {
+    label: "Count",
     color: "var(--chart-1)"
   }
 } satisfies ChartConfig
@@ -74,7 +78,7 @@ export function SalesBySize({ data }: Props) {
 
             <Radar
               dataKey="count"
-              fill="var(--color-desktop)"
+              fill="var(--color-chart-1)"
               fillOpacity={0.6}
             />
           </RadarChart>

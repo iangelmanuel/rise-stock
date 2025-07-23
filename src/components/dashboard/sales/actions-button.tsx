@@ -31,6 +31,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import type { GeneralSale, GetAllClothes, GetAllUsers } from "@/types/sales"
 import { Archive, Ellipsis, Headphones, Settings } from "lucide-react"
 import { toast } from "sonner"
@@ -176,17 +177,21 @@ export const ActionsButtons = ({ data }: Props) => {
         onOpenChange={setIsEditOptionOpen}
       >
         <DialogContent className="max-w-(--breakpoint-sm)">
-          <DialogHeader>
-            <DialogTitle>Edit Sale</DialogTitle>
-            <DialogDescription>Modify the sale information.</DialogDescription>
-          </DialogHeader>
+          <ScrollArea className="max-h-[70vh] w-full">
+            <DialogHeader>
+              <DialogTitle>Edit Sale</DialogTitle>
+              <DialogDescription>
+                Modify the sale information.
+              </DialogDescription>
+            </DialogHeader>
 
-          <SaleForm
-            users={users}
-            clothes={clothes}
-            dataToEdit={dataToEdit}
-            startTransition={startTransition}
-          />
+            <SaleForm
+              users={users}
+              clothes={clothes}
+              dataToEdit={dataToEdit}
+              startTransition={startTransition}
+            />
+          </ScrollArea>
 
           <DialogFooter>
             <Button

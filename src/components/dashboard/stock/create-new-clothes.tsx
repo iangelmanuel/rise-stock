@@ -41,7 +41,12 @@ export function CreateNewClothes({ collectionData }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default">Create Clothes Variant</Button>
+        <Button
+          variant="default"
+          className="w-full sm:w-auto mt-3 sm:mt-0"
+        >
+          Create Clothes Variant
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[650px]">
         <DialogHeader>

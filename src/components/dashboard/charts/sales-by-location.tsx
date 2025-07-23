@@ -20,8 +20,8 @@ type Props = {
 
 const getColor = (value: number) => {
   if (value > 20) return "#6B21A8"
-  if (value > 10) return "#7E22CE"
-  if (value > 5) return "#9333EA"
+  if (value > 15) return "#7E22CE"
+  if (value > 10) return "#9333EA"
   if (value > 1) return "#C084FC"
   if (value > 0) return "#E9D5FF"
   return "#FAF5FF"
@@ -39,11 +39,13 @@ export const ColombiaHeatMap = ({ data }: Props) => {
     <Card className="w-full h-auto">
       <CardHeader>
         <CardTitle>Sales by Location (Colombia)</CardTitle>
+
         <CardDescription>
           This heat map shows the number of sales by department in Colombia.
           Hover over a department to see the number of sales.
         </CardDescription>
       </CardHeader>
+
       <CardContent>
         <ComposableMap
           projection="geoMercator"

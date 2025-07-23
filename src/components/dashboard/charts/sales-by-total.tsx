@@ -13,6 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from "@/components/ui/chart"
+import { monthOrder } from "@/data/months"
 import type { GeneralSale } from "@/types/sales"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
@@ -33,24 +34,26 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function SalesByTotal({ sales }: Props) {
-  const data = sales.reduce<ChartData[]>((acc, sale) => {
-    const date = new Date(sale.saleDate)
-    const month = date.toLocaleDateString("es-CO", { month: "long" })
+  const data = sales
+    .reduce<ChartData[]>((acc, sale) => {
+      const date = new Date(sale.saleDate)
+      const month = date.toLocaleDateString("es-CO", { month: "long" })
 
-    const existing = acc.find((d) => d.month === month)
-    if (existing) {
-      existing.desktop += sale.total
-    } else {
-      acc.push({
-        month,
-        desktop: sale.total
-      })
-    }
-    return acc
-  }, [])
+      const existing = acc.find((d) => d.month === month)
+      if (existing) {
+        existing.desktop += sale.total
+      } else {
+        acc.push({
+          month,
+          desktop: sale.total
+        })
+      }
+      return acc
+    }, [])
+    .sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month))
 
   return (
-    <Card>
+    <Card className="col-span-1 sm:col-span-2">
       <CardHeader>
         <CardTitle>Summary of Sales by Month</CardTitle>
 
@@ -61,23 +64,31 @@ export function SalesByTotal({ sales }: Props) {
       </CardHeader>
 
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-auto h-[350px] w-full"
+        >
           <BarChart
             accessibilityLayer
             data={data}
           >
             <CartesianGrid vertical={false} />
+
             <XAxis
               dataKey="month"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) =>
+                value.charAt(0).toUpperCase() + value.slice(1, 3)
+              }
             />
+
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
+
             <Bar
               dataKey="desktop"
               fill="var(--color-desktop)"
