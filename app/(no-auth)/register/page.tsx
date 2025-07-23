@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
-import { RegisterCard } from "@/components/auth/register/register-card"
+import { redirect } from "next/navigation"
+
+// import { RegisterCard } from "@/components/auth/register/register-card"
 
 export const metadata: Metadata = {
   title: "Register - Rise App",
@@ -8,5 +10,6 @@ export const metadata: Metadata = {
 }
 
 export default function RegisterPage() {
-  return <RegisterCard />
+  // return <RegisterCard />
+  return redirect("/login")
 }

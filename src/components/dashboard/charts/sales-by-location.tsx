@@ -96,7 +96,7 @@ export const ColombiaHeatMap = ({ data }: Props) => {
                         <div className="text-sm">
                           <strong>{deptName}</strong>
                           <div>
-                            {value} venta{value !== 1 ? "s" : ""}
+                            {value} {value === 1 ? "Sale" : "Sales"}
                           </div>
                         </div>
                       </TooltipContent>

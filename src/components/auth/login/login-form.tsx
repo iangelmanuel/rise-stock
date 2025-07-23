@@ -1,7 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
-import Link from "next/link"
+// import Link from "next/link"
 import { redirect } from "next/navigation"
 import { loginUser } from "@/actions/auth/login.action"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
@@ -91,13 +91,13 @@ export const LoginForm = () => {
         </form>
       </CardContent>
 
-      <CardFooter className="flex justify-between">
-        <Link
+      <CardFooter className="flex justify-end">
+        {/* <Link
           href="/register"
           className="text-sm text-blue-500 transition-colors hover:text-blue-700 hover:underline"
         >
           Register
-        </Link>
+        </Link> */}
         <Button
           disabled={isPending}
           form="login-form"
