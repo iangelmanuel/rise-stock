@@ -54,10 +54,11 @@ export function SalesBySize({ data }: Props) {
   return (
     <Card>
       <CardHeader className="items-center pb-4">
-        <CardTitle>Radar Chart</CardTitle>
+        <CardTitle>Sales by Size</CardTitle>
 
         <CardDescription>
-          Showing total visitors for the last 6 months
+          This chart shows the distribution of sales by clothing size. Hover
+          over the chart to see the count for each size.
         </CardDescription>
       </CardHeader>
 

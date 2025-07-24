@@ -179,7 +179,7 @@ function DropdownCollectionEdit({
 
         {/* Form */}
         <form
-          id="create-collection"
+          id="edit-collection"
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-1 gap-4 py-4"
         >
@@ -203,10 +203,10 @@ function DropdownCollectionEdit({
           <Button
             type="submit"
             disabled={isPending}
-            form="create-collection"
+            form="edit-collection"
           >
             <ButtonContentLoading
-              label="Create Collection"
+              label="Edit Collection"
               isPending={isPending}
             />
           </Button>

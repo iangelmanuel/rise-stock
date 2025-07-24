@@ -45,9 +45,11 @@ export const EditVariantStock = ({ item }: Props) => {
           Edit Stock
         </Button>
       </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit {item.design} collection</DialogTitle>
+
           <DialogDescription>
             Edit the details of {item.design} collection.
           </DialogDescription>

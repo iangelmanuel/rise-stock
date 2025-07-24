@@ -30,7 +30,7 @@ export const CreateNewCollection = () => {
           variant="default"
           className="w-full sm:w-auto mt-3 sm:mt-0"
         >
-          Create Clothes Variant
+          Create Collection
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[400px]">
@@ -49,7 +49,7 @@ export const CreateNewCollection = () => {
           <Button
             type="submit"
             disabled={isPending}
-            form="create-clothes-variant"
+            form="create-new-collection"
           >
             <ButtonContentLoading
               label="Create Collection"
@@ -96,7 +96,7 @@ function CreateNewCollectionForm({
 
   return (
     <form
-      id="create-clothes-variant"
+      id="create-new-collection"
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 gap-4 py-4"
     >

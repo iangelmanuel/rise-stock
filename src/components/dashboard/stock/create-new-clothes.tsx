@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import { stockValidation } from "@/form-config/stock"
 import type { CreateClotheStockForm } from "@/types/stock"
@@ -48,20 +49,24 @@ export function CreateNewClothes({ collectionData }: Props) {
           Create Clothes Variant
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[650px]">
-        <DialogHeader>
-          <DialogTitle>Create a new Clothes Variant</DialogTitle>
-          <DialogDescription>
-            Create a new clothes variant for this collection. You can add
-            multiple variants to a single collection.
-          </DialogDescription>
-        </DialogHeader>
 
-        {/* Form */}
-        <CreateNewClothesForm
-          collectionData={collectionData}
-          startTransition={startTransition}
-        />
+      <DialogContent className="sm:max-w-[650px]">
+        <ScrollArea className="max-h-[70vh] w-full">
+          <DialogHeader>
+            <DialogTitle>Create a new Clothes Variant</DialogTitle>
+
+            <DialogDescription>
+              Create a new clothes variant for this collection. You can add
+              multiple variants to a single collection.
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* Form */}
+          <CreateNewClothesForm
+            collectionData={collectionData}
+            startTransition={startTransition}
+          />
+        </ScrollArea>
 
         <DialogFooter>
           <Button
@@ -143,7 +148,9 @@ function CreateNewClothesForm({
       className="grid grid-cols-1 gap-4 py-4 sm:grid-cols-2"
     >
       <div className="grid gap-4">
-        <span className="text-center text-lg font-bold">Clothes Info</span>
+        <span className="hidden sm:block text-center text-lg font-bold">
+          Clothes Info
+        </span>
 
         <div className="grid gap-2">
           <Label htmlFor="design">Design name</Label>
@@ -256,7 +263,9 @@ function CreateNewClothesForm({
       </div>
 
       <div className="grid gap-4">
-        <span className="text-center text-lg font-bold">Stocks</span>
+        <span className="hidden sm:block text-center text-lg font-bold">
+          Stocks
+        </span>
 
         {EXISTANT_SIZES.map((size, index) => (
           <div

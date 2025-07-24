@@ -83,7 +83,7 @@ export const ColombiaHeatMap = ({ data }: Props) => {
                           strokeWidth={0.5}
                           style={{
                             default: { outline: "none" },
-                            hover: { outline: "none", fill: "#33A855F7" },
+                            hover: { outline: "none", fill: "#ffffff" },
                             pressed: { outline: "none" }
                           }}
                         />

@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import type { EditClothesInfoForm } from "@/types/stock"
 import type {
   Clothes,
@@ -57,30 +58,32 @@ export const EditVariantInfo = ({ item, collectionName, publicId }: Props) => {
       </DialogTrigger>
 
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit {item.design} collection</DialogTitle>
+        <ScrollArea className="max-h-[70vh] w-full">
+          <DialogHeader>
+            <DialogTitle>Edit {item.design} collection</DialogTitle>
 
-          <DialogDescription>
-            Edit the details of {item.design} collection.
-          </DialogDescription>
+            <DialogDescription>
+              Edit the details of {item.design} collection.
+            </DialogDescription>
 
-          {/* Form */}
-          <EditVariantInfoForm
-            item={item}
-            startTransition={startTransition}
-            collectionName={collectionName}
-            publicId={publicId}
-          />
-        </DialogHeader>
+            {/* Form */}
+            <EditVariantInfoForm
+              item={item}
+              startTransition={startTransition}
+              collectionName={collectionName}
+              publicId={publicId}
+            />
+          </DialogHeader>
+        </ScrollArea>
 
         <DialogFooter>
           <Button
             type="submit"
             disabled={isPending}
-            form="create-clothes-variant"
+            form="edit-variant-info"
           >
             <ButtonContentLoading
-              label="Update Stock"
+              label="Update Info"
               isPending={isPending}
             />
           </Button>
@@ -153,7 +156,7 @@ function EditVariantInfoForm({
 
   return (
     <form
-      id="create-clothes-variant"
+      id="edit-variant-info"
       onSubmit={handleSubmit(onSubmit)}
       className="grid gap-4 py-4"
     >
