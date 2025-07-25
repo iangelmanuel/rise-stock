@@ -16,7 +16,7 @@ import { UserSidebarMenu } from "./user-sidebar-menu"
 
 export function MainSidebar() {
   return (
-    <Sidebar>
+    <Sidebar variant="floating">
       <SidebarContent>
         <SidebarGroup>
           <div className="flex items-center gap-1 border-b py-2 mb-2">
