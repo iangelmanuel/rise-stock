@@ -216,7 +216,7 @@ function DropdownCollectionEdit({
   )
 }
 
-export const DropdownCollectionDelete = ({
+export function DropdownCollectionDelete({
   collectionData,
   isPending,
   startTransition,
@@ -228,7 +228,7 @@ export const DropdownCollectionDelete = ({
   startTransition: TransitionStartFunction
   isDeleteOptionOpen: boolean
   setIsDeleteOptionOpen: Dispatch<SetStateAction<boolean>>
-}) => {
+}) {
   const [inputValue, setInputValue] = useState("")
   const [isInputValueIncorrect, setIsInputValueIncorrect] = useState(true)
 

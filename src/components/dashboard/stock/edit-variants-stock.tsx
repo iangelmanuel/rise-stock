@@ -30,7 +30,7 @@ type Props = {
   }
 }
 
-export const EditVariantStock = ({ item }: Props) => {
+export function EditVariantStock({ item }: Props) {
   const [isPending, startTransition] = useTransition()
   return (
     <Dialog>

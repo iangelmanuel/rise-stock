@@ -3,7 +3,7 @@ import { redirect } from "next/navigation"
 import { getAllSales } from "@/actions/sales/get-all-sales"
 import { auth } from "@/auth"
 import { SalesByCollection } from "@/components/dashboard/charts/sales-by-collection"
-import { ColombiaHeatMap } from "@/components/dashboard/charts/sales-by-location"
+import { SalesByLocation } from "@/components/dashboard/charts/sales-by-location"
 import { SalesByMonth } from "@/components/dashboard/charts/sales-by-month"
 import { SalesBySize } from "@/components/dashboard/charts/sales-by-size"
 import { SalesByStatus } from "@/components/dashboard/charts/sales-by-status"
@@ -38,7 +38,7 @@ export default async function DashboardPage() {
       <section className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
         <SalesByCollection sales={sales} />
         <SalesBySize data={sales} />
-        <ColombiaHeatMap data={sales} />
+        <SalesByLocation data={sales} />
       </section>
     </>
   )

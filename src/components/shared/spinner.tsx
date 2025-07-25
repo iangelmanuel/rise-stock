@@ -1,5 +1,5 @@
 import "@/styles/spinner.css"
 
-export const Spinner = () => {
+export function Spinner() {
   return <span className="loader"></span>
 }

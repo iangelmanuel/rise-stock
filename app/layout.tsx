@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Rise App",
   description: "This is the Rise App, a web application for managing stocks.",
   keywords: ["stocks", "inventory", "management", "sales"],
-  creator: "Angel Manuel",
+  creator: "Angel DM",
   openGraph: {
     title: "Rise App",
     description: "This is the Rise App, a web application for managing stocks.",

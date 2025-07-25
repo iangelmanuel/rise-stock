@@ -5,7 +5,7 @@ import { registerSchema } from "@/schemas/user.schemas"
 import type { RegisterFormData } from "@/types/auth"
 import bcrypt from "bcryptjs"
 
-export const registerUser = async (data: RegisterFormData) => {
+export async function registerUser(data: RegisterFormData) {
   try {
     const schemaValidation = registerSchema.safeParse(data)
 

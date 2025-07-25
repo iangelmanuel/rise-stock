@@ -22,7 +22,7 @@ type Props = {
   collection: CollectionWithClothes[]
 }
 
-export const ListCollection = ({ collection }: Props) => {
+export function ListCollection({ collection }: Props) {
   return (
     <section className="mt-10">
       <Table>

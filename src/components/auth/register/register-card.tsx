@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card"
 import { RegisterForm } from "./register-form"
 
-export const RegisterCard = () => {
+export function RegisterCard() {
   return (
     <section className="flex h-screen flex-col items-center justify-center">
       <h1 className="mb-5 text-center text-6xl font-bold">

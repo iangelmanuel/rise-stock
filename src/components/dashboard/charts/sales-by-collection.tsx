@@ -34,7 +34,7 @@ const colorVariables = [
   "var(--chart-5)"
 ]
 
-export const SalesByCollection = ({ sales }: Props) => {
+export function SalesByCollection({ sales }: Props) {
   const data = sales.reduce<ChartData[]>((acc, sale) => {
     const collection = sale.clothe.collection?.name ?? "Unknown"
 

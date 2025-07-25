@@ -23,7 +23,7 @@ interface Props {
   clotheName: string
 }
 
-export const ImageCarousel = ({ images, clotheName }: Props) => {
+export function ImageCarousel({ images, clotheName }: Props) {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false)
 
   console.log(images)

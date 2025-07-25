@@ -41,7 +41,7 @@ interface Props {
   data: GeneralSale
 }
 
-export const ActionsButtons = ({ data }: Props) => {
+export function ActionsButtons({ data }: Props) {
   const [isViewOptionOpen, setIsViewOptionOpen] = useState(false)
   const [isEditOptionOpen, setIsEditOptionOpen] = useState(false)
   const [isDeleteOptionOpen, setIsDeleteOptionOpen] = useState(false)

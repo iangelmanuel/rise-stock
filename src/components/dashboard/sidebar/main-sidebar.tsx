@@ -19,7 +19,7 @@ export function MainSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <div className="flex items-center gap-1 border-b py-2">
+          <div className="flex items-center gap-1 border-b py-2 mb-2">
             <Image
               src="https://res.cloudinary.com/dxer3pinh/image/upload/v1747781223/logo_kfdbwv.webp"
               alt="Logo"

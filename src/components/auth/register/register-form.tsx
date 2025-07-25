@@ -21,7 +21,7 @@ import { toast } from "sonner"
 import { ErrorFormMessage } from "../../shared/error-form-message"
 import { Label } from "../../ui/label"
 
-export const RegisterForm = () => {
+export function RegisterForm() {
   const [isPending, startTransition] = useTransition()
 
   const {

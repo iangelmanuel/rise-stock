@@ -21,7 +21,7 @@ import type { CreateCollectionForm } from "@/types/stock"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-export const CreateNewCollection = () => {
+export function CreateNewCollection() {
   const [isPending, startTransition] = useTransition()
   return (
     <Dialog>

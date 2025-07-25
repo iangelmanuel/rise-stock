@@ -44,7 +44,7 @@ type Props = {
   clothes: GetAllClothes[]
 }
 
-export const CreateNewSale = ({ users, clothes }: Props) => {
+export function CreateNewSale({ users, clothes }: Props) {
   const [isPending, startTransition] = useTransition()
   return (
     <Dialog>
@@ -254,7 +254,7 @@ export function SaleForm({
             />
           )}
           {errors[field.name] && (
-            <ErrorFormMessage message={errors[field.name]!.message} />
+            <ErrorFormMessage message={errors[field.name]?.message} />
           )}
         </div>
       ))}

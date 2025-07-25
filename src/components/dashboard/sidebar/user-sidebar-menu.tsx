@@ -1,32 +1,35 @@
+import Link from "next/link"
 import { auth } from "@/auth"
+import { UserAvatar } from "@/components/shared/user-avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { User } from "lucide-react"
 import { SideBarButtonLogout } from "./sidebar-button-logout"
 
-export const UserSidebarMenu = async () => {
+export async function UserSidebarMenu() {
   const session = await auth()
-  const userName = session!.user!.name
+  const user = session!.user
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="cursor-pointer">
+      <DropdownMenuTrigger className="cursor-pointer mb-2 hover:bg-muted-foreground/10 rounded-md">
         <section className="flex items-center gap-x-2 rounded-md p-2">
-          <article className="bg-foreground/20 size-10 rounded-full">
-            {userName && (
-              <span className="text-foreground text-2xl font-bold">
-                {userName.charAt(0).toUpperCase()}
-              </span>
-            )}
-          </article>
+          <UserAvatar
+            userName={user.name}
+            avatar={user.avatar}
+            color="bg-muted-foreground"
+            className="size-10"
+          />
 
           <section>
             <h2 className="text-foreground text-start text-sm font-bold">
-              {userName}
+              {user.name}
             </h2>
             <p className="text-foreground/70 text-start text-xs">
               View Profile
@@ -37,8 +40,14 @@ export const UserSidebarMenu = async () => {
 
       <DropdownMenuContent className="w-[250px]">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
+
         <DropdownMenuSeparator />
-        {/* <DropdownMenuItem>Profile</DropdownMenuItem> */}
+
+        <DropdownMenuItem className="w-full">
+          <User />
+
+          <Link href="/dashboard/profile">Profile</Link>
+        </DropdownMenuItem>
 
         {/* Logout */}
         <SideBarButtonLogout />

@@ -12,7 +12,7 @@ type Props = {
   register: string | undefined
 }
 
-export const LoginCard = ({ register }: Props) => {
+export function LoginCard({ register }: Props) {
   return (
     <section className="flex h-screen flex-col items-center justify-center">
       <h1 className="mb-5 text-center text-6xl font-bold">

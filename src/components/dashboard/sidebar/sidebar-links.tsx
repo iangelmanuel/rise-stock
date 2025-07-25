@@ -33,7 +33,7 @@ const items = [
   }
 ]
 
-export const SidebarLinks = () => {
+export function SidebarLinks() {
   const pathname = usePathname()
 
   const activeItem = items
@@ -42,7 +42,8 @@ export const SidebarLinks = () => {
     )
     .sort((a, b) => b.url.length - a.url.length)[0]?.url
 
-  const styles = "bg-secondary text-secondary-foreground rounded"
+  const styles =
+    "bg-secondary text-secondary-foreground rounded-md hover:bg-secondary hover:text-secondary-foreground"
   return (
     <SidebarMenu>
       {items.map((item) => (

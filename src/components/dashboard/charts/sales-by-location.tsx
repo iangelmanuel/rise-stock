@@ -33,7 +33,7 @@ const getColor = (value: number) => {
   return "#eff6ff"
 }
 
-export const ColombiaHeatMap = ({ data }: Props) => {
+export function SalesByLocation({ data }: Props) {
   const chartData: HeatData = data.reduce((acc, sale) => {
     const dept = sale.state?.trim()
 

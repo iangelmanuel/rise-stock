@@ -28,7 +28,7 @@ type Props = {
   sales: GeneralSale[]
 }
 
-export const SalesByStatus = ({ sales }: Props) => {
+export function SalesByStatus({ sales }: Props) {
   const data = sales
     .reduce<ChartData[]>((acc, sale) => {
       const status = sale.status

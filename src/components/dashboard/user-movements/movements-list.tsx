@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { badgeVariantSwitch } from "@/utils/badgeVariantSwitch"
+import { badgeVariantSwitch } from "@/utils/badge-variant-switch"
 import { formatDate } from "@/utils/format-date"
 import type { User, UserMovement } from "@prisma/client"
 
@@ -19,7 +19,7 @@ type Props = {
   movements: MovementWithUser[] | null
 }
 
-export const MovementsList = ({ movements }: Props) => {
+export function MovementsList({ movements }: Props) {
   return (
     <Table>
       <TableHeader>

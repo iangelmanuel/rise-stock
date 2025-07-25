@@ -2,8 +2,8 @@
 
 import type { Dispatch, SetStateAction } from "react"
 import Image from "next/image"
+import { UserAvatar } from "@/components/shared/user-avatar"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -46,11 +46,11 @@ type Props = {
   setIsViewOptionOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export const ViewSaleAction = ({
+export function ViewSaleAction({
   sale,
   isViewOptionOpen,
   setIsViewOptionOpen
-}: Props) => {
+}: Props) {
   const statusConfig = getStatusConfig(sale.status)
   const StatusIcon = statusConfig.icon
 
@@ -104,16 +104,11 @@ export const ViewSaleAction = ({
 
                 <CardContent className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <Avatar className="h-12 w-12">
-                      <AvatarImage src="/placeholder.svg" />
-                      <AvatarFallback className="bg-blue-100 text-blue-600 font-semibold">
-                        {sale.client
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")
-                          .slice(0, 2)}
-                      </AvatarFallback>
-                    </Avatar>
+                    <UserAvatar
+                      userName={sale.client}
+                      color="bg-blue-100 text-blue-600"
+                      className="size-12"
+                    />
 
                     <div className="flex-1">
                       <h3 className="font-semibold text-lg">{sale.client}</h3>
@@ -182,16 +177,13 @@ export const ViewSaleAction = ({
 
                 <CardContent>
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src="/placeholder.svg" />
-                      <AvatarFallback className="bg-yellow-100 text-yellow-600 font-semibold">
-                        {sale.user.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")
-                          .slice(0, 2)}
-                      </AvatarFallback>
-                    </Avatar>
+                    <UserAvatar
+                      userName={sale.user.name}
+                      // TODO: Replace with actual avatar URL
+                      // avatar={sale.user.avatar}
+                      color="bg-yellow-100 text-yellow-600"
+                      className="size-12"
+                    />
 
                     <div>
                       <p className="font-semibold">{sale.user.name}</p>

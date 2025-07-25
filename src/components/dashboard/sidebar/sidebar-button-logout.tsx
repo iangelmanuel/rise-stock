@@ -6,7 +6,7 @@ import { ButtonContentLoading } from "@/components/shared/button-content-loading
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { LogOut } from "lucide-react"
 
-export const SideBarButtonLogout = () => {
+export function SideBarButtonLogout() {
   const [isPending, startTransition] = useTransition()
 
   const handleClick = () => {

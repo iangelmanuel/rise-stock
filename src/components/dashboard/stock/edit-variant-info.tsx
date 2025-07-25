@@ -41,7 +41,7 @@ type Props = {
   publicId: ClothesImage["publicId"] | null
 }
 
-export const EditVariantInfo = ({ item, collectionName, publicId }: Props) => {
+export function EditVariantInfo({ item, collectionName, publicId }: Props) {
   const [isPending, startTransition] = useTransition()
   return (
     <Dialog>

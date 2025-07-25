@@ -6,7 +6,7 @@ type Props = {
   isPending: boolean
 }
 
-export const ButtonContentLoading = ({ label, isPending }: Props) => {
+export function ButtonContentLoading({ label, isPending }: Props) {
   return isPending ? (
     <div className="flex items-center gap-2">
       <Spinner />

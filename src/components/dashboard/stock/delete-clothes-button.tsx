@@ -28,7 +28,7 @@ type Props = {
   publicId: ClothesImage["publicId"] | null
 }
 
-export const DeleteClothesButton = ({ item, publicId }: Props) => {
+export function DeleteClothesButton({ item, publicId }: Props) {
   const [openDialog, setOpenDialog] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [isInputValueIncorrect, setIsInputValueIncorrect] = useState(true)
