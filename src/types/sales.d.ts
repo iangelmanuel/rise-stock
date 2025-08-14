@@ -1,7 +1,8 @@
 import type {
   createNewSale,
   generalSaleSchema,
-  saleSchema
+  saleSchema,
+  updateSaleStatusSchema
 } from "@/schemas/sales.schemas"
 import type { z } from "zod"
 
@@ -20,3 +21,5 @@ export type GetAllUsers = {
   id: string
   name: string
 }
+
+export type UpdateSaleStatus = z.infer<typeof updateSaleStatusSchema>

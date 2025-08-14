@@ -126,7 +126,7 @@ export function SaleForm({
     setCities(getCitiesByState ? getCitiesByState.cities : [])
   }
 
-  const onSubmit = async (formData: CreateNewSaleForm) => {
+  const onSubmit = (formData: CreateNewSaleForm) => {
     const { delivery, total, saleDate, ...restOfData } = formData
 
     const dataFormatted = {

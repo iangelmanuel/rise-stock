@@ -15,19 +15,17 @@ import {
   useReactTable
 } from "@tanstack/react-table"
 import React, { useState, useTransition } from "react"
+import { UpdateManyStatusForm } from "@/components/dashboard/sales/update-many-status-form"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
+import { Button } from "@/components/ui/button"
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog"
-import { Button, buttonVariants } from "@/components/ui/button"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog"
+import { DialogFooter, DialogHeader } from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -68,7 +66,6 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
 
-  // TODO: Use this function to delete multiple sales
   const [isPending, startTransition] = useTransition()
 
   const isDeleteVisible = Object.keys(rowSelection).length > 0
@@ -92,6 +89,12 @@ export function DataTable<TData, TValue>({
     }
   })
 
+  const salesId = table.getSelectedRowModel().rows.map((row) => {
+    const sale = row.original
+    const { id } = sale as { id: string }
+    return id
+  })
+
   return (
     <>
       <section className="flex flex-col-reverse items-center justify-center gap-y-2 py-4 sm:flex-row sm:justify-between sm:gap-y-0">
@@ -107,70 +110,42 @@ export function DataTable<TData, TValue>({
 
         {isDeleteVisible && (
           <>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button
-                  variant="destructive"
-                  disabled={isPending}
-                  className="w-full sm:ml-2 sm:w-auto"
-                >
-                  <ButtonContentLoading
-                    label="Delete Sales"
-                    isPending={isPending}
-                  />
-                </Button>
-              </AlertDialogTrigger>
+            <Dialog>
+              <DialogTrigger
+                asChild
+                className="ml-2"
+              >
+                <Button>Change Status</Button>
+              </DialogTrigger>
 
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>
-                    ¿Are you sure you want to delete these sales?
-                  </AlertDialogTitle>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Update Status of Selected Sales</DialogTitle>
+                  <DialogDescription>
+                    Make changes to the status of the selected sales here. Click
+                    save when you&apos;re done.
+                  </DialogDescription>
+                </DialogHeader>
 
-                  <AlertDialogDescription>
-                    This action cannot be undone and will permanently delete the
-                    selected orders.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
+                <UpdateManyStatusForm
+                  ids={salesId}
+                  startTransition={startTransition}
+                />
 
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-
-                  <AlertDialogAction
-                    // onClick={() => {
-                    //   const ordersId = table
-                    //     .getSelectedRowModel()
-                    //     .rows.map((row) => {
-                    //       const order = row.original as UserOrderByAdmin
-                    //       const { id } = order
-                    //       return id
-                    //     })
-
-                    //   startTransition(async () => {
-                    //     const response = await deleteManyOrders(ordersId)
-                    //     if (response.ok) {
-                    //       toast.success("¡Todo salió bien!", {
-                    //         description: response.message,
-                    //         duration: 3000,
-                    //         position: "top-right"
-                    //       })
-                    //       setRowSelection({})
-                    //     } else {
-                    //       toast.error("Ocurrio un problema", {
-                    //         description: response.message,
-                    //         duration: 3000,
-                    //         position: "top-right"
-                    //       })
-                    //     }
-                    //   })
-                    // }}
-                    className={buttonVariants({ variant: "destructive" })}
+                <DialogFooter>
+                  <Button
+                    type="submit"
+                    disabled={isPending}
+                    form="edit-many-status"
                   >
-                    Delete
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+                    <ButtonContentLoading
+                      label="Edit All Status"
+                      isPending={isPending}
+                    />
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </>
         )}
 

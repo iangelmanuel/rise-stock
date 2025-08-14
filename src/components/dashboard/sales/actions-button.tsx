@@ -3,6 +3,7 @@ import { deleteSale } from "@/actions/sales/delete-sale"
 import { getAllClothes } from "@/actions/sales/get-all-clothes"
 import { getAllUsers } from "@/actions/sales/get-all-users"
 import { SaleForm } from "@/components/dashboard/sales/create-new-sale"
+import { UpdateStatusForm } from "@/components/dashboard/sales/update-status-form"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
 import {
   AlertDialog,
@@ -33,7 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import type { GeneralSale, GetAllClothes, GetAllUsers } from "@/types/sales"
-import { Archive, Ellipsis, Headphones, Settings } from "lucide-react"
+import { Archive, ChartPie, Ellipsis, Headphones, Settings } from "lucide-react"
 import { toast } from "sonner"
 import { ViewSaleAction } from "./view-sale-action"
 
@@ -44,6 +45,7 @@ interface Props {
 export function ActionsButtons({ data }: Props) {
   const [isViewOptionOpen, setIsViewOptionOpen] = useState(false)
   const [isEditOptionOpen, setIsEditOptionOpen] = useState(false)
+  const [isUpdateStatusOpen, setIsUpdateStatusOpen] = useState(false)
   const [isDeleteOptionOpen, setIsDeleteOptionOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
 
@@ -97,21 +99,6 @@ export function ActionsButtons({ data }: Props) {
       ? data.saleDate.toISOString().split("T")[0]
       : data.saleDate
 
-  const dataToEdit = {
-    id: data.id,
-    clotheId: data.clotheId,
-    clotheSize: data.clotheSize,
-    client: data.client,
-    note: data.note,
-    status: data.status,
-    state: data.state,
-    delivery: data.delivery,
-    city: data.city,
-    total: data.total,
-    saleDate: formatDateToString,
-    userId: data.userId
-  }
-
   return (
     <>
       <DropdownMenu>
@@ -155,6 +142,17 @@ export function ActionsButtons({ data }: Props) {
           <DropdownMenuItem>
             <button
               disabled={isPending}
+              onClick={() => setIsUpdateStatusOpen(true)}
+              className="flex items-center"
+            >
+              <ChartPie className="mr-2 h-4 w-4" />
+              Update Status
+            </button>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <button
+              disabled={isPending}
               onClick={() => setIsDeleteOptionOpen(true)}
               className="text-destructive flex items-center"
             >
@@ -188,7 +186,20 @@ export function ActionsButtons({ data }: Props) {
             <SaleForm
               users={users}
               clothes={clothes}
-              dataToEdit={dataToEdit}
+              dataToEdit={{
+                id: data.id,
+                clotheId: data.clotheId,
+                clotheSize: data.clotheSize,
+                client: data.client,
+                note: data.note,
+                status: data.status,
+                state: data.state,
+                delivery: data.delivery,
+                city: data.city,
+                total: data.total,
+                saleDate: formatDateToString,
+                userId: data.userId
+              }}
               startTransition={startTransition}
             />
           </ScrollArea>
@@ -201,6 +212,40 @@ export function ActionsButtons({ data }: Props) {
             >
               <ButtonContentLoading
                 label="Edit Sale"
+                isPending={isPending}
+              />
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={isUpdateStatusOpen}
+        onOpenChange={setIsUpdateStatusOpen}
+      >
+        <DialogContent className="max-w-(--breakpoint-sm)">
+          <ScrollArea className="max-h-[70vh] w-full">
+            <DialogHeader>
+              <DialogTitle>Update status</DialogTitle>
+              <DialogDescription>
+                Modify the status information.
+              </DialogDescription>
+            </DialogHeader>
+
+            <UpdateStatusForm
+              dataToEdit={{ id: data.id, status: data.status }}
+              startTransition={startTransition}
+            />
+          </ScrollArea>
+
+          <DialogFooter>
+            <Button
+              type="submit"
+              disabled={isPending}
+              form="edit-status"
+            >
+              <ButtonContentLoading
+                label="Edit Status"
                 isPending={isPending}
               />
             </Button>

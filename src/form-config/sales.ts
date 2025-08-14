@@ -43,8 +43,13 @@ export const salesFormData = [
     placeholder: "Select a status",
     options: [
       { value: "PENDING", label: "Pending" },
+      { value: "COOKING", label: "Cooking" },
+      { value: "READY", label: "Ready" },
+      { value: "SENDING", label: "Sending" },
+      { value: "PENDING_PAYMENT", label: "Pending Payment" },
       { value: "COMPLETED", label: "Completed" },
-      { value: "CANCELLED", label: "Cancelled" }
+      { value: "CANCELLED", label: "Cancelled" },
+      { value: "PAUSED", label: "Paused" }
     ]
   },
   {

@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
+import { status } from "@/constants/status"
 import type { GeneralSale } from "@/types/sales"
 import { formatCurrency } from "@/utils/format-currency"
 import { getStatusConfig } from "@/utils/get-status-config"
@@ -22,9 +23,6 @@ import {
   ChevronUp,
   ChevronUpIcon,
   ChevronsUpDown,
-  CircleCheck,
-  CircleDot,
-  CircleX,
   EyeOff,
   Package,
   Shirt
@@ -313,7 +311,7 @@ export const columns: ColumnDef<GeneralSale>[] = [
                   className="flex items-center"
                 >
                   <Package className="mr-2 h-4 w-4" />
-                  Todos
+                  All
                 </button>
               </DropdownMenuItem>
 
@@ -424,42 +422,24 @@ export const columns: ColumnDef<GeneralSale>[] = [
                   className="flex items-center"
                 >
                   <Package className="mr-2 h-4 w-4" />
-                  Todos
+                  All
                 </button>
               </DropdownMenuItem>
 
-              <DropdownMenuItem>
-                <button
-                  onClick={() => column.setFilterValue("COMPLETED")}
-                  className="flex items-center"
-                >
-                  <CircleCheck className="mr-2 h-4 w-4" />
-                  Completed
-                </button>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem>
-                <button
-                  onClick={() => column.setFilterValue("PENDING")}
-                  className="flex items-center"
-                >
-                  <CircleDot className="mr-2 h-4 w-4" />
-                  Pending
-                </button>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem>
-                <button
-                  onClick={() => {
-                    column.setFilterValue(undefined)
-                    column.setFilterValue("CANCELLED")
-                  }}
-                  className="flex items-center"
-                >
-                  <CircleX className="mr-2 h-4 w-4" />
-                  Cancelled
-                </button>
-              </DropdownMenuItem>
+              {status.map(({ value, label }) => {
+                const { icon: Icon } = getStatusConfig(value)
+                return (
+                  <DropdownMenuItem key={value}>
+                    <button
+                      onClick={() => column.setFilterValue(value)}
+                      className="flex items-center"
+                    >
+                      <Icon className="mr-2 h-4 w-4" />
+                      {label}
+                    </button>
+                  </DropdownMenuItem>
+                )
+              })}
 
               <DropdownMenuSeparator />
 
@@ -480,10 +460,25 @@ export const columns: ColumnDef<GeneralSale>[] = [
     cell: ({ row }) => {
       const { status } = row.original
 
-      const variant: Record<string, "create" | "update" | "delete"> = {
-        COMPLETED: "create",
-        PENDING: "update",
-        CANCELLED: "delete"
+      const variant: Record<
+        string,
+        | "pending"
+        | "cooking"
+        | "ready"
+        | "sending"
+        | "pendingPayment"
+        | "completed"
+        | "cancelled"
+        | "paused"
+      > = {
+        PENDING: "pending",
+        COOKING: "cooking",
+        READY: "ready",
+        SENDING: "sending",
+        PENDING_PAYMENT: "pendingPayment",
+        COMPLETED: "completed",
+        CANCELLED: "cancelled",
+        PAUSED: "paused"
       }
 
       const statusConfig = getStatusConfig(status)

@@ -17,9 +17,21 @@ export const saleSchema = z.object({
     .max(500, "Note cannot exceed 500 characters"),
   state: z.string().min(1, "State is required"),
   city: z.string(),
-  status: z.enum(["PENDING", "COMPLETED", "CANCELLED"], {
-    errorMap: () => ({ message: "Invalid sale status" })
-  }),
+  status: z.enum(
+    [
+      "PENDING",
+      "COOKING",
+      "READY",
+      "SENDING",
+      "PENDING_PAYMENT",
+      "COMPLETED",
+      "CANCELLED",
+      "PAUSED"
+    ],
+    {
+      errorMap: () => ({ message: "Invalid sale status" })
+    }
+  ),
   delivery: z.number().min(0, "Delivery cost cannot be negative"),
   total: z
     .number()
@@ -58,3 +70,7 @@ export const generalSaleSchema = z.object({
 })
 
 export const createNewSale = saleSchema.omit({ id: true })
+
+export const updateSaleStatusSchema = saleSchema.pick({
+  status: true
+})
