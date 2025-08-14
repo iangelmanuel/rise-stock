@@ -23,12 +23,12 @@ export async function UserSidebarMenu() {
           <UserAvatar
             userName={user.name}
             avatar={user.avatar}
-            color="bg-muted-foreground"
+            color="bg-muted-foreground text-white"
             className="size-10"
           />
 
           <section>
-            <h2 className="text-foreground text-start text-sm font-bold">
+            <h2 className="text-foreground text-start text-sm font-semibold">
               {user.name}
             </h2>
             <p className="text-foreground/70 text-start text-xs">
