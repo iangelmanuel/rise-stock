@@ -1,6 +1,7 @@
 "use server"
 
 import { signIn } from "@/auth"
+import { prisma } from "@/lib/prisma-config"
 import { loginSchema } from "@/schemas/user.schemas"
 
 type LoginUserData = {
@@ -16,6 +17,24 @@ export async function loginUser(data: LoginUserData) {
       return {
         ok: false,
         message: "Your email or password is incorrect, please try again"
+      }
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: schemaValidation.data.email }
+    })
+
+    if (!user) {
+      return {
+        ok: false,
+        message: "Your email or password is incorrect, please try again"
+      }
+    }
+
+    if (!user.isActive) {
+      return {
+        ok: false,
+        message: "Your account is inactive, please contact support"
       }
     }
 

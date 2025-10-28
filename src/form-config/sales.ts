@@ -68,7 +68,7 @@ export const salesFormData = [
     name: "delivery",
     label: "Delivery Cost",
     type: "number",
-    placeholder: "Ej. 80,000"
+    placeholder: "Ej. 12,000"
   },
   {
     id: 8,
@@ -80,10 +80,10 @@ export const salesFormData = [
   },
   {
     id: 9,
-    name: "total",
-    label: "Total Amount",
+    name: "discount",
+    label: "Discount of clothes",
     type: "number",
-    placeholder: "Ej. 100,000"
+    placeholder: "Ej. 0.10 for 10%"
   },
   {
     id: 10,
@@ -135,15 +135,15 @@ export const saleValidation = {
       message: "Delivery cost cannot be negative"
     }
   },
-  total: {
-    required: "Total amount is required",
+  discount: {
+    required: "Discount is required",
     min: {
       value: 0,
-      message: "Total amount cannot be negative"
+      message: "Discount cannot be negative"
     },
     max: {
-      value: 10000000,
-      message: "Total amount cannot exceed 10,000,000"
+      value: 1,
+      message: "Discount cannot exceed 100%"
     }
   },
   state: {

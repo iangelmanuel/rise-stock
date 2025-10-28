@@ -127,12 +127,12 @@ export function SaleForm({
   }
 
   const onSubmit = (formData: CreateNewSaleForm) => {
-    const { delivery, total, saleDate, ...restOfData } = formData
+    const { discount, delivery, saleDate, ...restOfData } = formData
 
     const dataFormatted = {
       ...restOfData,
+      discount: Number(discount) || 0,
       delivery: Number(delivery) || 0,
-      total: Number(total) || 0,
       saleDate: new Date(saleDate)
     }
 
@@ -165,6 +165,7 @@ export function SaleForm({
   return (
     <form
       id={dataToEdit ? "edit-sale" : "create-sale"}
+      noValidate
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4"
     >

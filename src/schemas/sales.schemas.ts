@@ -32,6 +32,10 @@ export const saleSchema = z.object({
       errorMap: () => ({ message: "Invalid sale status" })
     }
   ),
+  discount: z
+    .number()
+    .min(0, "Discount must be at least 0")
+    .max(1, "Discount cannot exceed 1"),
   delivery: z.number().min(0, "Delivery cost cannot be negative"),
   total: z
     .number()
@@ -45,6 +49,31 @@ export const saleSchema = z.object({
 })
 
 export const generalSaleSchema = z.object({
+  ...saleSchema.omit({ total: true }).shape,
+  clothe: clotheSchema
+    .pick({
+      id: true,
+      design: true,
+      color: true,
+      price: true,
+      collectionId: true,
+      createdAt: true
+    })
+    .extend({
+      clothesImage: z.array(clothesImageSchema),
+      collection: collectionSchema
+        .pick({
+          name: true
+        })
+        .nullable()
+    }),
+  user: userSchema.pick({
+    id: true,
+    name: true
+  })
+})
+
+export const dashboardSaleSchema = z.object({
   ...saleSchema.shape,
   clothe: clotheSchema
     .pick({
@@ -69,7 +98,7 @@ export const generalSaleSchema = z.object({
   })
 })
 
-export const createNewSale = saleSchema.omit({ id: true })
+export const createNewSale = saleSchema.omit({ id: true, total: true })
 
 export const updateSaleStatusSchema = saleSchema.pick({
   status: true

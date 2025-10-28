@@ -5,6 +5,7 @@ import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma-config"
 import { createNewSale } from "@/schemas/sales.schemas"
 import type { CreateNewSaleForm } from "@/types/sales"
+import { getPriceWithDiscount } from "@/utils/format-discount"
 
 export async function createSale(formData: CreateNewSaleForm) {
   try {
@@ -29,16 +30,27 @@ export async function createSale(formData: CreateNewSaleForm) {
     }
 
     await prisma.$transaction(async (tx) => {
+      const clothe = await tx.clothes.findUnique({
+        where: { id: schemaValidation.data.clotheId }
+      })
+
+      if (!clothe) {
+        throw new Error("Clothes not found")
+      }
+
+      const totalOfSale = schemaValidation.data.delivery + clothe.price
+
       await tx.sale.create({
         data: {
-          ...formData
+          total: clothe.price,
+          ...schemaValidation.data
         }
       })
 
       await tx.userMovement.create({
         data: {
           name: "create",
-          description: `Sale created for ${formData.client} - ${formData.total} ${formData.delivery ? "with delivery" + " " + formData.delivery : "without delivery"}`,
+          description: `Sale created for ${formData.client} - ${totalOfSale} ${formData.delivery ? "with delivery" + " " + formData.delivery : "without delivery"}`,
           userId
         }
       })

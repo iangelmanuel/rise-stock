@@ -19,10 +19,11 @@ enum SaleStatus {
 }
 
 model User {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
+  isActive Boolean @default(true)
 
   avatar String?
 
@@ -96,6 +97,7 @@ model Sale {
   state    String
   city     String
   status   SaleStatus @default(PENDING)
+  discount Float      @default(0)
   delivery Float      @default(0)
   total    Float      @default(0)
 

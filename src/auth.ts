@@ -22,6 +22,8 @@ const AuthConfig = {
 
         if (!user) return null
 
+        if (!user.isActive) return null
+
         if (!bcrypt.compareSync(password, user.password)) return null
 
         const { password: _, ...rest } = user

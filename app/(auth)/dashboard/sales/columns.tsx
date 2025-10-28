@@ -15,8 +15,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import { status } from "@/constants/status"
-import type { GeneralSale } from "@/types/sales"
+import type { DashboardSale } from "@/types/sales"
 import { formatCurrency } from "@/utils/format-currency"
+import { formatDiscount, getPriceWithDiscount } from "@/utils/format-discount"
 import { getStatusConfig } from "@/utils/get-status-config"
 import {
   ChevronDownIcon,
@@ -41,7 +42,7 @@ const SorterIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
   return null
 }
 
-export const columns: ColumnDef<GeneralSale>[] = [
+export const columns: ColumnDef<DashboardSale>[] = [
   {
     id: "id",
     accessorKey: "id",
@@ -355,6 +356,28 @@ export const columns: ColumnDef<GeneralSale>[] = [
   },
 
   {
+    id: "discount",
+    accessorKey: "discount",
+    header: () => {
+      return (
+        <section className="flex items-center justify-center">
+          <span>Discount</span>
+        </section>
+      )
+    },
+    cell: ({ row }) => {
+      const { discount } = row.original
+      const discountFormatted = formatDiscount(discount)
+
+      return (
+        <section className="flex items-center justify-center">
+          <span>{discountFormatted}</span>
+        </section>
+      )
+    }
+  },
+
+  {
     id: "delivery",
     accessorKey: "delivery",
     header: () => {
@@ -366,11 +389,11 @@ export const columns: ColumnDef<GeneralSale>[] = [
     },
     cell: ({ row }) => {
       const { delivery } = row.original
-      const deliveryFormated = formatCurrency(delivery)
+      const deliveryFormatted = formatCurrency(delivery)
 
       return (
         <section className="flex items-center justify-center">
-          <span>{deliveryFormated}</span>
+          <span>{deliveryFormatted}</span>
         </section>
       )
     }
@@ -387,8 +410,9 @@ export const columns: ColumnDef<GeneralSale>[] = [
       )
     },
     cell: ({ row }) => {
-      const { total } = row.original
-      const totalFormated = formatCurrency(total)
+      const { discount, delivery, total } = row.original
+      const totalWithDiscount = getPriceWithDiscount(total, discount) + delivery
+      const totalFormated = formatCurrency(totalWithDiscount)
 
       return (
         <section className="flex items-center justify-center">

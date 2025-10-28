@@ -1,5 +1,6 @@
 import type {
   createNewSale,
+  dashboardSaleSchema,
   generalSaleSchema,
   saleSchema,
   updateSaleStatusSchema
@@ -9,6 +10,7 @@ import type { z } from "zod"
 export type CreateNewSaleForm = z.infer<typeof createNewSale>
 export type SalesType = z.infer<typeof saleSchema>
 export type GeneralSale = z.infer<typeof generalSaleSchema>
+export type DashboardSale = z.infer<typeof dashboardSaleSchema>
 
 export type GetAllClothes = {
   id: string

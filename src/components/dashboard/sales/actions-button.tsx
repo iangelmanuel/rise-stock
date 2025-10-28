@@ -33,13 +33,13 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import type { GeneralSale, GetAllClothes, GetAllUsers } from "@/types/sales"
+import type { DashboardSale, GetAllClothes, GetAllUsers } from "@/types/sales"
 import { Archive, ChartPie, Ellipsis, Headphones, Settings } from "lucide-react"
 import { toast } from "sonner"
 import { ViewSaleAction } from "./view-sale-action"
 
 interface Props {
-  data: GeneralSale
+  data: DashboardSale
 }
 
 export function ActionsButtons({ data }: Props) {
@@ -196,7 +196,7 @@ export function ActionsButtons({ data }: Props) {
                 state: data.state,
                 delivery: data.delivery,
                 city: data.city,
-                total: data.total,
+                discount: data.discount,
                 saleDate: formatDateToString,
                 userId: data.userId
               }}

@@ -14,7 +14,7 @@ import {
   ChartTooltipContent
 } from "@/components/ui/chart"
 import { monthOrder } from "@/data/months"
-import type { GeneralSale } from "@/types/sales"
+import type { DashboardSale } from "@/types/sales"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 type ChartData = {
@@ -23,7 +23,7 @@ type ChartData = {
 }
 
 type Props = {
-  sales: GeneralSale[]
+  sales: DashboardSale[]
 }
 
 const chartConfig = {
