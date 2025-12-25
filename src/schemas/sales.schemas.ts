@@ -7,7 +7,7 @@ import {
 import { userSchema } from "./user.schemas"
 
 export const saleSchema = z.object({
-  id: z.string().uuid("Invalid sale ID format"),
+  id: z.uuid("Invalid sale ID format"),
   clotheId: z.string().min(1, "Clothes ID is required"),
   clotheSize: z.string().min(1, "Clothes size is required"),
   client: z.string().min(3, "Client name must be at least 3 characters long"),
@@ -17,8 +17,8 @@ export const saleSchema = z.object({
     .max(500, "Note cannot exceed 500 characters"),
   state: z.string().min(1, "State is required"),
   city: z.string(),
-  status: z.enum(
-    [
+  status: z
+    .enum([
       "PENDING",
       "COOKING",
       "READY",
@@ -27,11 +27,10 @@ export const saleSchema = z.object({
       "COMPLETED",
       "CANCELLED",
       "PAUSED"
-    ],
-    {
-      errorMap: () => ({ message: "Invalid sale status" })
-    }
-  ),
+    ])
+    .refine(() => true, {
+      message: "Invalid sale status"
+    }),
   discount: z
     .number()
     .min(0, "Discount must be at least 0")

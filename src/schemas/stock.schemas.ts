@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export const collectionSchema = z.object({
-  id: z.string().uuid("Invalid collection ID format"),
+  id: z.uuid("Invalid collection ID format"),
   name: z
     .string()
     .min(3, "Collection name must be at least 3 characters long")
@@ -10,27 +10,27 @@ export const collectionSchema = z.object({
 })
 
 export const clothesImageSchema = z.object({
-  id: z.string().uuid("Invalid image ID format"),
-  secureUrl: z.string().url("Invalid image URL format"),
+  id: z.uuid("Invalid image ID format"),
+  secureUrl: z.url("Invalid image URL format"),
   publicId: z.string().min(1, "Public ID is required").nullable()
 })
 
 export const clotheSchema = z.object({
-  id: z.string().uuid("Invalid clothe ID format"),
+  id: z.uuid("Invalid clothe ID format"),
   design: z.string().min(3, "Design must be at least 3 characters long"),
   color: z.string().min(3, "Color must be at least 3 characters long"),
   price: z
     .number()
     .min(0, "Price cannot be negative")
     .max(1000000, "Price cannot exceed 1,000,000"),
-  collectionId: z.string().uuid("Invalid collection ID format").nullable(),
+  collectionId: z.uuid("Invalid collection ID format").nullable(),
   createdAt: z.date()
 })
 
 export const clothesVariantSchema = z.object({
-  id: z.string().uuid("Invalid variant ID format"),
-  size: z.enum(["S", "M", "L", "XL"], {
-    required_error: "Size is required"
+  id: z.uuid("Invalid variant ID format"),
+  size: z.enum(["S", "M", "L", "XL"]).refine(() => true, {
+    message: "Size must be one of the following: S, M, L, XL"
   }),
   stock: z
     .number()
