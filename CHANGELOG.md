@@ -2,6 +2,10 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
+## [0.2.1] - 2026-01-21
+
+- Funcionalidad añadida para colocar mas imagenes por producto y que se suban a la nube correctamente.
+
 ## [0.2.0] - 2025-12-24
 
 - Actualización de dependencias principales: Next.js 16.1.1, React/React DOM 19.2.3, Prisma 7.2.0 (con `@prisma/adapter-pg`), Zod 4.2.1 y NextAuth 5.0.0-beta.28.

@@ -23,7 +23,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { EXISTANT_SIZES } from "@/constants/existant-sizes"
 import { stockValidation } from "@/form-config/stock"
 import type { CreateClotheStockForm } from "@/types/stock"
-import type { Clothes, Collection } from "@prisma/client"
+import type { Collection } from "@prisma/client"
 import { ChevronDown, Upload } from "lucide-react"
 import Dropzone from "react-dropzone"
 import { useForm } from "react-hook-form"
@@ -50,7 +50,7 @@ export function CreateNewClothes({ collectionData }: Props) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[650px]">
+      <DialogContent className="sm:max-w-162.5">
         <ScrollArea className="max-h-[70vh] w-full">
           <DialogHeader>
             <DialogTitle>Create a new Clothes Variant</DialogTitle>
@@ -92,7 +92,7 @@ function CreateNewClothesForm({
   collectionData: Props["collectionData"]
   startTransition: TransitionStartFunction
 }) {
-  const [image, setImage] = useState<File | undefined>(undefined)
+  const [image, setImage] = useState<File[] | undefined>(undefined)
 
   const {
     register,
@@ -104,7 +104,11 @@ function CreateNewClothesForm({
 
   const onSubmit = async (data: CreateClotheStockForm) => {
     const formData = new FormData()
-    if (image) formData.append("image", image)
+    if (image) {
+      image.forEach((file) => {
+        formData.append("images", file)
+      })
+    }
 
     const { image: _, price, stock, ...rest } = data
     const newClothes = {
@@ -201,8 +205,8 @@ function CreateNewClothesForm({
 
           <Dropzone
             onDrop={(acceptedFiles) => {
-              setImage(acceptedFiles ? acceptedFiles[0] : undefined)
-              setValue("image", acceptedFiles[0])
+              setImage(acceptedFiles ? acceptedFiles : undefined)
+              acceptedFiles.forEach((file) => setValue("image", file))
             }}
           >
             {({ getRootProps, getInputProps, isDragActive }) => (
@@ -211,9 +215,9 @@ function CreateNewClothesForm({
                   <input
                     id="image"
                     {...getInputProps({
-                      multiple: false,
+                      multiple: true,
                       accept: "image/*",
-                      max: 1
+                      max: 2
                     })}
                   />
 
@@ -248,15 +252,17 @@ function CreateNewClothesForm({
           )}
 
           {image !== undefined && (
-            <div className="mt-2 flex items-center justify-center">
-              <Image
-                key={image.name}
-                src={URL.createObjectURL(image)}
-                alt={image.name}
-                width={128}
-                height={128}
-                className="h-32 w-32 rounded-md object-cover"
-              />
+            <div className="mt-2 flex gap-3 items-center justify-center">
+              {image.map((file, index) => (
+                <Image
+                  key={file.name + index}
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                  width={128}
+                  height={128}
+                  className="h-20 w-20 rounded-md object-cover"
+                />
+              ))}
             </div>
           )}
         </div>

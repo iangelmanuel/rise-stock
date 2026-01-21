@@ -55,7 +55,8 @@ export async function createClothesCollection(
 
     if (
       typeof cloudinaryResponse === "undefined" ||
-      cloudinaryResponse === undefined
+      cloudinaryResponse === undefined ||
+      cloudinaryResponse.length === 0
     ) {
       return {
         ok: false,
@@ -73,14 +74,16 @@ export async function createClothesCollection(
         }
       })
 
-      if (image instanceof FormData && image.has("image")) {
-        await tx.clothesImage.create({
-          data: {
-            publicId: cloudinaryResponse.public_id,
-            secureUrl: cloudinaryResponse.secure_url,
-            clothesId: newClothes.id
-          }
-        })
+      if (image instanceof FormData && image.has("images")) {
+        for (const uploadedImage of cloudinaryResponse) {
+          await tx.clothesImage.create({
+            data: {
+              publicId: uploadedImage.publicId,
+              secureUrl: uploadedImage.secureUrl,
+              clothesId: newClothes.id
+            }
+          })
+        }
       }
 
       schemaValidation.data.stock.forEach(async (sizeAndStock) => {
