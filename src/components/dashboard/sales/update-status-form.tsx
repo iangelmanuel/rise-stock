@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select"
 import { status } from "@/constants/status"
 import { saleValidation } from "@/form-config/sales"
-import type { GetAllClothes, UpdateSaleStatus } from "@/types/sales"
+import type { UpdateSaleStatus } from "@/types/sales"
 import { getStatusConfig } from "@/utils/get-status-config"
 import type { Sale } from "@prisma/client"
 import { Controller, useForm } from "react-hook-form"

@@ -25,10 +25,10 @@ type Props = {
   item: Clothes & {
     variants: ClothesVariant[] | null
   }
-  publicId: ClothesImage["publicId"] | null
+  clothesImage: ClothesImage[] | null
 }
 
-export function DeleteClothesButton({ item, publicId }: Props) {
+export function DeleteClothesButton({ item, clothesImage }: Props) {
   const [openDialog, setOpenDialog] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [isInputValueIncorrect, setIsInputValueIncorrect] = useState(true)
@@ -53,7 +53,7 @@ export function DeleteClothesButton({ item, publicId }: Props) {
     }
 
     startTransition(async () => {
-      const { ok, message } = await deleteClothesById(clothesData, publicId)
+      const { ok, message } = await deleteClothesById(clothesData, clothesImage)
 
       setInputValue("")
       setIsInputValueIncorrect(true)

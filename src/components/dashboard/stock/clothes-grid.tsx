@@ -42,7 +42,7 @@ export function ClothesGrid({ collection }: Props) {
           >
             <DeleteClothesButton
               item={item}
-              publicId={item.clothesImage[0].publicId}
+              clothesImage={item.clothesImage}
             />
 
             <CardHeader>
@@ -52,7 +52,7 @@ export function ClothesGrid({ collection }: Props) {
                   alt={item.design}
                   width={500}
                   height={500}
-                  className="h-[300px] w-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="h-75 w-80 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 
@@ -71,7 +71,7 @@ export function ClothesGrid({ collection }: Props) {
               <EditVariantInfo
                 item={item}
                 collectionName={collection.name}
-                publicId={item.clothesImage[0].publicId}
+                clothesImage={item.clothesImage}
               />
             </CardFooter>
           </Card>

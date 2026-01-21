@@ -20,7 +20,7 @@ export async function editClothesInfoById(
   id: Clothes["id"],
   collectionName: Collection["name"],
   data: EditClothesInfoForm,
-  publicId: ClothesImage["publicId"] | null
+  clothesImage: ClothesImage[] | null
 ) {
   try {
     const session = await auth()
@@ -46,21 +46,28 @@ export async function editClothesInfoById(
       }
     }
 
-    const cloudinaryResponse = await createCloudinaryImg({
-      designName: schemaValidation.data.design,
-      image,
-      collectionName: createSlugForClothes(collectionName)
-    })
+    let cloudinaryResponse = undefined
 
-    if (publicId) await cloudinary.uploader.destroy(publicId)
+    if (clothesImage && image instanceof FormData && image.has("images")) {
+      cloudinaryResponse = await createCloudinaryImg({
+        designName: schemaValidation.data.design,
+        image,
+        collectionName: createSlugForClothes(collectionName)
+      })
 
-    if (
-      typeof cloudinaryResponse === "undefined" ||
-      cloudinaryResponse === undefined
-    ) {
-      return {
-        ok: false,
-        message: "Error uploading image"
+      clothesImage.forEach(async ({ publicId }) => {
+        if (publicId) await cloudinary.uploader.destroy(publicId)
+      })
+
+      if (
+        (typeof cloudinaryResponse === "undefined" ||
+          cloudinaryResponse === undefined) &&
+        clothesImage
+      ) {
+        return {
+          ok: false,
+          message: "Error uploading image"
+        }
       }
     }
 
@@ -68,23 +75,26 @@ export async function editClothesInfoById(
       const { design, color, price } = schemaValidation.data
 
       const clothesUpdated = await tx.clothes.update({
-        where: {
-          id
-        },
-        data: {
-          design,
-          color,
-          price
-        }
+        where: { id },
+        data: { design, color, price }
       })
 
-      if (image instanceof FormData && image.has("images")) {
+      if (
+        cloudinaryResponse !== undefined &&
+        cloudinaryResponse.length > 0 &&
+        image instanceof FormData &&
+        image.has("images")
+      ) {
+        await tx.clothesImage.deleteMany({
+          where: { clothesId: clothesUpdated.id }
+        })
+
         for (const uploadedImage of cloudinaryResponse) {
-          await tx.clothesImage.updateMany({
-            where: { clothesId: clothesUpdated.id },
+          await tx.clothesImage.create({
             data: {
               publicId: uploadedImage.publicId,
-              secureUrl: uploadedImage.secureUrl
+              secureUrl: uploadedImage.secureUrl,
+              clothesId: clothesUpdated.id
             }
           })
         }

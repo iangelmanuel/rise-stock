@@ -38,10 +38,10 @@ type Props = {
     variants: ClothesVariant[] | null
   }
   collectionName: Collection["name"]
-  publicId: ClothesImage["publicId"] | null
+  clothesImage: ClothesImage[] | null
 }
 
-export function EditVariantInfo({ item, collectionName, publicId }: Props) {
+export function EditVariantInfo({ item, collectionName, clothesImage }: Props) {
   const [isPending, startTransition] = useTransition()
   return (
     <Dialog>
@@ -71,7 +71,7 @@ export function EditVariantInfo({ item, collectionName, publicId }: Props) {
               item={item}
               startTransition={startTransition}
               collectionName={collectionName}
-              publicId={publicId}
+              clothesImage={clothesImage}
             />
           </DialogHeader>
         </ScrollArea>
@@ -97,12 +97,12 @@ function EditVariantInfoForm({
   item,
   startTransition,
   collectionName,
-  publicId
+  clothesImage
 }: {
   item: Props["item"]
   startTransition: TransitionStartFunction
   collectionName: Props["collectionName"]
-  publicId: Props["publicId"]
+  clothesImage: Props["clothesImage"]
 }) {
   const [image, setImage] = useState<File[] | undefined>(undefined)
 
@@ -123,14 +123,14 @@ function EditVariantInfoForm({
     const formData = new FormData()
     if (image) {
       image.forEach((file) => {
-        formData.append("image", file)
+        formData.append("images", file)
       })
     }
 
     const updatedClothesVariants = {
       design,
       color,
-      price,
+      price: Number(price),
       image: formData
     }
 
@@ -139,7 +139,7 @@ function EditVariantInfoForm({
         item.id,
         collectionName,
         updatedClothesVariants,
-        publicId
+        clothesImage
       )
 
       if (ok) {
@@ -223,9 +223,9 @@ function EditVariantInfoForm({
                 <input
                   id="image"
                   {...getInputProps({
-                    multiple: false,
+                    multiple: true,
                     accept: "image/*",
-                    max: 1
+                    max: 2
                   })}
                 />
 
@@ -259,13 +259,26 @@ function EditVariantInfoForm({
           <ErrorFormMessage message={errors.image.message as string} />
         )}
 
-        {image !== undefined && (
+        {image !== undefined ? (
           <div className="mt-2 flex items-center justify-center">
-            {image.map((file, index) => (
+            {image.map((file) => (
               <Image
                 key={file.name}
                 src={URL.createObjectURL(file)}
                 alt={file.name}
+                width={128}
+                height={128}
+                className="h-32 w-32 rounded-md object-cover"
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-2 flex gap-x-1 items-center justify-center">
+            {clothesImage?.map((file) => (
+              <Image
+                key={file.id}
+                src={file.secureUrl}
+                alt={item.design}
                 width={128}
                 height={128}
                 className="h-32 w-32 rounded-md object-cover"

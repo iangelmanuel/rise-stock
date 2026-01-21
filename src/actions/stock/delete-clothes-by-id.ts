@@ -20,7 +20,7 @@ cloudinary.config({
 
 export async function deleteClothesById(
   { id, design, color }: DeleteClothesData,
-  publicId: ClothesImage["publicId"] | null
+  clothesImage: ClothesImage[] | null
 ) {
   try {
     const session = await auth()
@@ -34,8 +34,10 @@ export async function deleteClothesById(
 
     const userId = session.user.id
 
-    if (publicId !== null) {
-      await cloudinary.uploader.destroy(publicId)
+    if (clothesImage !== null) {
+      clothesImage.forEach(async ({ publicId }) => {
+        if (publicId !== null) await cloudinary.uploader.destroy(publicId)
+      })
     }
 
     await prisma.$transaction(async (tx) => {
@@ -43,7 +45,7 @@ export async function deleteClothesById(
         where: { clothesId: id }
       })
 
-      if (publicId !== null) {
+      if (clothesImage !== null) {
         await tx.clothesImage.deleteMany({
           where: { clothesId: id }
         })
