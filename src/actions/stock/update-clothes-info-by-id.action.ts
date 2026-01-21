@@ -78,14 +78,16 @@ export async function editClothesInfoById(
         }
       })
 
-      if (image instanceof FormData && image.has("image")) {
-        await tx.clothesImage.updateMany({
-          where: { clothesId: clothesUpdated.id },
-          data: {
-            publicId: cloudinaryResponse.public_id,
-            secureUrl: cloudinaryResponse.secure_url
-          }
-        })
+      if (image instanceof FormData && image.has("images")) {
+        for (const uploadedImage of cloudinaryResponse) {
+          await tx.clothesImage.updateMany({
+            where: { clothesId: clothesUpdated.id },
+            data: {
+              publicId: uploadedImage.publicId,
+              secureUrl: uploadedImage.secureUrl
+            }
+          })
+        }
       }
 
       const userId = session.user.id

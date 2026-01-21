@@ -104,7 +104,7 @@ function EditVariantInfoForm({
   collectionName: Props["collectionName"]
   publicId: Props["publicId"]
 }) {
-  const [image, setImage] = useState<File | undefined>(undefined)
+  const [image, setImage] = useState<File[] | undefined>(undefined)
 
   const {
     register,
@@ -121,7 +121,11 @@ function EditVariantInfoForm({
 
   const onSubmit = ({ design, color, price }: EditClothesInfoForm) => {
     const formData = new FormData()
-    if (image) formData.append("image", image)
+    if (image) {
+      image.forEach((file) => {
+        formData.append("image", file)
+      })
+    }
 
     const updatedClothesVariants = {
       design,
@@ -207,8 +211,10 @@ function EditVariantInfoForm({
 
         <Dropzone
           onDrop={(acceptedFiles) => {
-            setImage(acceptedFiles ? acceptedFiles[0] : undefined)
-            setValue("image", acceptedFiles[0])
+            setImage(acceptedFiles ? acceptedFiles : undefined)
+            acceptedFiles.forEach((file) => {
+              setValue("image", file)
+            })
           }}
         >
           {({ getRootProps, getInputProps, isDragActive }) => (
@@ -255,14 +261,16 @@ function EditVariantInfoForm({
 
         {image !== undefined && (
           <div className="mt-2 flex items-center justify-center">
-            <Image
-              key={image.name}
-              src={URL.createObjectURL(image)}
-              alt={image.name}
-              width={128}
-              height={128}
-              className="h-32 w-32 rounded-md object-cover"
-            />
+            {image.map((file, index) => (
+              <Image
+                key={file.name}
+                src={URL.createObjectURL(file)}
+                alt={file.name}
+                width={128}
+                height={128}
+                className="h-32 w-32 rounded-md object-cover"
+              />
+            ))}
           </div>
         )}
       </div>
