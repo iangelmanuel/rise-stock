@@ -2,6 +2,10 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
+## [Unreleased] - 2026-01-21
+
+- Añadida de funcionalidad de la API para consultas en el E-Commerce (Rise Store).
+
 ## [0.2.1] - 2026-01-21
 
 - Funcionalidad añadida para colocar mas imagenes por producto y que se suban a la nube correctamente.
