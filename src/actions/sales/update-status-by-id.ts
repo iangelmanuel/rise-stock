@@ -14,8 +14,6 @@ export async function updateSaleStatus(
   try {
     const session = await auth()
 
-    console.log({ id, status })
-
     if (!session) {
       return {
         ok: false,
@@ -57,7 +55,6 @@ export async function updateSaleStatus(
       message: "Sale status updated successfully"
     }
   } catch (error) {
-    console.log(error)
     return {
       ok: false,
       message: "Failed to update sale status"

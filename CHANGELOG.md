@@ -2,6 +2,10 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
+## [Unreleased]
+
+- Consoles logs quitados de archivos de API y acciones.
+
 ## [0.2.2] - 2026-01-26
 
 - Implementación de tablas y el schema principal de contacto y newsletter.

@@ -47,7 +47,6 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     )
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { error: "No se pudo suscribir al boletín" },
       { status: 500 }
