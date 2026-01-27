@@ -4,6 +4,10 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
 
+- Retornar a una versión antigua de `Rechart` debido a problemas con la versión y compatibilidad del proyecto.
+
+## [Unreleased]
+
 - Consoles logs quitados de archivos de API y acciones.
 
 ## [0.2.2] - 2026-01-26
