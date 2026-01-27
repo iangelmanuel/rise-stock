@@ -2,10 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
 import { createNewSale } from "@/schemas/sales.schemas"
 import type { CreateNewSaleForm } from "@/types/sales"
 import { getPriceWithDiscount } from "@/utils/format-discount"
+import { prisma } from "../../lib/prisma"
 
 export async function createSale(formData: CreateNewSaleForm) {
   try {

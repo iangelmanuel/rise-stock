@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
 import { createClothesStockSchema } from "@/schemas/stock.schemas"
 import type { CreateClotheStockForm } from "@/types/stock"
 import { createCloudinaryImg } from "@/utils/create-cloudinary-img"
@@ -10,6 +9,7 @@ import { createSlugForClothes } from "@/utils/create-slug-for-clothes"
 import { formatCurrency } from "@/utils/format-currency"
 import type { Collection } from "@prisma/client"
 import { v2 as cloudinary } from "cloudinary"
+import { prisma } from "../../lib/prisma"
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

@@ -2,9 +2,9 @@
 
 import type { Session } from "next-auth"
 import { revalidatePath } from "next/cache"
-import { prisma } from "@/lib/prisma-config"
 import { updateUserSchema } from "@/schemas/user.schemas"
 import type { UpdateUser } from "@/types/user"
+import { prisma } from "../../lib/prisma"
 
 export async function updateUserInfoById(
   formData: UpdateUser,

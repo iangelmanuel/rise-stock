@@ -1,9 +1,9 @@
 "use server"
 
-import { prisma } from "@/lib/prisma-config"
 import { registerSchema } from "@/schemas/user.schemas"
 import type { RegisterFormData } from "@/types/auth"
 import bcrypt from "bcryptjs"
+import { prisma } from "../../lib/prisma"
 
 export async function registerUser(data: RegisterFormData) {
   try {

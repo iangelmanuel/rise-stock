@@ -2,10 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
 import { updateSaleStatusSchema } from "@/schemas/sales.schemas"
 import type { UpdateSaleStatus } from "@/types/sales"
 import type { Sale } from "@prisma/client"
+import { prisma } from "../../lib/prisma"
 
 export async function updateSaleStatus(
   id: Sale["id"],

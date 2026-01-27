@@ -2,9 +2,9 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
 import type { Clothes, ClothesImage } from "@prisma/client"
 import { v2 as cloudinary } from "cloudinary"
+import { prisma } from "../../lib/prisma"
 
 type DeleteClothesData = {
   id: Clothes["id"]

@@ -1,5 +1,5 @@
 import { data } from "../src/data/seed-data"
-import { prisma } from "../src/lib/prisma-config"
+import { prisma } from "../src/lib/prisma"
 
 const { sizes, clothes } = data
 

@@ -2,10 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
 import { editClothesStockSchema } from "@/schemas/stock.schemas"
 import type { EditVariantStockForm } from "@/types/stock"
 import type { Clothes, ClothesVariant } from "@prisma/client"
+import { prisma } from "../../lib/prisma"
 
 type ClothesWithVariants = Clothes & {
   variants: ClothesVariant[] | null

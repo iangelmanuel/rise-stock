@@ -1,8 +1,8 @@
 "use server"
 
 import { signIn } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
 import { loginSchema } from "@/schemas/user.schemas"
+import { prisma } from "../../lib/prisma"
 
 type LoginUserData = {
   email: string

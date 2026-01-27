@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
 import type { Sale } from "@prisma/client"
+import { prisma } from "../../lib/prisma"
 
 export async function deleteSale(id: Sale["id"], client: Sale["client"]) {
   try {

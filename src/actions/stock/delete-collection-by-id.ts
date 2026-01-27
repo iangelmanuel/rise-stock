@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
+import { prisma } from "../../lib/prisma"
 
 type CreateCollectionForm = {
   collectionId: string

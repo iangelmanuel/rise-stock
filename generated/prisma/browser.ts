@@ -52,3 +52,13 @@ export type Collection = Prisma.CollectionModel
  * 
  */
 export type Sale = Prisma.SaleModel
+/**
+ * Model NewsletterSubscriber
+ * 
+ */
+export type NewsletterSubscriber = Prisma.NewsletterSubscriberModel
+/**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel

@@ -113,3 +113,23 @@ model Sale {
 
   createdAt DateTime @default(now())
 }
+
+model NewsletterSubscriber {
+  id    String @id @default(uuid())
+  email String @unique
+
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id       String  @id @default(uuid())
+  name     String
+  lastName String
+  email    String
+  phone    String
+  subject  String
+  message  String
+  isUser   Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}

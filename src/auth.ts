@@ -1,8 +1,8 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import { prisma } from "@/lib/prisma-config"
 import { loginSchema } from "@/schemas/user.schemas"
 import bcrypt from "bcryptjs"
+import { prisma } from "./lib/prisma"
 
 const AuthConfig = {
   providers: [

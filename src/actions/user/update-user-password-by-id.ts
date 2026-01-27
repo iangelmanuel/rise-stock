@@ -1,10 +1,10 @@
 "use server"
 
 import type { Session } from "next-auth"
-import { prisma } from "@/lib/prisma-config"
 import { updateUserPasswordSchema } from "@/schemas/user.schemas"
 import type { UpdateUserPasswordType } from "@/types/user"
 import bcrypt from "bcryptjs"
+import { prisma } from "../../lib/prisma"
 
 export async function updateUserPasswordById(
   formData: UpdateUserPasswordType,

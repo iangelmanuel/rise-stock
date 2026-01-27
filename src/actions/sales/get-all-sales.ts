@@ -2,7 +2,7 @@
 
 import type { Session } from "next-auth"
 import { auth } from "@/auth"
-import { prisma } from "@/lib/prisma-config"
+import { prisma } from "../../lib/prisma"
 
 export async function getAllSales(userId?: Session["user"]["id"]) {
   try {

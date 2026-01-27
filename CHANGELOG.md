@@ -2,6 +2,12 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
+## [0.2.2] - 2026-01-26
+
+- Implementación de tablas y el schema principal de contacto y newsletter.
+- Implementación de API de contacto y newsletter para la página principal.
+- Corrección de actualización de Prisma 7 con su archivo de configuración `prisma.config.ts`.
+
 ## [Unreleased] - 2026-01-21
 
 - Añadida de funcionalidad de la API para consultas en el E-Commerce (Rise Store).
