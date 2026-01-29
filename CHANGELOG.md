@@ -4,6 +4,10 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
 
+- Corrección de errores menores en respuesta de la API de newsletter.
+
+## [Unreleased]
+
 - Retornar a una versión antigua de `Rechart` debido a problemas con la versión y compatibilidad del proyecto.
 
 ## [Unreleased]

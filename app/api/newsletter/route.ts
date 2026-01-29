@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   try {
     if (!email) {
       return NextResponse.json(
-        { error: "El correo electrónico es obligatorio" },
+        { message: "El correo electrónico es obligatorio" },
         { status: 400 }
       )
     }
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     if (!parsedData.success) {
       return NextResponse.json(
-        { error: parsedData.error.issues[0].message },
+        { message: parsedData.error.issues[0].message },
         { status: 400 }
       )
     }
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     if (existingSubscriber) {
       return NextResponse.json(
-        { error: "Este correo electrónico ya está suscrito" },
+        { message: "Este correo electrónico ya está suscrito" },
         { status: 400 }
       )
     }
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     )
   } catch (error) {
     return NextResponse.json(
-      { error: "No se pudo suscribir al boletín" },
+      { message: "No se pudo suscribir al boletín" },
       { status: 500 }
     )
   }
