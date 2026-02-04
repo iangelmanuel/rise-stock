@@ -28,8 +28,9 @@ model User {
 
   avatar String?
 
-  UserMovement UserMovement[]
-  Sale         Sale[]
+  UserMovement    UserMovement[]
+  Sale            Sale[]
+  contactMessages ContactMessage[]
 
   createdAt DateTime @default(now())
 }
@@ -122,14 +123,14 @@ model NewsletterSubscriber {
 }
 
 model ContactMessage {
-  id       String  @id @default(uuid())
-  name     String
-  lastName String
-  email    String
-  phone    String
-  subject  String
-  message  String
-  isUser   Boolean @default(false)
+  id      String @id @default(uuid())
+  name    String
+  email   String
+  subject String
+  message String
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
 }

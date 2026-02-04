@@ -4,6 +4,13 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
 
+- Mejora en la validación de datos para la API de contact.
+- Sincronización con la base de datos y ajustes en el esquema Prisma.
+- Corrección de `schema.prisma` para reflejar cambios recientes en la base de datos.
+- Adición de nueva funcionalidad para la API de contacto.
+
+## [Unreleased]
+
 - Corrección de errores menores en respuesta de la API de newsletter.
 
 ## [Unreleased]

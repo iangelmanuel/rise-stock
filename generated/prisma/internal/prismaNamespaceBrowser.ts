@@ -177,12 +177,10 @@ export type NewsletterSubscriberScalarFieldEnum = (typeof NewsletterSubscriberSc
 export const ContactMessageScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  lastName: 'lastName',
   email: 'email',
-  phone: 'phone',
   subject: 'subject',
   message: 'message',
-  isUser: 'isUser',
+  userId: 'userId',
   createdAt: 'createdAt'
 } as const
 

@@ -200,6 +200,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   UserMovement?: Prisma.UserMovementListRelationFilter
   Sale?: Prisma.SaleListRelationFilter
+  contactMessages?: Prisma.ContactMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -212,6 +213,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   UserMovement?: Prisma.UserMovementOrderByRelationAggregateInput
   Sale?: Prisma.SaleOrderByRelationAggregateInput
+  contactMessages?: Prisma.ContactMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -227,6 +229,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   UserMovement?: Prisma.UserMovementListRelationFilter
   Sale?: Prisma.SaleListRelationFilter
+  contactMessages?: Prisma.ContactMessageListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -265,6 +268,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   UserMovement?: Prisma.UserMovementCreateNestedManyWithoutUserInput
   Sale?: Prisma.SaleCreateNestedManyWithoutUserInput
+  contactMessages?: Prisma.ContactMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -277,6 +281,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   UserMovement?: Prisma.UserMovementUncheckedCreateNestedManyWithoutUserInput
   Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutUserInput
+  contactMessages?: Prisma.ContactMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -289,6 +294,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   UserMovement?: Prisma.UserMovementUpdateManyWithoutUserNestedInput
   Sale?: Prisma.SaleUpdateManyWithoutUserNestedInput
+  contactMessages?: Prisma.ContactMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -301,6 +307,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   UserMovement?: Prisma.UserMovementUncheckedUpdateManyWithoutUserNestedInput
   Sale?: Prisma.SaleUncheckedUpdateManyWithoutUserNestedInput
+  contactMessages?: Prisma.ContactMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -368,6 +375,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -412,6 +424,22 @@ export type UserUpdateOneRequiredWithoutSaleNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSaleInput, Prisma.UserUpdateWithoutSaleInput>, Prisma.UserUncheckedUpdateWithoutSaleInput>
 }
 
+export type UserCreateNestedOneWithoutContactMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutContactMessagesInput, Prisma.UserUncheckedCreateWithoutContactMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContactMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutContactMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutContactMessagesInput, Prisma.UserUncheckedCreateWithoutContactMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContactMessagesInput
+  upsert?: Prisma.UserUpsertWithoutContactMessagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutContactMessagesInput, Prisma.UserUpdateWithoutContactMessagesInput>, Prisma.UserUncheckedUpdateWithoutContactMessagesInput>
+}
+
 export type UserCreateWithoutUserMovementInput = {
   id?: string
   name: string
@@ -421,6 +449,7 @@ export type UserCreateWithoutUserMovementInput = {
   avatar?: string | null
   createdAt?: Date | string
   Sale?: Prisma.SaleCreateNestedManyWithoutUserInput
+  contactMessages?: Prisma.ContactMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUserMovementInput = {
@@ -432,6 +461,7 @@ export type UserUncheckedCreateWithoutUserMovementInput = {
   avatar?: string | null
   createdAt?: Date | string
   Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutUserInput
+  contactMessages?: Prisma.ContactMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUserMovementInput = {
@@ -459,6 +489,7 @@ export type UserUpdateWithoutUserMovementInput = {
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Sale?: Prisma.SaleUpdateManyWithoutUserNestedInput
+  contactMessages?: Prisma.ContactMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserMovementInput = {
@@ -470,6 +501,7 @@ export type UserUncheckedUpdateWithoutUserMovementInput = {
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Sale?: Prisma.SaleUncheckedUpdateManyWithoutUserNestedInput
+  contactMessages?: Prisma.ContactMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSaleInput = {
@@ -481,6 +513,7 @@ export type UserCreateWithoutSaleInput = {
   avatar?: string | null
   createdAt?: Date | string
   UserMovement?: Prisma.UserMovementCreateNestedManyWithoutUserInput
+  contactMessages?: Prisma.ContactMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSaleInput = {
@@ -492,6 +525,7 @@ export type UserUncheckedCreateWithoutSaleInput = {
   avatar?: string | null
   createdAt?: Date | string
   UserMovement?: Prisma.UserMovementUncheckedCreateNestedManyWithoutUserInput
+  contactMessages?: Prisma.ContactMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSaleInput = {
@@ -519,6 +553,7 @@ export type UserUpdateWithoutSaleInput = {
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   UserMovement?: Prisma.UserMovementUpdateManyWithoutUserNestedInput
+  contactMessages?: Prisma.ContactMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSaleInput = {
@@ -530,6 +565,71 @@ export type UserUncheckedUpdateWithoutSaleInput = {
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   UserMovement?: Prisma.UserMovementUncheckedUpdateManyWithoutUserNestedInput
+  contactMessages?: Prisma.ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutContactMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  isActive?: boolean
+  avatar?: string | null
+  createdAt?: Date | string
+  UserMovement?: Prisma.UserMovementCreateNestedManyWithoutUserInput
+  Sale?: Prisma.SaleCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutContactMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  isActive?: boolean
+  avatar?: string | null
+  createdAt?: Date | string
+  UserMovement?: Prisma.UserMovementUncheckedCreateNestedManyWithoutUserInput
+  Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutContactMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutContactMessagesInput, Prisma.UserUncheckedCreateWithoutContactMessagesInput>
+}
+
+export type UserUpsertWithoutContactMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutContactMessagesInput, Prisma.UserUncheckedUpdateWithoutContactMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutContactMessagesInput, Prisma.UserUncheckedCreateWithoutContactMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutContactMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutContactMessagesInput, Prisma.UserUncheckedUpdateWithoutContactMessagesInput>
+}
+
+export type UserUpdateWithoutContactMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  UserMovement?: Prisma.UserMovementUpdateManyWithoutUserNestedInput
+  Sale?: Prisma.SaleUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutContactMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  UserMovement?: Prisma.UserMovementUncheckedUpdateManyWithoutUserNestedInput
+  Sale?: Prisma.SaleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -540,11 +640,13 @@ export type UserUncheckedUpdateWithoutSaleInput = {
 export type UserCountOutputType = {
   UserMovement: number
   Sale: number
+  contactMessages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   UserMovement?: boolean | UserCountOutputTypeCountUserMovementArgs
   Sale?: boolean | UserCountOutputTypeCountSaleArgs
+  contactMessages?: boolean | UserCountOutputTypeCountContactMessagesArgs
 }
 
 /**
@@ -571,6 +673,13 @@ export type UserCountOutputTypeCountSaleArgs<ExtArgs extends runtime.Types.Exten
   where?: Prisma.SaleWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountContactMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContactMessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -582,6 +691,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   UserMovement?: boolean | Prisma.User$UserMovementArgs<ExtArgs>
   Sale?: boolean | Prisma.User$SaleArgs<ExtArgs>
+  contactMessages?: boolean | Prisma.User$contactMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -619,6 +729,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   UserMovement?: boolean | Prisma.User$UserMovementArgs<ExtArgs>
   Sale?: boolean | Prisma.User$SaleArgs<ExtArgs>
+  contactMessages?: boolean | Prisma.User$contactMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -629,6 +740,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     UserMovement: Prisma.$UserMovementPayload<ExtArgs>[]
     Sale: Prisma.$SalePayload<ExtArgs>[]
+    contactMessages: Prisma.$ContactMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1034,6 +1146,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   UserMovement<T extends Prisma.User$UserMovementArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$UserMovementArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Sale<T extends Prisma.User$SaleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$SaleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contactMessages<T extends Prisma.User$contactMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contactMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContactMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1503,6 +1616,30 @@ export type User$SaleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   take?: number
   skip?: number
   distinct?: Prisma.SaleScalarFieldEnum | Prisma.SaleScalarFieldEnum[]
+}
+
+/**
+ * User.contactMessages
+ */
+export type User$contactMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ContactMessage
+   */
+  select?: Prisma.ContactMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ContactMessage
+   */
+  omit?: Prisma.ContactMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
+  where?: Prisma.ContactMessageWhereInput
+  orderBy?: Prisma.ContactMessageOrderByWithRelationInput | Prisma.ContactMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ContactMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContactMessageScalarFieldEnum | Prisma.ContactMessageScalarFieldEnum[]
 }
 
 /**

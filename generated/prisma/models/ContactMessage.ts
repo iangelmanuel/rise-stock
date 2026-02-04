@@ -27,36 +27,30 @@ export type AggregateContactMessage = {
 export type ContactMessageMinAggregateOutputType = {
   id: string | null
   name: string | null
-  lastName: string | null
   email: string | null
-  phone: string | null
   subject: string | null
   message: string | null
-  isUser: boolean | null
+  userId: string | null
   createdAt: Date | null
 }
 
 export type ContactMessageMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  lastName: string | null
   email: string | null
-  phone: string | null
   subject: string | null
   message: string | null
-  isUser: boolean | null
+  userId: string | null
   createdAt: Date | null
 }
 
 export type ContactMessageCountAggregateOutputType = {
   id: number
   name: number
-  lastName: number
   email: number
-  phone: number
   subject: number
   message: number
-  isUser: number
+  userId: number
   createdAt: number
   _all: number
 }
@@ -65,36 +59,30 @@ export type ContactMessageCountAggregateOutputType = {
 export type ContactMessageMinAggregateInputType = {
   id?: true
   name?: true
-  lastName?: true
   email?: true
-  phone?: true
   subject?: true
   message?: true
-  isUser?: true
+  userId?: true
   createdAt?: true
 }
 
 export type ContactMessageMaxAggregateInputType = {
   id?: true
   name?: true
-  lastName?: true
   email?: true
-  phone?: true
   subject?: true
   message?: true
-  isUser?: true
+  userId?: true
   createdAt?: true
 }
 
 export type ContactMessageCountAggregateInputType = {
   id?: true
   name?: true
-  lastName?: true
   email?: true
-  phone?: true
   subject?: true
   message?: true
-  isUser?: true
+  userId?: true
   createdAt?: true
   _all?: true
 }
@@ -174,12 +162,10 @@ export type ContactMessageGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type ContactMessageGroupByOutputType = {
   id: string
   name: string
-  lastName: string
   email: string
-  phone: string
   subject: string
   message: string
-  isUser: boolean
+  userId: string | null
   createdAt: Date
   _count: ContactMessageCountAggregateOutputType | null
   _min: ContactMessageMinAggregateOutputType | null
@@ -207,25 +193,23 @@ export type ContactMessageWhereInput = {
   NOT?: Prisma.ContactMessageWhereInput | Prisma.ContactMessageWhereInput[]
   id?: Prisma.StringFilter<"ContactMessage"> | string
   name?: Prisma.StringFilter<"ContactMessage"> | string
-  lastName?: Prisma.StringFilter<"ContactMessage"> | string
   email?: Prisma.StringFilter<"ContactMessage"> | string
-  phone?: Prisma.StringFilter<"ContactMessage"> | string
   subject?: Prisma.StringFilter<"ContactMessage"> | string
   message?: Prisma.StringFilter<"ContactMessage"> | string
-  isUser?: Prisma.BoolFilter<"ContactMessage"> | boolean
+  userId?: Prisma.StringNullableFilter<"ContactMessage"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ContactMessage"> | Date | string
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type ContactMessageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
-  isUser?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ContactMessageWhereUniqueInput = Prisma.AtLeast<{
@@ -234,24 +218,21 @@ export type ContactMessageWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ContactMessageWhereInput[]
   NOT?: Prisma.ContactMessageWhereInput | Prisma.ContactMessageWhereInput[]
   name?: Prisma.StringFilter<"ContactMessage"> | string
-  lastName?: Prisma.StringFilter<"ContactMessage"> | string
   email?: Prisma.StringFilter<"ContactMessage"> | string
-  phone?: Prisma.StringFilter<"ContactMessage"> | string
   subject?: Prisma.StringFilter<"ContactMessage"> | string
   message?: Prisma.StringFilter<"ContactMessage"> | string
-  isUser?: Prisma.BoolFilter<"ContactMessage"> | boolean
+  userId?: Prisma.StringNullableFilter<"ContactMessage"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ContactMessage"> | Date | string
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type ContactMessageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
-  isUser?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ContactMessageCountOrderByAggregateInput
   _max?: Prisma.ContactMessageMaxOrderByAggregateInput
@@ -264,133 +245,255 @@ export type ContactMessageScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ContactMessageScalarWhereWithAggregatesInput | Prisma.ContactMessageScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"ContactMessage"> | string
   name?: Prisma.StringWithAggregatesFilter<"ContactMessage"> | string
-  lastName?: Prisma.StringWithAggregatesFilter<"ContactMessage"> | string
   email?: Prisma.StringWithAggregatesFilter<"ContactMessage"> | string
-  phone?: Prisma.StringWithAggregatesFilter<"ContactMessage"> | string
   subject?: Prisma.StringWithAggregatesFilter<"ContactMessage"> | string
   message?: Prisma.StringWithAggregatesFilter<"ContactMessage"> | string
-  isUser?: Prisma.BoolWithAggregatesFilter<"ContactMessage"> | boolean
+  userId?: Prisma.StringNullableWithAggregatesFilter<"ContactMessage"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ContactMessage"> | Date | string
 }
 
 export type ContactMessageCreateInput = {
   id?: string
   name: string
-  lastName: string
   email: string
-  phone: string
   subject: string
   message: string
-  isUser?: boolean
   createdAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutContactMessagesInput
 }
 
 export type ContactMessageUncheckedCreateInput = {
   id?: string
   name: string
-  lastName: string
   email: string
-  phone: string
   subject: string
   message: string
-  isUser?: boolean
+  userId?: string | null
   createdAt?: Date | string
 }
 
 export type ContactMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
-  isUser?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutContactMessagesNestedInput
 }
 
 export type ContactMessageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
-  isUser?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ContactMessageCreateManyInput = {
   id?: string
   name: string
-  lastName: string
   email: string
-  phone: string
   subject: string
   message: string
-  isUser?: boolean
+  userId?: string | null
   createdAt?: Date | string
 }
 
 export type ContactMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
-  isUser?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ContactMessageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
-  isUser?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ContactMessageListRelationFilter = {
+  every?: Prisma.ContactMessageWhereInput
+  some?: Prisma.ContactMessageWhereInput
+  none?: Prisma.ContactMessageWhereInput
+}
+
+export type ContactMessageOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ContactMessageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
-  isUser?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type ContactMessageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
-  isUser?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type ContactMessageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
-  isUser?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type ContactMessageCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ContactMessageCreateWithoutUserInput, Prisma.ContactMessageUncheckedCreateWithoutUserInput> | Prisma.ContactMessageCreateWithoutUserInput[] | Prisma.ContactMessageUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ContactMessageCreateOrConnectWithoutUserInput | Prisma.ContactMessageCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ContactMessageCreateManyUserInputEnvelope
+  connect?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+}
+
+export type ContactMessageUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ContactMessageCreateWithoutUserInput, Prisma.ContactMessageUncheckedCreateWithoutUserInput> | Prisma.ContactMessageCreateWithoutUserInput[] | Prisma.ContactMessageUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ContactMessageCreateOrConnectWithoutUserInput | Prisma.ContactMessageCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ContactMessageCreateManyUserInputEnvelope
+  connect?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+}
+
+export type ContactMessageUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ContactMessageCreateWithoutUserInput, Prisma.ContactMessageUncheckedCreateWithoutUserInput> | Prisma.ContactMessageCreateWithoutUserInput[] | Prisma.ContactMessageUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ContactMessageCreateOrConnectWithoutUserInput | Prisma.ContactMessageCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ContactMessageUpsertWithWhereUniqueWithoutUserInput | Prisma.ContactMessageUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ContactMessageCreateManyUserInputEnvelope
+  set?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  disconnect?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  delete?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  connect?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  update?: Prisma.ContactMessageUpdateWithWhereUniqueWithoutUserInput | Prisma.ContactMessageUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ContactMessageUpdateManyWithWhereWithoutUserInput | Prisma.ContactMessageUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ContactMessageScalarWhereInput | Prisma.ContactMessageScalarWhereInput[]
+}
+
+export type ContactMessageUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ContactMessageCreateWithoutUserInput, Prisma.ContactMessageUncheckedCreateWithoutUserInput> | Prisma.ContactMessageCreateWithoutUserInput[] | Prisma.ContactMessageUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ContactMessageCreateOrConnectWithoutUserInput | Prisma.ContactMessageCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ContactMessageUpsertWithWhereUniqueWithoutUserInput | Prisma.ContactMessageUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ContactMessageCreateManyUserInputEnvelope
+  set?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  disconnect?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  delete?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  connect?: Prisma.ContactMessageWhereUniqueInput | Prisma.ContactMessageWhereUniqueInput[]
+  update?: Prisma.ContactMessageUpdateWithWhereUniqueWithoutUserInput | Prisma.ContactMessageUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ContactMessageUpdateManyWithWhereWithoutUserInput | Prisma.ContactMessageUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ContactMessageScalarWhereInput | Prisma.ContactMessageScalarWhereInput[]
+}
+
+export type ContactMessageCreateWithoutUserInput = {
+  id?: string
+  name: string
+  email: string
+  subject: string
+  message: string
+  createdAt?: Date | string
+}
+
+export type ContactMessageUncheckedCreateWithoutUserInput = {
+  id?: string
+  name: string
+  email: string
+  subject: string
+  message: string
+  createdAt?: Date | string
+}
+
+export type ContactMessageCreateOrConnectWithoutUserInput = {
+  where: Prisma.ContactMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContactMessageCreateWithoutUserInput, Prisma.ContactMessageUncheckedCreateWithoutUserInput>
+}
+
+export type ContactMessageCreateManyUserInputEnvelope = {
+  data: Prisma.ContactMessageCreateManyUserInput | Prisma.ContactMessageCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type ContactMessageUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ContactMessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ContactMessageUpdateWithoutUserInput, Prisma.ContactMessageUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ContactMessageCreateWithoutUserInput, Prisma.ContactMessageUncheckedCreateWithoutUserInput>
+}
+
+export type ContactMessageUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ContactMessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ContactMessageUpdateWithoutUserInput, Prisma.ContactMessageUncheckedUpdateWithoutUserInput>
+}
+
+export type ContactMessageUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.ContactMessageScalarWhereInput
+  data: Prisma.XOR<Prisma.ContactMessageUpdateManyMutationInput, Prisma.ContactMessageUncheckedUpdateManyWithoutUserInput>
+}
+
+export type ContactMessageScalarWhereInput = {
+  AND?: Prisma.ContactMessageScalarWhereInput | Prisma.ContactMessageScalarWhereInput[]
+  OR?: Prisma.ContactMessageScalarWhereInput[]
+  NOT?: Prisma.ContactMessageScalarWhereInput | Prisma.ContactMessageScalarWhereInput[]
+  id?: Prisma.StringFilter<"ContactMessage"> | string
+  name?: Prisma.StringFilter<"ContactMessage"> | string
+  email?: Prisma.StringFilter<"ContactMessage"> | string
+  subject?: Prisma.StringFilter<"ContactMessage"> | string
+  message?: Prisma.StringFilter<"ContactMessage"> | string
+  userId?: Prisma.StringNullableFilter<"ContactMessage"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"ContactMessage"> | Date | string
+}
+
+export type ContactMessageCreateManyUserInput = {
+  id?: string
+  name: string
+  email: string
+  subject: string
+  message: string
+  createdAt?: Date | string
+}
+
+export type ContactMessageUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ContactMessageUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ContactMessageUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -398,65 +501,69 @@ export type ContactMessageMinOrderByAggregateInput = {
 export type ContactMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  lastName?: boolean
   email?: boolean
-  phone?: boolean
   subject?: boolean
   message?: boolean
-  isUser?: boolean
+  userId?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.ContactMessage$userArgs<ExtArgs>
 }, ExtArgs["result"]["contactMessage"]>
 
 export type ContactMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  lastName?: boolean
   email?: boolean
-  phone?: boolean
   subject?: boolean
   message?: boolean
-  isUser?: boolean
+  userId?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.ContactMessage$userArgs<ExtArgs>
 }, ExtArgs["result"]["contactMessage"]>
 
 export type ContactMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  lastName?: boolean
   email?: boolean
-  phone?: boolean
   subject?: boolean
   message?: boolean
-  isUser?: boolean
+  userId?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.ContactMessage$userArgs<ExtArgs>
 }, ExtArgs["result"]["contactMessage"]>
 
 export type ContactMessageSelectScalar = {
   id?: boolean
   name?: boolean
-  lastName?: boolean
   email?: boolean
-  phone?: boolean
   subject?: boolean
   message?: boolean
-  isUser?: boolean
+  userId?: boolean
   createdAt?: boolean
 }
 
-export type ContactMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "lastName" | "email" | "phone" | "subject" | "message" | "isUser" | "createdAt", ExtArgs["result"]["contactMessage"]>
+export type ContactMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "subject" | "message" | "userId" | "createdAt", ExtArgs["result"]["contactMessage"]>
+export type ContactMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.ContactMessage$userArgs<ExtArgs>
+}
+export type ContactMessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.ContactMessage$userArgs<ExtArgs>
+}
+export type ContactMessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.ContactMessage$userArgs<ExtArgs>
+}
 
 export type $ContactMessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ContactMessage"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    lastName: string
     email: string
-    phone: string
     subject: string
     message: string
-    isUser: boolean
+    userId: string | null
     createdAt: Date
   }, ExtArgs["result"]["contactMessage"]>
   composites: {}
@@ -852,6 +959,7 @@ readonly fields: ContactMessageFieldRefs;
  */
 export interface Prisma__ContactMessageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.ContactMessage$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContactMessage$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -883,12 +991,10 @@ export interface Prisma__ContactMessageClient<T, Null = never, ExtArgs extends r
 export interface ContactMessageFieldRefs {
   readonly id: Prisma.FieldRef<"ContactMessage", 'String'>
   readonly name: Prisma.FieldRef<"ContactMessage", 'String'>
-  readonly lastName: Prisma.FieldRef<"ContactMessage", 'String'>
   readonly email: Prisma.FieldRef<"ContactMessage", 'String'>
-  readonly phone: Prisma.FieldRef<"ContactMessage", 'String'>
   readonly subject: Prisma.FieldRef<"ContactMessage", 'String'>
   readonly message: Prisma.FieldRef<"ContactMessage", 'String'>
-  readonly isUser: Prisma.FieldRef<"ContactMessage", 'Boolean'>
+  readonly userId: Prisma.FieldRef<"ContactMessage", 'String'>
   readonly createdAt: Prisma.FieldRef<"ContactMessage", 'DateTime'>
 }
     
@@ -906,6 +1012,10 @@ export type ContactMessageFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the ContactMessage
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
   /**
    * Filter, which ContactMessage to fetch.
    */
@@ -925,6 +1035,10 @@ export type ContactMessageFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
+  /**
    * Filter, which ContactMessage to fetch.
    */
   where: Prisma.ContactMessageWhereUniqueInput
@@ -942,6 +1056,10 @@ export type ContactMessageFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the ContactMessage
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
   /**
    * Filter, which ContactMessage to fetch.
    */
@@ -991,6 +1109,10 @@ export type ContactMessageFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
+  /**
    * Filter, which ContactMessage to fetch.
    */
   where?: Prisma.ContactMessageWhereInput
@@ -1039,6 +1161,10 @@ export type ContactMessageFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
+  /**
    * Filter, which ContactMessages to fetch.
    */
   where?: Prisma.ContactMessageWhereInput
@@ -1082,6 +1208,10 @@ export type ContactMessageCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
+  /**
    * The data needed to create a ContactMessage.
    */
   data: Prisma.XOR<Prisma.ContactMessageCreateInput, Prisma.ContactMessageUncheckedCreateInput>
@@ -1115,6 +1245,10 @@ export type ContactMessageCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    */
   data: Prisma.ContactMessageCreateManyInput | Prisma.ContactMessageCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1129,6 +1263,10 @@ export type ContactMessageUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the ContactMessage
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
   /**
    * The data needed to update a ContactMessage.
    */
@@ -1181,6 +1319,10 @@ export type ContactMessageUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * Limit how many ContactMessages to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1195,6 +1337,10 @@ export type ContactMessageUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the ContactMessage
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
   /**
    * The filter to search for the ContactMessage to update in case it exists.
    */
@@ -1222,6 +1368,10 @@ export type ContactMessageDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
+  /**
    * Filter which ContactMessage to delete.
    */
   where: Prisma.ContactMessageWhereUniqueInput
@@ -1242,6 +1392,25 @@ export type ContactMessageDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * ContactMessage.user
+ */
+export type ContactMessage$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
  * ContactMessage without action
  */
 export type ContactMessageDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1253,4 +1422,8 @@ export type ContactMessageDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the ContactMessage
    */
   omit?: Prisma.ContactMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMessageInclude<ExtArgs> | null
 }
