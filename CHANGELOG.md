@@ -2,6 +2,14 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
+### [0.3.1] - 2026-02-15
+
+- Implementación de React Email para la plantilla de correo electrónico de contacto, mejorando la estructura y el estilo del correo.
+- Corrección de errores menores en la plantilla de correo electrónico de contacto.
+- Mejoras en la estructura y estilo del correo electrónico para una mejor legibilidad.
+- Actualización de dependencias para mantener la seguridad y estabilidad del proyecto.
+- Corrección de retorno de mensaje de la API de `error: ""` a `message: ""`.
+
 ### [0.3.0] - 2026-02-14
 
 - Implementación de variable de entorno para el archivo `.env.template` para la clave de Resend.

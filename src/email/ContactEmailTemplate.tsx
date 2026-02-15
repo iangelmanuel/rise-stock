@@ -1,4 +1,16 @@
-import { FileText, Mail, MessageSquare, User } from "lucide-react"
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Preview,
+  Section,
+  Text
+} from "@react-email/components"
 
 interface Props {
   name: string
@@ -14,88 +26,228 @@ export const ContactEmailTemplate = ({
   message
 }: Props) => {
   return (
-    <div className="min-h-screen w-full bg-linear-to-br from-gray-50 via-white to-gray-100 py-8 px-3 sm:py-14 sm:px-6 flex items-center justify-center">
-      <div className="w-full max-w-lg sm:max-w-xl">
-        <div className="h-1.5 w-full rounded-t-2xl bg-linear-to-r from-gray-300 via-gray-400 to-gray-300" />
+    <Html lang="es">
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+        <meta
+          name="color-scheme"
+          content="light only"
+        />
+        <meta
+          name="supported-color-schemes"
+          content="light only"
+        />
+      </Head>
 
-        <div className="bg-white rounded-b-2xl shadow-[0_4px_32px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden">
-          <div className="px-5 py-6 sm:px-8 sm:py-8 text-center border-b border-gray-100">
-            <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gray-100 mb-4">
-              <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500" />
-            </div>
-            <h1 className="text-lg sm:text-xl font-bold text-gray-800 tracking-tight">
-              Nuevo mensaje de contacto
-            </h1>
-            <p className="text-xs sm:text-sm text-gray-400 mt-1.5 font-light">
-              Se ha recibido un nuevo mensaje desde el formulario web
-            </p>
-          </div>
+      <Preview>
+        Mensaje de {name}: {subject}
+      </Preview>
 
-          <div className="px-5 py-5 sm:px-8 sm:py-7 space-y-4 sm:space-y-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-              <div className="group relative bg-gray-50/70 rounded-xl p-4 border border-gray-100 transition hover:border-gray-200 hover:shadow-sm">
-                <div className="flex items-center gap-2 mb-2">
-                  <User className="w-3.5 h-3.5 text-gray-400" />
-                  <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-gray-400">
-                    Nombre
-                  </span>
-                </div>
-                <p className="text-sm sm:text-base text-gray-800 font-medium leading-snug">
-                  {name}
-                </p>
-              </div>
+      <Body style={styles.body}>
+        <Container style={styles.container}>
+          <Section style={styles.logoSection}>
+            <Img
+              src="https://www.risecol.com/svg/logo-rise-black.svg"
+              width="36"
+              height="36"
+              alt="Rise"
+              style={styles.logo}
+            />
+          </Section>
 
-              <div className="group relative bg-gray-50/70 rounded-xl p-4 border border-gray-100 transition hover:border-gray-200 hover:shadow-sm">
-                <div className="flex items-center gap-2 mb-2">
-                  <Mail className="w-3.5 h-3.5 text-gray-400" />
-                  <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-gray-400">
-                    Correo electrónico
-                  </span>
-                </div>
-                <p className="text-sm sm:text-base text-gray-800 font-medium leading-snug break-all">
-                  {email}
-                </p>
-              </div>
-            </div>
+          <Heading
+            as="h1"
+            style={styles.title}
+          >
+            Nuevo mensaje de contacto
+          </Heading>
+          <Text style={styles.subtitle}>
+            {name} te ha enviado un mensaje desde tu sitio web.
+          </Text>
 
-            <div className="bg-gray-50/70 rounded-xl p-4 border border-gray-100 transition hover:border-gray-200 hover:shadow-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <FileText className="w-3.5 h-3.5 text-gray-400" />
-                <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-gray-400">
-                  Asunto
-                </span>
-              </div>
-              <p className="text-sm sm:text-base text-gray-800 font-medium leading-snug">
-                {subject}
-              </p>
-            </div>
+          <Hr style={styles.divider} />
 
-            <div className="flex items-center gap-3 py-1">
-              <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
-              <MessageSquare className="w-4 h-4 text-gray-300" />
-              <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
-            </div>
+          <Section style={styles.infoSection}>
+            <Text style={styles.label}>Remitente</Text>
+            <Text style={styles.value}>{name}</Text>
 
-            <div className="bg-gray-50/70 rounded-xl p-5 sm:p-6 border border-gray-100">
-              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-gray-400">
-                Mensaje
-              </span>
-              <p className="mt-3 text-sm sm:text-base text-gray-700 leading-relaxed whitespace-pre-line">
-                {message}
-              </p>
-            </div>
-          </div>
+            <Section style={styles.spacer} />
 
-          <div className="bg-gray-50/50 px-5 py-4 sm:px-8 sm:py-5 border-t border-gray-100 text-center">
-            <p className="text-[10px] sm:text-xs text-gray-400 font-light leading-relaxed">
-              Este correo fue generado automáticamente · No es necesario
-              responder a este mensaje
-            </p>
-          </div>
-        </div>
+            <Text style={styles.label}>Correo electrónico</Text>
+            <Text style={styles.valueEmail}>{email}</Text>
 
-        <div className="mx-4 h-2 bg-linear-to-b from-gray-100/60 to-transparent rounded-b-xl" />
-      </div>
-    </div>
+            <Section style={styles.spacer} />
+
+            <Text style={styles.label}>Asunto</Text>
+            <Text style={styles.value}>{subject}</Text>
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.messageSection}>
+            <Text style={styles.label}>Mensaje</Text>
+            <Section style={styles.messageBox}>
+              <Text style={styles.messageText}>{message}</Text>
+            </Section>
+          </Section>
+
+          <Section style={styles.ctaSection}>
+            <Button
+              href={`mailto:${email}?subject=Re: ${encodeURIComponent(subject)}`}
+              style={styles.button}
+            >
+              Responder mensaje
+            </Button>
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Text style={styles.footer}>
+            Este correo fue generado automáticamente desde{" "}
+            <span style={styles.footerLink}>risecol.com</span>
+          </Text>
+        </Container>
+      </Body>
+    </Html>
   )
+}
+
+const styles = {
+  body: {
+    backgroundColor: "#f5f5f7",
+    fontFamily:
+      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    margin: "0" as const,
+    padding: "0" as const
+  } as React.CSSProperties,
+
+  container: {
+    backgroundColor: "#ffffff",
+    maxWidth: "520px",
+    margin: "40px auto",
+    borderRadius: "16px",
+    padding: "48px 40px",
+    boxShadow: "0 1px 4px rgba(0, 0, 0, 0.04)"
+  } as React.CSSProperties,
+
+  logoSection: {
+    textAlign: "center" as const,
+    marginBottom: "32px"
+  } as React.CSSProperties,
+
+  logo: {
+    display: "inline-block" as const,
+    margin: "0 auto"
+  } as React.CSSProperties,
+
+  title: {
+    fontSize: "22px",
+    fontWeight: 600,
+    color: "#1d1d1f",
+    textAlign: "center" as const,
+    letterSpacing: "-0.02em",
+    lineHeight: "28px",
+    margin: "0 0 8px"
+  } as React.CSSProperties,
+
+  subtitle: {
+    fontSize: "14px",
+    color: "#6e6e73",
+    textAlign: "center" as const,
+    lineHeight: "20px",
+    margin: "0 0 0"
+  } as React.CSSProperties,
+
+  divider: {
+    borderColor: "#e5e5ea",
+    borderWidth: "0 0 1px 0",
+    borderStyle: "solid" as const,
+    margin: "28px 0"
+  } as React.CSSProperties,
+
+  infoSection: {
+    padding: "0"
+  } as React.CSSProperties,
+
+  spacer: {
+    height: "20px"
+  } as React.CSSProperties,
+
+  label: {
+    fontSize: "11px",
+    fontWeight: 600,
+    textTransform: "uppercase" as const,
+    letterSpacing: "0.06em",
+    color: "#8e8e93",
+    margin: "0 0 4px",
+    lineHeight: "16px"
+  } as React.CSSProperties,
+
+  value: {
+    fontSize: "16px",
+    fontWeight: 400,
+    color: "#1d1d1f",
+    lineHeight: "22px",
+    margin: "0"
+  } as React.CSSProperties,
+
+  valueEmail: {
+    fontSize: "16px",
+    fontWeight: 400,
+    color: "#1d1d1f",
+    lineHeight: "22px",
+    margin: "0",
+    wordBreak: "break-all" as const
+  } as React.CSSProperties,
+
+  messageSection: {
+    padding: "0"
+  } as React.CSSProperties,
+
+  messageBox: {
+    backgroundColor: "#f5f5f7",
+    borderRadius: "12px",
+    padding: "20px",
+    marginTop: "8px"
+  } as React.CSSProperties,
+
+  messageText: {
+    fontSize: "15px",
+    fontWeight: 400,
+    color: "#3a3a3c",
+    lineHeight: "24px",
+    margin: "0",
+    whiteSpace: "pre-line" as const
+  } as React.CSSProperties,
+
+  ctaSection: {
+    textAlign: "center" as const,
+    margin: "32px 0 0"
+  } as React.CSSProperties,
+
+  button: {
+    backgroundColor: "#1d1d1f",
+    color: "#ffffff",
+    fontSize: "14px",
+    fontWeight: 500,
+    borderRadius: "980px",
+    padding: "12px 28px",
+    textDecoration: "none" as const,
+    display: "inline-block" as const
+  } as React.CSSProperties,
+
+  footer: {
+    fontSize: "12px",
+    color: "#aeaeb2",
+    textAlign: "center" as const,
+    lineHeight: "18px",
+    margin: "0"
+  } as React.CSSProperties,
+
+  footerLink: {
+    color: "#8e8e93"
+  } as React.CSSProperties
 }

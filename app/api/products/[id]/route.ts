@@ -23,7 +23,7 @@ export async function GET(request: NextRequest, { params }: Params) {
     return NextResponse.json(product)
   } catch (error) {
     return NextResponse.json(
-      { error: `Failed to fetch products with id: ${id}` },
+      { message: `Failed to fetch products with id: ${id}` },
       { status: 500 }
     )
   }

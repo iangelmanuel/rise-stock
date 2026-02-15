@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     if (!parsedData.success) {
       return NextResponse.json(
-        { error: parsedData.error.issues[0].message },
+        { message: parsedData.error.issues[0].message },
         { status: 400 }
       )
     }
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     })
 
     await resend.emails.send({
-      from: "<contacto@risecol.com>",
+      from: "Rise Clothes <contacto@risecol.com>",
       to: ["contacto@risecol.com"],
       subject: "¡Recibiste un nuevo mensaje!",
       react: ContactEmailTemplate({
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     )
   } catch (error) {
     return NextResponse.json(
-      { error: "No se pudo enviar el mensaje" },
+      { message: "No se pudo enviar el mensaje" },
       { status: 500 }
     )
   }
