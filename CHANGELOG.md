@@ -2,6 +2,15 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
+### [0.3.0] - 2026-02-14
+
+- Implementación de variable de entorno para el archivo `.env.template` para la clave de Resend.
+- Instalación de Resend para el envío de correos electrónicos a través de la API de contacto.
+- Sistema de correo cuando se recibe un mensaje a través de la API de contacto, utilizando Resend para enviar correos electrónicos con una plantilla personalizada.
+- Template de correo electrónico creado para mostrar la información del mensaje recibido de manera clara y profesional.
+- Actualización de dependencias y mejoras en la funcionalidad de la API de contacto.
+- Cambio de importación del archivo de `route.ts` de products con "@/lib/prisma" a "@/lib/prisma.config" para reflejar la nueva estructura de Prisma 7.
+
 ## [Unreleased]
 
 - Mejora en la validación de datos para la API de contact.

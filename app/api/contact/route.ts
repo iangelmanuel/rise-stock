@@ -1,6 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { ContactEmailTemplate } from "@/email/ContactEmailTemplate"
 import { prisma } from "@/lib/prisma"
+import { Resend } from "resend"
 import z from "zod"
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 const contactMessacheSchema = z.object({
   name: z.string().min(1, "El nombre es obligatorio"),
@@ -37,6 +41,18 @@ export async function POST(request: NextRequest) {
         message: parsedData.data.message,
         userId: parsedData.data.userId || null
       }
+    })
+
+    await resend.emails.send({
+      from: "<contacto@risecol.com>",
+      to: ["contacto@risecol.com"],
+      subject: "¡Recibiste un nuevo mensaje!",
+      react: ContactEmailTemplate({
+        name: parsedData.data.name,
+        email: parsedData.data.email,
+        subject: parsedData.data.subject,
+        message: parsedData.data.message
+      })
     })
 
     return NextResponse.json(
