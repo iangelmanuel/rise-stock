@@ -8,6 +8,7 @@ import { SalesByMonth } from "@/components/dashboard/charts/sales-by-month"
 import { SalesBySize } from "@/components/dashboard/charts/sales-by-size"
 import { SalesByStatus } from "@/components/dashboard/charts/sales-by-status"
 import { SalesByTotal } from "@/components/dashboard/charts/sales-by-total"
+import { LayoutDashboard } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Dashboard - Rise App",
@@ -22,8 +23,16 @@ export default async function DashboardPage() {
   const { user } = session
   return (
     <>
-      <section className="mt-5">
-        <h1 className="mb-2 text-2xl font-bold">Welcome, {user.name}</h1>
+      <section className="mt-5 mb-6">
+        <div className="flex items-center gap-2 mb-1">
+          <LayoutDashboard className="size-7 text-primary" />
+          <h1 className="text-3xl font-bold tracking-tight">
+            Welcome back, {user.name}
+          </h1>
+        </div>
+        <p className="text-muted-foreground text-sm">
+          Here&apos;s an overview of your store&apos;s performance.
+        </p>
       </section>
 
       <section className="mt-5 w-full">

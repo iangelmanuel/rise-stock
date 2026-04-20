@@ -53,11 +53,18 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   UserMovement: 'UserMovement',
+  Client: 'Client',
+  ClientAddress: 'ClientAddress',
+  Collection: 'Collection',
   Clothes: 'Clothes',
   ClothesVariant: 'ClothesVariant',
   ClothesImage: 'ClothesImage',
-  Collection: 'Collection',
   Sale: 'Sale',
+  Order: 'Order',
+  OrderItem: 'OrderItem',
+  OrderAddress: 'OrderAddress',
+  OrderTracking: 'OrderTracking',
+  OrderDiscount: 'OrderDiscount',
   NewsletterSubscriber: 'NewsletterSubscriber',
   ContactMessage: 'ContactMessage'
 } as const
@@ -95,20 +102,71 @@ export const UserMovementScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  userId: 'userId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  userId: 'userId'
 } as const
 
 export type UserMovementScalarFieldEnum = (typeof UserMovementScalarFieldEnum)[keyof typeof UserMovementScalarFieldEnum]
+
+
+export const ClientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  lastname: 'lastname',
+  email: 'email',
+  phone: 'phone',
+  password: 'password',
+  isConfirmed: 'isConfirmed',
+  isUserDeleted: 'isUserDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
+
+
+export const ClientAddressScalarFieldEnum = {
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  city: 'city',
+  typeOfIdentification: 'typeOfIdentification',
+  identification: 'identification',
+  phone: 'phone',
+  address: 'address',
+  address2: 'address2',
+  postalCode: 'postalCode',
+  department: 'department',
+  additionalData: 'additionalData',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  clientId: 'clientId'
+} as const
+
+export type ClientAddressScalarFieldEnum = (typeof ClientAddressScalarFieldEnum)[keyof typeof ClientAddressScalarFieldEnum]
+
+
+export const CollectionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type CollectionScalarFieldEnum = (typeof CollectionScalarFieldEnum)[keyof typeof CollectionScalarFieldEnum]
 
 
 export const ClothesScalarFieldEnum = {
   id: 'id',
   design: 'design',
   color: 'color',
+  description: 'description',
   price: 'price',
-  collectionId: 'collectionId',
-  createdAt: 'createdAt'
+  discount: 'discount',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  collectionId: 'collectionId'
 } as const
 
 export type ClothesScalarFieldEnum = (typeof ClothesScalarFieldEnum)[keyof typeof ClothesScalarFieldEnum]
@@ -136,15 +194,6 @@ export const ClothesImageScalarFieldEnum = {
 export type ClothesImageScalarFieldEnum = (typeof ClothesImageScalarFieldEnum)[keyof typeof ClothesImageScalarFieldEnum]
 
 
-export const CollectionScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt'
-} as const
-
-export type CollectionScalarFieldEnum = (typeof CollectionScalarFieldEnum)[keyof typeof CollectionScalarFieldEnum]
-
-
 export const SaleScalarFieldEnum = {
   id: 'id',
   client: 'client',
@@ -163,6 +212,86 @@ export const SaleScalarFieldEnum = {
 } as const
 
 export type SaleScalarFieldEnum = (typeof SaleScalarFieldEnum)[keyof typeof SaleScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  itemsInOrder: 'itemsInOrder',
+  subtotal: 'subtotal',
+  tax: 'tax',
+  delivery: 'delivery',
+  discount: 'discount',
+  total: 'total',
+  orderStatus: 'orderStatus',
+  paidAt: 'paidAt',
+  transactionId: 'transactionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  clientId: 'clientId',
+  orderDiscountId: 'orderDiscountId'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  quantity: 'quantity',
+  size: 'size',
+  price: 'price',
+  discount: 'discount',
+  clothesId: 'clothesId',
+  orderId: 'orderId'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const OrderAddressScalarFieldEnum = {
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  city: 'city',
+  typeOfIdentification: 'typeOfIdentification',
+  identification: 'identification',
+  phone: 'phone',
+  address: 'address',
+  address2: 'address2',
+  postalCode: 'postalCode',
+  department: 'department',
+  additionalData: 'additionalData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  orderId: 'orderId'
+} as const
+
+export type OrderAddressScalarFieldEnum = (typeof OrderAddressScalarFieldEnum)[keyof typeof OrderAddressScalarFieldEnum]
+
+
+export const OrderTrackingScalarFieldEnum = {
+  id: 'id',
+  company: 'company',
+  trackingCode: 'trackingCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  orderId: 'orderId'
+} as const
+
+export type OrderTrackingScalarFieldEnum = (typeof OrderTrackingScalarFieldEnum)[keyof typeof OrderTrackingScalarFieldEnum]
+
+
+export const OrderDiscountScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  description: 'description',
+  discount: 'discount',
+  expiresAt: 'expiresAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrderDiscountScalarFieldEnum = (typeof OrderDiscountScalarFieldEnum)[keyof typeof OrderDiscountScalarFieldEnum]
 
 
 export const NewsletterSubscriberScalarFieldEnum = {

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import { MainSidebar } from "@/components/dashboard/sidebar/main-sidebar"
+import { PageTransition } from "@/components/shared/page-transition"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import "@/styles/globals.css"
 
@@ -24,8 +25,8 @@ export default async function DashboardLayout({
       <MainSidebar />
 
       <main className="w-full p-5">
-        <SidebarTrigger />
-        {children}
+        <SidebarTrigger className="mb-2" />
+        <PageTransition>{children}</PageTransition>
       </main>
     </SidebarProvider>
   )

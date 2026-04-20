@@ -21,3 +21,15 @@ export const SaleStatus = {
 } as const
 
 export type SaleStatus = (typeof SaleStatus)[keyof typeof SaleStatus]
+
+
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  APPROVED: 'APPROVED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]

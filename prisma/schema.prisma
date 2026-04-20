@@ -19,20 +19,32 @@ enum SaleStatus {
   PAUSED
 }
 
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  APPROVED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+//////////////////////////
+// Users and Movements //
+////////////////////////
+
 model User {
   id       String  @id @default(uuid())
   name     String
   email    String  @unique
   password String
   isActive Boolean @default(true)
+  avatar   String?
 
-  avatar String?
+  createdAt DateTime @default(now())
 
   UserMovement    UserMovement[]
   Sale            Sale[]
   contactMessages ContactMessage[]
-
-  createdAt DateTime @default(now())
 }
 
 model UserMovement {
@@ -40,17 +52,75 @@ model UserMovement {
   name        String
   description String
 
+  createdAt DateTime @default(now())
+
   userId String
   user   User   @relation(fields: [userId], references: [id])
+}
+
+model Client {
+  id       String @id @default(uuid())
+  name     String
+  lastname String
+  email    String @unique
+  phone    String
+  password String
+
+  isConfirmed   Boolean @default(false)
+  isUserDeleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders          Order[]
+  savedAddresses  ClientAddress[]
+}
+
+model ClientAddress {
+  id                   String  @id @default(uuid())
+  firstName            String
+  lastName             String
+  city                 String
+  typeOfIdentification String
+  identification       String
+  phone                String
+  address              String
+  address2             String?
+  postalCode           String
+  department           String
+  additionalData       String?
+  isDefault            Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+}
+
+///////////////
+// Products //
+/////////////
+
+model Collection {
+  id       String    @id @default(uuid())
+  name     String
+  isActive Boolean   @default(true)
+  clothes  Clothes[]
 
   createdAt DateTime @default(now())
 }
 
 model Clothes {
-  id     String @id @default(uuid())
-  design String
-  color  String
-  price  Float  @default(80000)
+  id          String  @id @default(uuid())
+  design      String
+  color       String
+  description String?
+  price       Float   @default(80000)
+  discount    Float   @default(1)
+  isActive    Boolean @default(true)
+
+  createdAt DateTime @default(now())
 
   collectionId String?
   collection   Collection? @relation(fields: [collectionId], references: [id])
@@ -58,8 +128,7 @@ model Clothes {
   variants     ClothesVariant[]
   clothesImage ClothesImage[]
   Sale         Sale[]
-
-  createdAt DateTime @default(now())
+  orderItems   OrderItem[]
 }
 
 model ClothesVariant {
@@ -84,13 +153,9 @@ model ClothesImage {
   createdAt DateTime @default(now())
 }
 
-model Collection {
-  id      String    @id @default(uuid())
-  name    String
-  clothes Clothes[]
-
-  createdAt DateTime @default(now())
-}
+//////////////////////
+// Sales by admins //
+////////////////////
 
 model Sale {
   id       String     @id @default(uuid())
@@ -99,7 +164,7 @@ model Sale {
   state    String
   city     String
   status   SaleStatus @default(PENDING)
-  discount Float      @default(0)
+  discount Float      @default(1)
   delivery Float      @default(0)
   total    Float      @default(0)
 
@@ -114,6 +179,100 @@ model Sale {
 
   createdAt DateTime @default(now())
 }
+
+////////////////////////////
+// Orders for e-commerce //
+//////////////////////////
+
+model Order {
+  id            String      @id @default(uuid())
+  itemsInOrder  Int         @default(0)
+  subtotal      Float
+  tax           Float
+  delivery      Float
+  discount      Float       @default(1)
+  total         Float
+  orderStatus   OrderStatus @default(PENDING)
+  paidAt        DateTime?
+  transactionId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clientId        String
+  client          Client         @relation(fields: [clientId], references: [id])
+  orderDiscountId String?
+  orderDiscount   OrderDiscount? @relation(fields: [orderDiscountId], references: [id])
+
+  orderItems    OrderItem[]
+  orderAddress  OrderAddress?
+  orderTracking OrderTracking?
+}
+
+model OrderItem {
+  id       String @id @default(uuid())
+  quantity Int
+  size     String
+  price    Float
+  discount Float  @default(1)
+
+  clothesId String
+  clothes   Clothes @relation(fields: [clothesId], references: [id])
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+model OrderAddress {
+  id                   String  @id @default(uuid())
+  firstName            String
+  lastName             String
+  city                 String
+  typeOfIdentification String
+  identification       String
+  phone                String
+  address              String
+  address2             String?
+  postalCode           String
+  department           String
+  additionalData       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+model OrderTracking {
+  id           String @id @default(uuid())
+  company      String
+  trackingCode String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+model OrderDiscount {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  description String
+  discount    Float    @default(1)
+  expiresAt   DateTime
+  isActive    Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+//////////////////////////////////////
+// Newsletter and Contact Messages //
+////////////////////////////////////
 
 model NewsletterSubscriber {
   id    String @id @default(uuid())

@@ -28,74 +28,96 @@ export type AggregateClothes = {
 
 export type ClothesAvgAggregateOutputType = {
   price: number | null
+  discount: number | null
 }
 
 export type ClothesSumAggregateOutputType = {
   price: number | null
+  discount: number | null
 }
 
 export type ClothesMinAggregateOutputType = {
   id: string | null
   design: string | null
   color: string | null
+  description: string | null
   price: number | null
-  collectionId: string | null
+  discount: number | null
+  isActive: boolean | null
   createdAt: Date | null
+  collectionId: string | null
 }
 
 export type ClothesMaxAggregateOutputType = {
   id: string | null
   design: string | null
   color: string | null
+  description: string | null
   price: number | null
-  collectionId: string | null
+  discount: number | null
+  isActive: boolean | null
   createdAt: Date | null
+  collectionId: string | null
 }
 
 export type ClothesCountAggregateOutputType = {
   id: number
   design: number
   color: number
+  description: number
   price: number
-  collectionId: number
+  discount: number
+  isActive: number
   createdAt: number
+  collectionId: number
   _all: number
 }
 
 
 export type ClothesAvgAggregateInputType = {
   price?: true
+  discount?: true
 }
 
 export type ClothesSumAggregateInputType = {
   price?: true
+  discount?: true
 }
 
 export type ClothesMinAggregateInputType = {
   id?: true
   design?: true
   color?: true
+  description?: true
   price?: true
-  collectionId?: true
+  discount?: true
+  isActive?: true
   createdAt?: true
+  collectionId?: true
 }
 
 export type ClothesMaxAggregateInputType = {
   id?: true
   design?: true
   color?: true
+  description?: true
   price?: true
-  collectionId?: true
+  discount?: true
+  isActive?: true
   createdAt?: true
+  collectionId?: true
 }
 
 export type ClothesCountAggregateInputType = {
   id?: true
   design?: true
   color?: true
+  description?: true
   price?: true
-  collectionId?: true
+  discount?: true
+  isActive?: true
   createdAt?: true
+  collectionId?: true
   _all?: true
 }
 
@@ -189,9 +211,12 @@ export type ClothesGroupByOutputType = {
   id: string
   design: string
   color: string
+  description: string | null
   price: number
-  collectionId: string | null
+  discount: number
+  isActive: boolean
   createdAt: Date
+  collectionId: string | null
   _count: ClothesCountAggregateOutputType | null
   _avg: ClothesAvgAggregateOutputType | null
   _sum: ClothesSumAggregateOutputType | null
@@ -221,26 +246,34 @@ export type ClothesWhereInput = {
   id?: Prisma.StringFilter<"Clothes"> | string
   design?: Prisma.StringFilter<"Clothes"> | string
   color?: Prisma.StringFilter<"Clothes"> | string
+  description?: Prisma.StringNullableFilter<"Clothes"> | string | null
   price?: Prisma.FloatFilter<"Clothes"> | number
-  collectionId?: Prisma.StringNullableFilter<"Clothes"> | string | null
+  discount?: Prisma.FloatFilter<"Clothes"> | number
+  isActive?: Prisma.BoolFilter<"Clothes"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Clothes"> | Date | string
+  collectionId?: Prisma.StringNullableFilter<"Clothes"> | string | null
   collection?: Prisma.XOR<Prisma.CollectionNullableScalarRelationFilter, Prisma.CollectionWhereInput> | null
   variants?: Prisma.ClothesVariantListRelationFilter
   clothesImage?: Prisma.ClothesImageListRelationFilter
   Sale?: Prisma.SaleListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
 }
 
 export type ClothesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   design?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
-  collectionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  discount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  collectionId?: Prisma.SortOrderInput | Prisma.SortOrder
   collection?: Prisma.CollectionOrderByWithRelationInput
   variants?: Prisma.ClothesVariantOrderByRelationAggregateInput
   clothesImage?: Prisma.ClothesImageOrderByRelationAggregateInput
   Sale?: Prisma.SaleOrderByRelationAggregateInput
+  orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
 }
 
 export type ClothesWhereUniqueInput = Prisma.AtLeast<{
@@ -250,22 +283,29 @@ export type ClothesWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClothesWhereInput | Prisma.ClothesWhereInput[]
   design?: Prisma.StringFilter<"Clothes"> | string
   color?: Prisma.StringFilter<"Clothes"> | string
+  description?: Prisma.StringNullableFilter<"Clothes"> | string | null
   price?: Prisma.FloatFilter<"Clothes"> | number
-  collectionId?: Prisma.StringNullableFilter<"Clothes"> | string | null
+  discount?: Prisma.FloatFilter<"Clothes"> | number
+  isActive?: Prisma.BoolFilter<"Clothes"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Clothes"> | Date | string
+  collectionId?: Prisma.StringNullableFilter<"Clothes"> | string | null
   collection?: Prisma.XOR<Prisma.CollectionNullableScalarRelationFilter, Prisma.CollectionWhereInput> | null
   variants?: Prisma.ClothesVariantListRelationFilter
   clothesImage?: Prisma.ClothesImageListRelationFilter
   Sale?: Prisma.SaleListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
 }, "id">
 
 export type ClothesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   design?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
-  collectionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  discount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  collectionId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClothesCountOrderByAggregateInput
   _avg?: Prisma.ClothesAvgOrderByAggregateInput
   _max?: Prisma.ClothesMaxOrderByAggregateInput
@@ -280,73 +320,98 @@ export type ClothesScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Clothes"> | string
   design?: Prisma.StringWithAggregatesFilter<"Clothes"> | string
   color?: Prisma.StringWithAggregatesFilter<"Clothes"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"Clothes"> | string | null
   price?: Prisma.FloatWithAggregatesFilter<"Clothes"> | number
-  collectionId?: Prisma.StringNullableWithAggregatesFilter<"Clothes"> | string | null
+  discount?: Prisma.FloatWithAggregatesFilter<"Clothes"> | number
+  isActive?: Prisma.BoolWithAggregatesFilter<"Clothes"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Clothes"> | Date | string
+  collectionId?: Prisma.StringNullableWithAggregatesFilter<"Clothes"> | string | null
 }
 
 export type ClothesCreateInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
   collection?: Prisma.CollectionCreateNestedOneWithoutClothesInput
   variants?: Prisma.ClothesVariantCreateNestedManyWithoutClothesInput
   clothesImage?: Prisma.ClothesImageCreateNestedManyWithoutClothesInput
   Sale?: Prisma.SaleCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutClothesInput
 }
 
 export type ClothesUncheckedCreateInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
-  collectionId?: string | null
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
+  collectionId?: string | null
   variants?: Prisma.ClothesVariantUncheckedCreateNestedManyWithoutClothesInput
   clothesImage?: Prisma.ClothesImageUncheckedCreateNestedManyWithoutClothesInput
   Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutClothesInput
 }
 
 export type ClothesUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collection?: Prisma.CollectionUpdateOneWithoutClothesNestedInput
   variants?: Prisma.ClothesVariantUpdateManyWithoutClothesNestedInput
   clothesImage?: Prisma.ClothesImageUpdateManyWithoutClothesNestedInput
   Sale?: Prisma.SaleUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutClothesNestedInput
 }
 
 export type ClothesUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variants?: Prisma.ClothesVariantUncheckedUpdateManyWithoutClothesNestedInput
   clothesImage?: Prisma.ClothesImageUncheckedUpdateManyWithoutClothesNestedInput
   Sale?: Prisma.SaleUncheckedUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutClothesNestedInput
 }
 
 export type ClothesCreateManyInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
-  collectionId?: string | null
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
+  collectionId?: string | null
 }
 
 export type ClothesUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -354,49 +419,12 @@ export type ClothesUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ClothesCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  design?: Prisma.SortOrder
-  color?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  collectionId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-}
-
-export type ClothesAvgOrderByAggregateInput = {
-  price?: Prisma.SortOrder
-}
-
-export type ClothesMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  design?: Prisma.SortOrder
-  color?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  collectionId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-}
-
-export type ClothesMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  design?: Prisma.SortOrder
-  color?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  collectionId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-}
-
-export type ClothesSumOrderByAggregateInput = {
-  price?: Prisma.SortOrder
-}
-
-export type ClothesScalarRelationFilter = {
-  is?: Prisma.ClothesWhereInput
-  isNot?: Prisma.ClothesWhereInput
+  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ClothesListRelationFilter = {
@@ -409,40 +437,55 @@ export type ClothesOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type ClothesCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  design?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  discount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  collectionId?: Prisma.SortOrder
 }
 
-export type ClothesCreateNestedOneWithoutVariantsInput = {
-  create?: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
-  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutVariantsInput
-  connect?: Prisma.ClothesWhereUniqueInput
+export type ClothesAvgOrderByAggregateInput = {
+  price?: Prisma.SortOrder
+  discount?: Prisma.SortOrder
 }
 
-export type ClothesUpdateOneRequiredWithoutVariantsNestedInput = {
-  create?: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
-  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutVariantsInput
-  upsert?: Prisma.ClothesUpsertWithoutVariantsInput
-  connect?: Prisma.ClothesWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ClothesUpdateToOneWithWhereWithoutVariantsInput, Prisma.ClothesUpdateWithoutVariantsInput>, Prisma.ClothesUncheckedUpdateWithoutVariantsInput>
+export type ClothesMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  design?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  discount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  collectionId?: Prisma.SortOrder
 }
 
-export type ClothesCreateNestedOneWithoutClothesImageInput = {
-  create?: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
-  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutClothesImageInput
-  connect?: Prisma.ClothesWhereUniqueInput
+export type ClothesMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  design?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  discount?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  collectionId?: Prisma.SortOrder
 }
 
-export type ClothesUpdateOneRequiredWithoutClothesImageNestedInput = {
-  create?: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
-  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutClothesImageInput
-  upsert?: Prisma.ClothesUpsertWithoutClothesImageInput
-  connect?: Prisma.ClothesWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ClothesUpdateToOneWithWhereWithoutClothesImageInput, Prisma.ClothesUpdateWithoutClothesImageInput>, Prisma.ClothesUncheckedUpdateWithoutClothesImageInput>
+export type ClothesSumOrderByAggregateInput = {
+  price?: Prisma.SortOrder
+  discount?: Prisma.SortOrder
+}
+
+export type ClothesScalarRelationFilter = {
+  is?: Prisma.ClothesWhereInput
+  isNot?: Prisma.ClothesWhereInput
 }
 
 export type ClothesCreateNestedManyWithoutCollectionInput = {
@@ -487,6 +530,42 @@ export type ClothesUncheckedUpdateManyWithoutCollectionNestedInput = {
   deleteMany?: Prisma.ClothesScalarWhereInput | Prisma.ClothesScalarWhereInput[]
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type ClothesCreateNestedOneWithoutVariantsInput = {
+  create?: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
+  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutVariantsInput
+  connect?: Prisma.ClothesWhereUniqueInput
+}
+
+export type ClothesUpdateOneRequiredWithoutVariantsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
+  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutVariantsInput
+  upsert?: Prisma.ClothesUpsertWithoutVariantsInput
+  connect?: Prisma.ClothesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClothesUpdateToOneWithWhereWithoutVariantsInput, Prisma.ClothesUpdateWithoutVariantsInput>, Prisma.ClothesUncheckedUpdateWithoutVariantsInput>
+}
+
+export type ClothesCreateNestedOneWithoutClothesImageInput = {
+  create?: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
+  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutClothesImageInput
+  connect?: Prisma.ClothesWhereUniqueInput
+}
+
+export type ClothesUpdateOneRequiredWithoutClothesImageNestedInput = {
+  create?: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
+  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutClothesImageInput
+  upsert?: Prisma.ClothesUpsertWithoutClothesImageInput
+  connect?: Prisma.ClothesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClothesUpdateToOneWithWhereWithoutClothesImageInput, Prisma.ClothesUpdateWithoutClothesImageInput>, Prisma.ClothesUncheckedUpdateWithoutClothesImageInput>
+}
+
 export type ClothesCreateNestedOneWithoutSaleInput = {
   create?: Prisma.XOR<Prisma.ClothesCreateWithoutSaleInput, Prisma.ClothesUncheckedCreateWithoutSaleInput>
   connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutSaleInput
@@ -501,146 +580,48 @@ export type ClothesUpdateOneRequiredWithoutSaleNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClothesUpdateToOneWithWhereWithoutSaleInput, Prisma.ClothesUpdateWithoutSaleInput>, Prisma.ClothesUncheckedUpdateWithoutSaleInput>
 }
 
-export type ClothesCreateWithoutVariantsInput = {
-  id?: string
-  design: string
-  color: string
-  price?: number
-  createdAt?: Date | string
-  collection?: Prisma.CollectionCreateNestedOneWithoutClothesInput
-  clothesImage?: Prisma.ClothesImageCreateNestedManyWithoutClothesInput
-  Sale?: Prisma.SaleCreateNestedManyWithoutClotheInput
+export type ClothesCreateNestedOneWithoutOrderItemsInput = {
+  create?: Prisma.XOR<Prisma.ClothesCreateWithoutOrderItemsInput, Prisma.ClothesUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutOrderItemsInput
+  connect?: Prisma.ClothesWhereUniqueInput
 }
 
-export type ClothesUncheckedCreateWithoutVariantsInput = {
-  id?: string
-  design: string
-  color: string
-  price?: number
-  collectionId?: string | null
-  createdAt?: Date | string
-  clothesImage?: Prisma.ClothesImageUncheckedCreateNestedManyWithoutClothesInput
-  Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutClotheInput
-}
-
-export type ClothesCreateOrConnectWithoutVariantsInput = {
-  where: Prisma.ClothesWhereUniqueInput
-  create: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
-}
-
-export type ClothesUpsertWithoutVariantsInput = {
-  update: Prisma.XOR<Prisma.ClothesUpdateWithoutVariantsInput, Prisma.ClothesUncheckedUpdateWithoutVariantsInput>
-  create: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
-  where?: Prisma.ClothesWhereInput
-}
-
-export type ClothesUpdateToOneWithWhereWithoutVariantsInput = {
-  where?: Prisma.ClothesWhereInput
-  data: Prisma.XOR<Prisma.ClothesUpdateWithoutVariantsInput, Prisma.ClothesUncheckedUpdateWithoutVariantsInput>
-}
-
-export type ClothesUpdateWithoutVariantsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  design?: Prisma.StringFieldUpdateOperationsInput | string
-  color?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  collection?: Prisma.CollectionUpdateOneWithoutClothesNestedInput
-  clothesImage?: Prisma.ClothesImageUpdateManyWithoutClothesNestedInput
-  Sale?: Prisma.SaleUpdateManyWithoutClotheNestedInput
-}
-
-export type ClothesUncheckedUpdateWithoutVariantsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  design?: Prisma.StringFieldUpdateOperationsInput | string
-  color?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clothesImage?: Prisma.ClothesImageUncheckedUpdateManyWithoutClothesNestedInput
-  Sale?: Prisma.SaleUncheckedUpdateManyWithoutClotheNestedInput
-}
-
-export type ClothesCreateWithoutClothesImageInput = {
-  id?: string
-  design: string
-  color: string
-  price?: number
-  createdAt?: Date | string
-  collection?: Prisma.CollectionCreateNestedOneWithoutClothesInput
-  variants?: Prisma.ClothesVariantCreateNestedManyWithoutClothesInput
-  Sale?: Prisma.SaleCreateNestedManyWithoutClotheInput
-}
-
-export type ClothesUncheckedCreateWithoutClothesImageInput = {
-  id?: string
-  design: string
-  color: string
-  price?: number
-  collectionId?: string | null
-  createdAt?: Date | string
-  variants?: Prisma.ClothesVariantUncheckedCreateNestedManyWithoutClothesInput
-  Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutClotheInput
-}
-
-export type ClothesCreateOrConnectWithoutClothesImageInput = {
-  where: Prisma.ClothesWhereUniqueInput
-  create: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
-}
-
-export type ClothesUpsertWithoutClothesImageInput = {
-  update: Prisma.XOR<Prisma.ClothesUpdateWithoutClothesImageInput, Prisma.ClothesUncheckedUpdateWithoutClothesImageInput>
-  create: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
-  where?: Prisma.ClothesWhereInput
-}
-
-export type ClothesUpdateToOneWithWhereWithoutClothesImageInput = {
-  where?: Prisma.ClothesWhereInput
-  data: Prisma.XOR<Prisma.ClothesUpdateWithoutClothesImageInput, Prisma.ClothesUncheckedUpdateWithoutClothesImageInput>
-}
-
-export type ClothesUpdateWithoutClothesImageInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  design?: Prisma.StringFieldUpdateOperationsInput | string
-  color?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  collection?: Prisma.CollectionUpdateOneWithoutClothesNestedInput
-  variants?: Prisma.ClothesVariantUpdateManyWithoutClothesNestedInput
-  Sale?: Prisma.SaleUpdateManyWithoutClotheNestedInput
-}
-
-export type ClothesUncheckedUpdateWithoutClothesImageInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  design?: Prisma.StringFieldUpdateOperationsInput | string
-  color?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  variants?: Prisma.ClothesVariantUncheckedUpdateManyWithoutClothesNestedInput
-  Sale?: Prisma.SaleUncheckedUpdateManyWithoutClotheNestedInput
+export type ClothesUpdateOneRequiredWithoutOrderItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClothesCreateWithoutOrderItemsInput, Prisma.ClothesUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.ClothesCreateOrConnectWithoutOrderItemsInput
+  upsert?: Prisma.ClothesUpsertWithoutOrderItemsInput
+  connect?: Prisma.ClothesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClothesUpdateToOneWithWhereWithoutOrderItemsInput, Prisma.ClothesUpdateWithoutOrderItemsInput>, Prisma.ClothesUncheckedUpdateWithoutOrderItemsInput>
 }
 
 export type ClothesCreateWithoutCollectionInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
   variants?: Prisma.ClothesVariantCreateNestedManyWithoutClothesInput
   clothesImage?: Prisma.ClothesImageCreateNestedManyWithoutClothesInput
   Sale?: Prisma.SaleCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutClothesInput
 }
 
 export type ClothesUncheckedCreateWithoutCollectionInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
   variants?: Prisma.ClothesVariantUncheckedCreateNestedManyWithoutClothesInput
   clothesImage?: Prisma.ClothesImageUncheckedCreateNestedManyWithoutClothesInput
   Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutClothesInput
 }
 
 export type ClothesCreateOrConnectWithoutCollectionInput = {
@@ -676,31 +657,194 @@ export type ClothesScalarWhereInput = {
   id?: Prisma.StringFilter<"Clothes"> | string
   design?: Prisma.StringFilter<"Clothes"> | string
   color?: Prisma.StringFilter<"Clothes"> | string
+  description?: Prisma.StringNullableFilter<"Clothes"> | string | null
   price?: Prisma.FloatFilter<"Clothes"> | number
-  collectionId?: Prisma.StringNullableFilter<"Clothes"> | string | null
+  discount?: Prisma.FloatFilter<"Clothes"> | number
+  isActive?: Prisma.BoolFilter<"Clothes"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Clothes"> | Date | string
+  collectionId?: Prisma.StringNullableFilter<"Clothes"> | string | null
+}
+
+export type ClothesCreateWithoutVariantsInput = {
+  id?: string
+  design: string
+  color: string
+  description?: string | null
+  price?: number
+  discount?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  collection?: Prisma.CollectionCreateNestedOneWithoutClothesInput
+  clothesImage?: Prisma.ClothesImageCreateNestedManyWithoutClothesInput
+  Sale?: Prisma.SaleCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutClothesInput
+}
+
+export type ClothesUncheckedCreateWithoutVariantsInput = {
+  id?: string
+  design: string
+  color: string
+  description?: string | null
+  price?: number
+  discount?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  collectionId?: string | null
+  clothesImage?: Prisma.ClothesImageUncheckedCreateNestedManyWithoutClothesInput
+  Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutClothesInput
+}
+
+export type ClothesCreateOrConnectWithoutVariantsInput = {
+  where: Prisma.ClothesWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
+}
+
+export type ClothesUpsertWithoutVariantsInput = {
+  update: Prisma.XOR<Prisma.ClothesUpdateWithoutVariantsInput, Prisma.ClothesUncheckedUpdateWithoutVariantsInput>
+  create: Prisma.XOR<Prisma.ClothesCreateWithoutVariantsInput, Prisma.ClothesUncheckedCreateWithoutVariantsInput>
+  where?: Prisma.ClothesWhereInput
+}
+
+export type ClothesUpdateToOneWithWhereWithoutVariantsInput = {
+  where?: Prisma.ClothesWhereInput
+  data: Prisma.XOR<Prisma.ClothesUpdateWithoutVariantsInput, Prisma.ClothesUncheckedUpdateWithoutVariantsInput>
+}
+
+export type ClothesUpdateWithoutVariantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  design?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collection?: Prisma.CollectionUpdateOneWithoutClothesNestedInput
+  clothesImage?: Prisma.ClothesImageUpdateManyWithoutClothesNestedInput
+  Sale?: Prisma.SaleUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutClothesNestedInput
+}
+
+export type ClothesUncheckedUpdateWithoutVariantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  design?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clothesImage?: Prisma.ClothesImageUncheckedUpdateManyWithoutClothesNestedInput
+  Sale?: Prisma.SaleUncheckedUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutClothesNestedInput
+}
+
+export type ClothesCreateWithoutClothesImageInput = {
+  id?: string
+  design: string
+  color: string
+  description?: string | null
+  price?: number
+  discount?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  collection?: Prisma.CollectionCreateNestedOneWithoutClothesInput
+  variants?: Prisma.ClothesVariantCreateNestedManyWithoutClothesInput
+  Sale?: Prisma.SaleCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutClothesInput
+}
+
+export type ClothesUncheckedCreateWithoutClothesImageInput = {
+  id?: string
+  design: string
+  color: string
+  description?: string | null
+  price?: number
+  discount?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  collectionId?: string | null
+  variants?: Prisma.ClothesVariantUncheckedCreateNestedManyWithoutClothesInput
+  Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutClotheInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutClothesInput
+}
+
+export type ClothesCreateOrConnectWithoutClothesImageInput = {
+  where: Prisma.ClothesWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
+}
+
+export type ClothesUpsertWithoutClothesImageInput = {
+  update: Prisma.XOR<Prisma.ClothesUpdateWithoutClothesImageInput, Prisma.ClothesUncheckedUpdateWithoutClothesImageInput>
+  create: Prisma.XOR<Prisma.ClothesCreateWithoutClothesImageInput, Prisma.ClothesUncheckedCreateWithoutClothesImageInput>
+  where?: Prisma.ClothesWhereInput
+}
+
+export type ClothesUpdateToOneWithWhereWithoutClothesImageInput = {
+  where?: Prisma.ClothesWhereInput
+  data: Prisma.XOR<Prisma.ClothesUpdateWithoutClothesImageInput, Prisma.ClothesUncheckedUpdateWithoutClothesImageInput>
+}
+
+export type ClothesUpdateWithoutClothesImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  design?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collection?: Prisma.CollectionUpdateOneWithoutClothesNestedInput
+  variants?: Prisma.ClothesVariantUpdateManyWithoutClothesNestedInput
+  Sale?: Prisma.SaleUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutClothesNestedInput
+}
+
+export type ClothesUncheckedUpdateWithoutClothesImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  design?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.ClothesVariantUncheckedUpdateManyWithoutClothesNestedInput
+  Sale?: Prisma.SaleUncheckedUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutClothesNestedInput
 }
 
 export type ClothesCreateWithoutSaleInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
   collection?: Prisma.CollectionCreateNestedOneWithoutClothesInput
   variants?: Prisma.ClothesVariantCreateNestedManyWithoutClothesInput
   clothesImage?: Prisma.ClothesImageCreateNestedManyWithoutClothesInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutClothesInput
 }
 
 export type ClothesUncheckedCreateWithoutSaleInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
-  collectionId?: string | null
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
+  collectionId?: string | null
   variants?: Prisma.ClothesVariantUncheckedCreateNestedManyWithoutClothesInput
   clothesImage?: Prisma.ClothesImageUncheckedCreateNestedManyWithoutClothesInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutClothesInput
 }
 
 export type ClothesCreateOrConnectWithoutSaleInput = {
@@ -723,29 +867,116 @@ export type ClothesUpdateWithoutSaleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collection?: Prisma.CollectionUpdateOneWithoutClothesNestedInput
   variants?: Prisma.ClothesVariantUpdateManyWithoutClothesNestedInput
   clothesImage?: Prisma.ClothesImageUpdateManyWithoutClothesNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutClothesNestedInput
 }
 
 export type ClothesUncheckedUpdateWithoutSaleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variants?: Prisma.ClothesVariantUncheckedUpdateManyWithoutClothesNestedInput
   clothesImage?: Prisma.ClothesImageUncheckedUpdateManyWithoutClothesNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutClothesNestedInput
+}
+
+export type ClothesCreateWithoutOrderItemsInput = {
+  id?: string
+  design: string
+  color: string
+  description?: string | null
+  price?: number
+  discount?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  collection?: Prisma.CollectionCreateNestedOneWithoutClothesInput
+  variants?: Prisma.ClothesVariantCreateNestedManyWithoutClothesInput
+  clothesImage?: Prisma.ClothesImageCreateNestedManyWithoutClothesInput
+  Sale?: Prisma.SaleCreateNestedManyWithoutClotheInput
+}
+
+export type ClothesUncheckedCreateWithoutOrderItemsInput = {
+  id?: string
+  design: string
+  color: string
+  description?: string | null
+  price?: number
+  discount?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  collectionId?: string | null
+  variants?: Prisma.ClothesVariantUncheckedCreateNestedManyWithoutClothesInput
+  clothesImage?: Prisma.ClothesImageUncheckedCreateNestedManyWithoutClothesInput
+  Sale?: Prisma.SaleUncheckedCreateNestedManyWithoutClotheInput
+}
+
+export type ClothesCreateOrConnectWithoutOrderItemsInput = {
+  where: Prisma.ClothesWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClothesCreateWithoutOrderItemsInput, Prisma.ClothesUncheckedCreateWithoutOrderItemsInput>
+}
+
+export type ClothesUpsertWithoutOrderItemsInput = {
+  update: Prisma.XOR<Prisma.ClothesUpdateWithoutOrderItemsInput, Prisma.ClothesUncheckedUpdateWithoutOrderItemsInput>
+  create: Prisma.XOR<Prisma.ClothesCreateWithoutOrderItemsInput, Prisma.ClothesUncheckedCreateWithoutOrderItemsInput>
+  where?: Prisma.ClothesWhereInput
+}
+
+export type ClothesUpdateToOneWithWhereWithoutOrderItemsInput = {
+  where?: Prisma.ClothesWhereInput
+  data: Prisma.XOR<Prisma.ClothesUpdateWithoutOrderItemsInput, Prisma.ClothesUncheckedUpdateWithoutOrderItemsInput>
+}
+
+export type ClothesUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  design?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collection?: Prisma.CollectionUpdateOneWithoutClothesNestedInput
+  variants?: Prisma.ClothesVariantUpdateManyWithoutClothesNestedInput
+  clothesImage?: Prisma.ClothesImageUpdateManyWithoutClothesNestedInput
+  Sale?: Prisma.SaleUpdateManyWithoutClotheNestedInput
+}
+
+export type ClothesUncheckedUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  design?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.ClothesVariantUncheckedUpdateManyWithoutClothesNestedInput
+  clothesImage?: Prisma.ClothesImageUncheckedUpdateManyWithoutClothesNestedInput
+  Sale?: Prisma.SaleUncheckedUpdateManyWithoutClotheNestedInput
 }
 
 export type ClothesCreateManyCollectionInput = {
   id?: string
   design: string
   color: string
+  description?: string | null
   price?: number
+  discount?: number
+  isActive?: boolean
   createdAt?: Date | string
 }
 
@@ -753,29 +984,40 @@ export type ClothesUpdateWithoutCollectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   variants?: Prisma.ClothesVariantUpdateManyWithoutClothesNestedInput
   clothesImage?: Prisma.ClothesImageUpdateManyWithoutClothesNestedInput
   Sale?: Prisma.SaleUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutClothesNestedInput
 }
 
 export type ClothesUncheckedUpdateWithoutCollectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   variants?: Prisma.ClothesVariantUncheckedUpdateManyWithoutClothesNestedInput
   clothesImage?: Prisma.ClothesImageUncheckedUpdateManyWithoutClothesNestedInput
   Sale?: Prisma.SaleUncheckedUpdateManyWithoutClotheNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutClothesNestedInput
 }
 
 export type ClothesUncheckedUpdateManyWithoutCollectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   design?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discount?: Prisma.FloatFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -788,12 +1030,14 @@ export type ClothesCountOutputType = {
   variants: number
   clothesImage: number
   Sale: number
+  orderItems: number
 }
 
 export type ClothesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   variants?: boolean | ClothesCountOutputTypeCountVariantsArgs
   clothesImage?: boolean | ClothesCountOutputTypeCountClothesImageArgs
   Sale?: boolean | ClothesCountOutputTypeCountSaleArgs
+  orderItems?: boolean | ClothesCountOutputTypeCountOrderItemsArgs
 }
 
 /**
@@ -827,18 +1071,29 @@ export type ClothesCountOutputTypeCountSaleArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.SaleWhereInput
 }
 
+/**
+ * ClothesCountOutputType without action
+ */
+export type ClothesCountOutputTypeCountOrderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderItemWhereInput
+}
+
 
 export type ClothesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   design?: boolean
   color?: boolean
+  description?: boolean
   price?: boolean
-  collectionId?: boolean
+  discount?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  collectionId?: boolean
   collection?: boolean | Prisma.Clothes$collectionArgs<ExtArgs>
   variants?: boolean | Prisma.Clothes$variantsArgs<ExtArgs>
   clothesImage?: boolean | Prisma.Clothes$clothesImageArgs<ExtArgs>
   Sale?: boolean | Prisma.Clothes$SaleArgs<ExtArgs>
+  orderItems?: boolean | Prisma.Clothes$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ClothesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clothes"]>
 
@@ -846,9 +1101,12 @@ export type ClothesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   design?: boolean
   color?: boolean
+  description?: boolean
   price?: boolean
-  collectionId?: boolean
+  discount?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  collectionId?: boolean
   collection?: boolean | Prisma.Clothes$collectionArgs<ExtArgs>
 }, ExtArgs["result"]["clothes"]>
 
@@ -856,9 +1114,12 @@ export type ClothesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   design?: boolean
   color?: boolean
+  description?: boolean
   price?: boolean
-  collectionId?: boolean
+  discount?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  collectionId?: boolean
   collection?: boolean | Prisma.Clothes$collectionArgs<ExtArgs>
 }, ExtArgs["result"]["clothes"]>
 
@@ -866,17 +1127,21 @@ export type ClothesSelectScalar = {
   id?: boolean
   design?: boolean
   color?: boolean
+  description?: boolean
   price?: boolean
-  collectionId?: boolean
+  discount?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  collectionId?: boolean
 }
 
-export type ClothesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "design" | "color" | "price" | "collectionId" | "createdAt", ExtArgs["result"]["clothes"]>
+export type ClothesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "design" | "color" | "description" | "price" | "discount" | "isActive" | "createdAt" | "collectionId", ExtArgs["result"]["clothes"]>
 export type ClothesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   collection?: boolean | Prisma.Clothes$collectionArgs<ExtArgs>
   variants?: boolean | Prisma.Clothes$variantsArgs<ExtArgs>
   clothesImage?: boolean | Prisma.Clothes$clothesImageArgs<ExtArgs>
   Sale?: boolean | Prisma.Clothes$SaleArgs<ExtArgs>
+  orderItems?: boolean | Prisma.Clothes$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ClothesCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ClothesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -893,14 +1158,18 @@ export type $ClothesPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     variants: Prisma.$ClothesVariantPayload<ExtArgs>[]
     clothesImage: Prisma.$ClothesImagePayload<ExtArgs>[]
     Sale: Prisma.$SalePayload<ExtArgs>[]
+    orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     design: string
     color: string
+    description: string | null
     price: number
-    collectionId: string | null
+    discount: number
+    isActive: boolean
     createdAt: Date
+    collectionId: string | null
   }, ExtArgs["result"]["clothes"]>
   composites: {}
 }
@@ -1299,6 +1568,7 @@ export interface Prisma__ClothesClient<T, Null = never, ExtArgs extends runtime.
   variants<T extends Prisma.Clothes$variantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clothes$variantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClothesVariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clothesImage<T extends Prisma.Clothes$clothesImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clothes$clothesImageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClothesImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Sale<T extends Prisma.Clothes$SaleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clothes$SaleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orderItems<T extends Prisma.Clothes$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clothes$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1331,9 +1601,12 @@ export interface ClothesFieldRefs {
   readonly id: Prisma.FieldRef<"Clothes", 'String'>
   readonly design: Prisma.FieldRef<"Clothes", 'String'>
   readonly color: Prisma.FieldRef<"Clothes", 'String'>
+  readonly description: Prisma.FieldRef<"Clothes", 'String'>
   readonly price: Prisma.FieldRef<"Clothes", 'Float'>
-  readonly collectionId: Prisma.FieldRef<"Clothes", 'String'>
+  readonly discount: Prisma.FieldRef<"Clothes", 'Float'>
+  readonly isActive: Prisma.FieldRef<"Clothes", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Clothes", 'DateTime'>
+  readonly collectionId: Prisma.FieldRef<"Clothes", 'String'>
 }
     
 
@@ -1818,6 +2091,30 @@ export type Clothes$SaleArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.SaleScalarFieldEnum | Prisma.SaleScalarFieldEnum[]
+}
+
+/**
+ * Clothes.orderItems
+ */
+export type Clothes$orderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderItem
+   */
+  select?: Prisma.OrderItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderItem
+   */
+  omit?: Prisma.OrderItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderItemInclude<ExtArgs> | null
+  where?: Prisma.OrderItemWhereInput
+  orderBy?: Prisma.OrderItemOrderByWithRelationInput | Prisma.OrderItemOrderByWithRelationInput[]
+  cursor?: Prisma.OrderItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderItemScalarFieldEnum | Prisma.OrderItemScalarFieldEnum[]
 }
 
 /**

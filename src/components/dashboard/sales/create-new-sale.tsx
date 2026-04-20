@@ -126,6 +126,15 @@ export function SaleForm({
     setCities(getCitiesByState ? getCitiesByState.cities : [])
   }
 
+  const resetForm = () => {
+    reset()
+    setCities([])
+    setValue("clotheId", "")
+    setValue("clotheSize", "")
+    setValue("state", "")
+    setValue("userId", "")
+  }
+
   const onSubmit = (formData: CreateNewSaleForm) => {
     const { discount, delivery, saleDate, ...restOfData } = formData
 
@@ -137,24 +146,51 @@ export function SaleForm({
     }
 
     startTransition(async () => {
-      const { ok, message } = dataToEdit
+      const result = dataToEdit
         ? await editSale(dataFormatted, id)
         : await createSale(dataFormatted)
-      if (ok) {
+
+      if (result.ok) {
         toast.success("Good news", {
-          description: message,
+          description: result.message,
           duration: 2000,
           position: "top-center"
         })
-        reset()
-        setCities([])
-        setValue("clotheId", "")
-        setValue("clotheSize", "")
-        setValue("state", "")
-        setValue("userId", "")
+        resetForm()
+      } else if ("noStock" in result && result.noStock) {
+        toast.warning("No availability for this size", {
+          description:
+            "There is no stock available for this size. Do you want to add it for this purchase anyway?",
+          duration: 12000,
+          position: "top-center",
+          action: {
+            label: "Accept",
+            onClick: async () => {
+              const forced = await createSale(dataFormatted, true)
+              if (forced.ok) {
+                toast.success("Good news", {
+                  description: forced.message,
+                  duration: 2000,
+                  position: "top-center"
+                })
+                resetForm()
+              } else {
+                toast.error("Something went wrong", {
+                  description: forced.message,
+                  duration: 2000,
+                  position: "top-center"
+                })
+              }
+            }
+          },
+          cancel: {
+            label: "Reject",
+            onClick: () => {}
+          }
+        })
       } else {
         toast.error("Something went wrong", {
-          description: message,
+          description: result.message,
           duration: 2000,
           position: "top-center"
         })

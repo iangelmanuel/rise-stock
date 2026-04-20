@@ -3,62 +3,90 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem
 } from "@/components/ui/sidebar"
 import clsx from "clsx"
-import { Calendar, Home, Inbox, Search } from "lucide-react"
+import {
+  BarChart3,
+  Layers,
+  Receipt,
+  Search,
+  ShoppingBag,
+  Users
+} from "lucide-react"
 
-const items = [
+type NavItem = { title: string; url: string; icon: React.ElementType }
+
+const sections: { label: string; items: NavItem[] }[] = [
   {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: Home
+    label: "Overview",
+    items: [{ title: "Dashboard", url: "/dashboard", icon: BarChart3 }]
   },
   {
-    title: "Stocks",
-    url: "/dashboard/stocks",
-    icon: Inbox
+    label: "Inventory",
+    items: [
+      { title: "Stocks", url: "/dashboard/stocks", icon: Layers },
+      { title: "Sales", url: "/dashboard/sales", icon: Receipt }
+    ]
   },
   {
-    title: "Sales",
-    url: "/dashboard/sales",
-    icon: Calendar
+    label: "E-commerce",
+    items: [
+      { title: "Orders", url: "/dashboard/ecommerce-orders", icon: ShoppingBag },
+      { title: "Clients", url: "/dashboard/clients", icon: Users }
+    ]
   },
   {
-    title: "Code Register",
-    url: "/dashboard/code-register",
-    icon: Search
+    label: "Other",
+    items: [
+      { title: "Code Register", url: "/dashboard/code-register", icon: Search }
+    ]
   }
 ]
+
+const allItems = sections.flatMap((s) => s.items)
+
+const activeStyles =
+  "bg-primary/10 text-primary rounded-md hover:bg-primary/15 hover:text-primary font-medium"
 
 export function SidebarLinks() {
   const pathname = usePathname()
 
-  const activeItem = items
-    .filter(
-      (item) => pathname === item.url || pathname.startsWith(item.url + "/")
-    )
+  const activeUrl = allItems
+    .filter((item) => pathname === item.url || pathname.startsWith(item.url + "/"))
     .sort((a, b) => b.url.length - a.url.length)[0]?.url
 
-  const styles =
-    "bg-secondary text-secondary-foreground rounded-md hover:bg-secondary hover:text-secondary-foreground"
   return (
-    <SidebarMenu>
-      {items.map((item) => (
-        <SidebarMenuItem
-          key={item.title}
-          className={clsx(item.url === activeItem && styles)}
-        >
-          <SidebarMenuButton asChild>
-            <Link href={item.url}>
-              <item.icon />
-              <span>{item.title}</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+    <>
+      {sections.map((section) => (
+        <SidebarGroup key={section.label}>
+          <SidebarGroupLabel className="text-[10px] uppercase tracking-widest text-muted-foreground/70 font-semibold">
+            {section.label}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {section.items.map((item) => (
+                <SidebarMenuItem
+                  key={item.title}
+                  className={clsx(item.url === activeUrl && activeStyles)}
+                >
+                  <SidebarMenuButton asChild>
+                    <Link href={item.url}>
+                      <item.icon className="size-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       ))}
-    </SidebarMenu>
+    </>
   )
 }

@@ -14,6 +14,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from "@tanstack/react-table"
+import { motion } from "framer-motion"
 import React, { useState, useTransition } from "react"
 import { UpdateManyStatusForm } from "@/components/dashboard/sales/update-many-status-form"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
@@ -205,10 +206,18 @@ export function DataTable<TData, TValue>({
 
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
+              table.getRowModel().rows.map((row, i) => (
+                <motion.tr
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  initial={{ opacity: 0, x: -4 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.13,
+                    delay: Math.min(i, 20) * 0.025,
+                    ease: [0.25, 0.1, 0.25, 1]
+                  }}
+                  className="border-b transition-colors hover:bg-primary/5 data-[state=selected]:bg-primary/10"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -218,7 +227,7 @@ export function DataTable<TData, TValue>({
                       )}
                     </TableCell>
                   ))}
-                </TableRow>
+                </motion.tr>
               ))
             ) : (
               <TableRow>

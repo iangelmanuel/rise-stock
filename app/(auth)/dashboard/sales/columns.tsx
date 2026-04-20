@@ -19,6 +19,7 @@ import type { DashboardSale } from "@/types/sales"
 import { formatCurrency } from "@/utils/format-currency"
 import { formatDiscount, getPriceWithDiscount } from "@/utils/format-discount"
 import { getStatusConfig } from "@/utils/get-status-config"
+import clsx from "clsx"
 import {
   ChevronDownIcon,
   ChevronUp,
@@ -483,33 +484,15 @@ export const columns: ColumnDef<DashboardSale>[] = [
     },
     cell: ({ row }) => {
       const { status } = row.original
-
-      const variant: Record<
-        string,
-        | "pending"
-        | "cooking"
-        | "ready"
-        | "sending"
-        | "pendingPayment"
-        | "completed"
-        | "cancelled"
-        | "paused"
-      > = {
-        PENDING: "pending",
-        COOKING: "cooking",
-        READY: "ready",
-        SENDING: "sending",
-        PENDING_PAYMENT: "pendingPayment",
-        COMPLETED: "completed",
-        CANCELLED: "cancelled",
-        PAUSED: "paused"
-      }
-
       const statusConfig = getStatusConfig(status)
+      const Icon = statusConfig.icon
 
       return (
         <section className="flex items-center justify-center">
-          <Badge variant={variant[status]}>{statusConfig.text}</Badge>
+          <Badge className={clsx(statusConfig.color, "border font-medium")}>
+            <Icon className="h-3 w-3 mr-1" />
+            {statusConfig.text}
+          </Badge>
         </section>
       )
     }

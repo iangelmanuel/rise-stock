@@ -28,24 +28,24 @@ export type UserMovementMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  userId: string | null
   createdAt: Date | null
+  userId: string | null
 }
 
 export type UserMovementMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  userId: string | null
   createdAt: Date | null
+  userId: string | null
 }
 
 export type UserMovementCountAggregateOutputType = {
   id: number
   name: number
   description: number
-  userId: number
   createdAt: number
+  userId: number
   _all: number
 }
 
@@ -54,24 +54,24 @@ export type UserMovementMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  userId?: true
   createdAt?: true
+  userId?: true
 }
 
 export type UserMovementMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  userId?: true
   createdAt?: true
+  userId?: true
 }
 
 export type UserMovementCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  userId?: true
   createdAt?: true
+  userId?: true
   _all?: true
 }
 
@@ -151,8 +151,8 @@ export type UserMovementGroupByOutputType = {
   id: string
   name: string
   description: string
-  userId: string
   createdAt: Date
+  userId: string
   _count: UserMovementCountAggregateOutputType | null
   _min: UserMovementMinAggregateOutputType | null
   _max: UserMovementMaxAggregateOutputType | null
@@ -180,8 +180,8 @@ export type UserMovementWhereInput = {
   id?: Prisma.StringFilter<"UserMovement"> | string
   name?: Prisma.StringFilter<"UserMovement"> | string
   description?: Prisma.StringFilter<"UserMovement"> | string
-  userId?: Prisma.StringFilter<"UserMovement"> | string
   createdAt?: Prisma.DateTimeFilter<"UserMovement"> | Date | string
+  userId?: Prisma.StringFilter<"UserMovement"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -189,8 +189,8 @@ export type UserMovementOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -201,8 +201,8 @@ export type UserMovementWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserMovementWhereInput | Prisma.UserMovementWhereInput[]
   name?: Prisma.StringFilter<"UserMovement"> | string
   description?: Prisma.StringFilter<"UserMovement"> | string
-  userId?: Prisma.StringFilter<"UserMovement"> | string
   createdAt?: Prisma.DateTimeFilter<"UserMovement"> | Date | string
+  userId?: Prisma.StringFilter<"UserMovement"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -210,8 +210,8 @@ export type UserMovementOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   _count?: Prisma.UserMovementCountOrderByAggregateInput
   _max?: Prisma.UserMovementMaxOrderByAggregateInput
   _min?: Prisma.UserMovementMinOrderByAggregateInput
@@ -224,8 +224,8 @@ export type UserMovementScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"UserMovement"> | string
   name?: Prisma.StringWithAggregatesFilter<"UserMovement"> | string
   description?: Prisma.StringWithAggregatesFilter<"UserMovement"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"UserMovement"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UserMovement"> | Date | string
+  userId?: Prisma.StringWithAggregatesFilter<"UserMovement"> | string
 }
 
 export type UserMovementCreateInput = {
@@ -240,8 +240,8 @@ export type UserMovementUncheckedCreateInput = {
   id?: string
   name: string
   description: string
-  userId: string
   createdAt?: Date | string
+  userId: string
 }
 
 export type UserMovementUpdateInput = {
@@ -256,16 +256,16 @@ export type UserMovementUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserMovementCreateManyInput = {
   id?: string
   name: string
   description: string
-  userId: string
   createdAt?: Date | string
+  userId: string
 }
 
 export type UserMovementUpdateManyMutationInput = {
@@ -279,8 +279,8 @@ export type UserMovementUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserMovementListRelationFilter = {
@@ -297,24 +297,24 @@ export type UserMovementCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type UserMovementMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type UserMovementMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type UserMovementCreateNestedManyWithoutUserInput = {
@@ -406,8 +406,8 @@ export type UserMovementScalarWhereInput = {
   id?: Prisma.StringFilter<"UserMovement"> | string
   name?: Prisma.StringFilter<"UserMovement"> | string
   description?: Prisma.StringFilter<"UserMovement"> | string
-  userId?: Prisma.StringFilter<"UserMovement"> | string
   createdAt?: Prisma.DateTimeFilter<"UserMovement"> | Date | string
+  userId?: Prisma.StringFilter<"UserMovement"> | string
 }
 
 export type UserMovementCreateManyUserInput = {
@@ -444,8 +444,8 @@ export type UserMovementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id?: boolean
   name?: boolean
   description?: boolean
-  userId?: boolean
   createdAt?: boolean
+  userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userMovement"]>
 
@@ -453,8 +453,8 @@ export type UserMovementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   name?: boolean
   description?: boolean
-  userId?: boolean
   createdAt?: boolean
+  userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userMovement"]>
 
@@ -462,8 +462,8 @@ export type UserMovementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   name?: boolean
   description?: boolean
-  userId?: boolean
   createdAt?: boolean
+  userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userMovement"]>
 
@@ -471,11 +471,11 @@ export type UserMovementSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
-  userId?: boolean
   createdAt?: boolean
+  userId?: boolean
 }
 
-export type UserMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "userId" | "createdAt", ExtArgs["result"]["userMovement"]>
+export type UserMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "userId", ExtArgs["result"]["userMovement"]>
 export type UserMovementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -495,8 +495,8 @@ export type $UserMovementPayload<ExtArgs extends runtime.Types.Extensions.Intern
     id: string
     name: string
     description: string
-    userId: string
     createdAt: Date
+    userId: string
   }, ExtArgs["result"]["userMovement"]>
   composites: {}
 }
@@ -924,8 +924,8 @@ export interface UserMovementFieldRefs {
   readonly id: Prisma.FieldRef<"UserMovement", 'String'>
   readonly name: Prisma.FieldRef<"UserMovement", 'String'>
   readonly description: Prisma.FieldRef<"UserMovement", 'String'>
-  readonly userId: Prisma.FieldRef<"UserMovement", 'String'>
   readonly createdAt: Prisma.FieldRef<"UserMovement", 'DateTime'>
+  readonly userId: Prisma.FieldRef<"UserMovement", 'String'>
 }
     
 

@@ -50,6 +50,21 @@ export type User = Prisma.UserModel
  */
 export type UserMovement = Prisma.UserMovementModel
 /**
+ * Model Client
+ * 
+ */
+export type Client = Prisma.ClientModel
+/**
+ * Model ClientAddress
+ * 
+ */
+export type ClientAddress = Prisma.ClientAddressModel
+/**
+ * Model Collection
+ * 
+ */
+export type Collection = Prisma.CollectionModel
+/**
  * Model Clothes
  * 
  */
@@ -65,15 +80,35 @@ export type ClothesVariant = Prisma.ClothesVariantModel
  */
 export type ClothesImage = Prisma.ClothesImageModel
 /**
- * Model Collection
- * 
- */
-export type Collection = Prisma.CollectionModel
-/**
  * Model Sale
  * 
  */
 export type Sale = Prisma.SaleModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model OrderAddress
+ * 
+ */
+export type OrderAddress = Prisma.OrderAddressModel
+/**
+ * Model OrderTracking
+ * 
+ */
+export type OrderTracking = Prisma.OrderTrackingModel
+/**
+ * Model OrderDiscount
+ * 
+ */
+export type OrderDiscount = Prisma.OrderDiscountModel
 /**
  * Model NewsletterSubscriber
  * 

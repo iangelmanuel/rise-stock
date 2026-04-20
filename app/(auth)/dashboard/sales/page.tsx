@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getAllClothes } from "@/actions/sales/get-all-clothes"
+import { getActiveDropClothes } from "@/actions/sales/get-active-drop-clothes"
 import { getAllSales } from "@/actions/sales/get-all-sales"
 import { getAllUsers } from "@/actions/sales/get-all-users"
 import { CreateNewSale } from "@/components/dashboard/sales/create-new-sale"
+import { SalesStats } from "@/components/dashboard/sales/sales-stats"
+import { Receipt } from "lucide-react"
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
 
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 export default async function SalesPage() {
-  const clothes = await getAllClothes()
+  const clothes = await getActiveDropClothes()
   const users = await getAllUsers()
   const sales = await getAllSales()
 
@@ -23,10 +25,12 @@ export default async function SalesPage() {
     <>
       <section className="flex flex-col sm:flex-row justify-between items-center my-5">
         <div>
-          <h1 className="mb-3 text-4xl font-bold">Sales</h1>
-          <p>
-            This is the sales page. You can view and manage your sales data
-            here.
+          <div className="flex items-center gap-2 mb-1">
+            <Receipt className="size-7 text-primary" />
+            <h1 className="text-3xl font-bold tracking-tight">Sales</h1>
+          </div>
+          <p className="text-muted-foreground text-sm">
+            View and manage your sales transactions.
           </p>
         </div>
 
@@ -35,6 +39,8 @@ export default async function SalesPage() {
           clothes={clothes}
         />
       </section>
+
+      <SalesStats sales={sales} />
 
       <section>
         <DataTable
