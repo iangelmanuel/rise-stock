@@ -17,7 +17,7 @@ import { UserSidebarMenu } from "./user-sidebar-menu"
 
 export function MainSidebar() {
   return (
-    <Sidebar variant="floating">
+    <Sidebar>
       <SidebarContent>
         {/* Header + user */}
         <SidebarGroup>
