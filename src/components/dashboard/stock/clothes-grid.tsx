@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -14,6 +13,7 @@ import type {
   ClothesVariant,
   Collection
 } from "@prisma/client"
+import { motion } from "framer-motion"
 import { AlertTriangle, CheckCircle2, PackageOpen } from "lucide-react"
 import { DeleteClothesButton } from "./delete-clothes-button"
 import { EditVariantInfo } from "./edit-variant-info"
@@ -109,7 +109,9 @@ export function ClothesGrid({ collection }: Props) {
                 <div className="relative">
                   <div className="relative h-56 w-full overflow-hidden">
                     <Image
-                      src={imageValidator(item.clothesImage[0]?.secureUrl ?? null)}
+                      src={imageValidator(
+                        item.clothesImage[0]?.secureUrl ?? null
+                      )}
                       alt={item.design}
                       width={600}
                       height={600}
