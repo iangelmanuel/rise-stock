@@ -1,6 +1,6 @@
 "use client"
 
-import { useTransition } from "react"
+import { useOptimistic, useTransition } from "react"
 import { toggleCollectionActive } from "@/actions/stock/toggle-collection-active"
 import { Switch } from "@/components/ui/switch"
 import { toast } from "sonner"
@@ -12,9 +12,11 @@ type Props = {
 
 export function CollectionActiveSwitch({ id, isActive }: Props) {
   const [isPending, startTransition] = useTransition()
+  const [optimisticActive, setOptimisticActive] = useOptimistic(isActive)
 
   const handleChange = (checked: boolean) => {
     startTransition(async () => {
+      setOptimisticActive(checked)
       const { ok, message } = await toggleCollectionActive(id, checked)
 
       if (ok) {
@@ -27,7 +29,7 @@ export function CollectionActiveSwitch({ id, isActive }: Props) {
 
   return (
     <Switch
-      checked={isActive}
+      checked={optimisticActive}
       onCheckedChange={handleChange}
       disabled={isPending}
       aria-label="Toggle drop active"

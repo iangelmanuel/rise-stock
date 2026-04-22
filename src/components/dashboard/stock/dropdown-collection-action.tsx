@@ -2,6 +2,7 @@
 
 import type { Dispatch, SetStateAction, TransitionStartFunction } from "react"
 import { useState, useTransition } from "react"
+import Link from "next/link"
 import { deleteCollectionById } from "@/actions/stock/delete-collection-by-id"
 import { updateCollection } from "@/actions/stock/update-collection"
 import { ButtonContentLoading } from "@/components/shared/button-content-loading"
@@ -38,7 +39,7 @@ import { Label } from "@/components/ui/label"
 import { stockValidation } from "@/form-config/stock"
 import type { CreateCollectionForm as UpdateCollectionForm } from "@/types/stock"
 import type { Clothes, Collection } from "@prisma/client"
-import { Ellipsis, SquarePen, Trash } from "lucide-react"
+import { Ellipsis, Eye, SquarePen, Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -76,6 +77,17 @@ export const DropdownCollectionActions = ({ collectionData }: Props) => {
           className="w-20"
         >
           <DropdownMenuGroup>
+            {/* View Collection */}
+            <DropdownMenuItem asChild>
+              <Link
+                href={`/dashboard/stocks/${collectionData.id}`}
+                className="flex items-center"
+              >
+                <Eye className="h-4 w-4" />
+                <span>View</span>
+              </Link>
+            </DropdownMenuItem>
+
             {/* Edit Collection */}
             <DropdownMenuItem
               onClick={() => setIsEditOptionOpen(true)}
@@ -168,7 +180,7 @@ function DropdownCollectionEdit({
       open={isEditOptionOpen}
       onOpenChange={setIsEditOptionOpen}
     >
-      <DialogContent className="sm:max-w-[400px]">
+      <DialogContent className="sm:max-w-100">
         <DialogHeader>
           <DialogTitle>Edit Collection</DialogTitle>
           <DialogDescription>

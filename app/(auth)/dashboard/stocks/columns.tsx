@@ -19,7 +19,6 @@ import {
   ChevronsUpDown,
   EyeOff
 } from "lucide-react"
-import Link from "next/link"
 
 export type CollectionWithClothes = Collection & {
   clothes: Pick<Clothes, "id">[]
@@ -154,30 +153,6 @@ export const columns: ColumnDef<CollectionWithClothes>[] = [
         </span>
       </section>
     )
-  },
-
-  {
-    id: "view",
-    header: () => (
-      <section className="flex items-center justify-center">
-        <span>View</span>
-      </section>
-    ),
-    cell: ({ row }) => (
-      <section className="flex items-center justify-center">
-        <Button
-          asChild
-          variant="outline"
-          size="sm"
-        >
-          <Link href={`/dashboard/stocks/${row.original.id}`}>
-            View Collection
-          </Link>
-        </Button>
-      </section>
-    ),
-    enableSorting: false,
-    enableHiding: false
   },
 
   {

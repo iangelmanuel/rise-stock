@@ -2,6 +2,12 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
+## [0.3.3] - 2026-04-21
+
+- Implementación de funcionalidad de borrar para actualizar el stock de ropa, permitiendo eliminar prendas específicas del inventario.
+- Implementación de useOptimistic para una experiencia de usuario más fluida al activar el drop disponible.
+- Mejora en la interfaz de stock para la gestión del inventario.
+
 ## [0.3.2] - 2026-04-19
 
 - Refactor del modelo `ContactMessage`: eliminación de campos `lastName` y `phone`, adición de relación `userId` con el modelo `User`.

@@ -19,9 +19,21 @@ export async function deleteSale(id: Sale["id"], client: Sale["client"]) {
     const userId = session.user.id
 
     await prisma.$transaction(async (tx) => {
+      const sale = await tx.sale.findUnique({
+        where: { id },
+        select: { clotheId: true, clotheSize: true }
+      })
+
       await tx.sale.delete({
         where: { id }
       })
+
+      if (sale) {
+        await tx.clothesVariant.updateMany({
+          where: { clothesId: sale.clotheId, size: sale.clotheSize },
+          data: { stock: { increment: 1 } }
+        })
+      }
 
       await tx.userMovement.create({
         data: {
